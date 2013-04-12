@@ -35,11 +35,22 @@ NOT_EXPECTED_DATA = [
 
 def is_expected(item, expected):
     expect(item).to_length(expected)
+    try:
+        expect(item).not_to_length(expected)
+    except AssertionError:
+        return
+    assert False, "Should not have gotten this far"
 
 
 def is_not_expected(item, expected):
     expect(item).Not.to_length(expected)
     expect(item).not_to_length(expected)
+
+    try:
+        expect(item).to_length(expected)
+    except AssertionError:
+        return
+    assert False, "Should not have gotten this far"
 
 
 def test_length():

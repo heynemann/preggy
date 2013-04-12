@@ -34,8 +34,8 @@ from preggy.inclusion import *
 from preggy.length import *
 from preggy.like import *
 
-#from preggy.types.numeric import *
-#from preggy.types.function import *
+from preggy.types.numeric import *
+from preggy.types.function import *
 #from preggy.types.boolean import *
 #from preggy.types.classes import *
 #from preggy.types.file import *

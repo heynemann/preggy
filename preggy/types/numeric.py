@@ -13,10 +13,10 @@
 
 import numbers
 
-from pyvows import Vows
+from preggy import create_assertions
 
 
-@Vows.create_assertions
+@create_assertions
 def to_be_numeric(topic):
     '''Asserts that `topic` is a Number.'''
     return isinstance(topic, numbers.Number)

@@ -13,18 +13,18 @@
 
 import inspect
 
-from pyvows import Vows, VowsAssertionError
+from preggy import assertion
 
 
-@Vows.assertion
+@assertion
 def to_be_a_function(topic):
     '''Asserts that `topic` is a function.'''
     if not (inspect.ismethod(topic) or inspect.isfunction(topic)):
-        raise VowsAssertionError('Expected topic({0}) to be a function or a method, but it was a {1}', topic, topic.__class__)
+        raise AssertionError('Expected topic({0}) to be a function or a method, but it was a {1}', topic, topic.__class__)
 
 
-@Vows.assertion
+@assertion
 def not_to_be_a_function(topic):
     '''Asserts that `topic` is NOT a function.'''
     if inspect.ismethod(topic) or inspect.isfunction(topic):
-        raise VowsAssertionError('Expected topic({0}) not to be a function or a method', topic)
+        raise AssertionError('Expected topic({0}) not to be a function or a method', topic)
