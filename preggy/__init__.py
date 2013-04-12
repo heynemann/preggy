@@ -1,17 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''PyVows features an extensible assertion model with many useful functions,
-as well as error reporting.
-
-It’s always best to use the most specific assertion functions when testing a
-value. You’ll get much better error reporting, because your intention is clearer.
-
-This package contains all the code for preggy.
-
-Aren't they convenient?
-
-'''
-
 
 # preggy assertions
 # https://github.com/heynemann/preggy
@@ -21,6 +9,8 @@ Aren't they convenient?
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
 # flake8: noqa
+
+__version__ = "0.1.0"
 
 from preggy.core import Assertions
 create_assertions = Assertions.create_assertions

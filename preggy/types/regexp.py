@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''PyVows regular expression assertions.  For use with `expect()` (see `pyvows.core`).
+'''preggy regular expression assertions.  For use with `expect()` (see `preggy.core`).
 '''
 
 # preggy assertions
