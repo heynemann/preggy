@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''PyVows inclusion assertion.  For use with `expect()` (see `pyvows.core`).
+'''preggy inclusion assertion.  For use with `expect()` (see `preggy.core`).
 '''
 
 
-# pyVows testing engine
-# https://github.com/heynemann/pyvows
+# preggy assertions
+# https://github.com/heynemann/preggy
 
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
-# Copyright (c) 2011 Bernardo Heynemann heynemann@gmail.com
+# Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
-from pyvows import Vows
+from preggy import create_assertions
 
 
-@Vows.create_assertions
+@create_assertions
 def to_include(topic, expected):
     '''Asserts that `expected` is in `topic`.'''
     return expected in topic
