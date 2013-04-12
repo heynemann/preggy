@@ -1,28 +1,27 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''PyVows "null" (None) assertions.  For use with `expect()` (see `pyvows.core`).
+'''preggy "null" (None) assertions.  For use with `expect()` (see `preggy.core`).
 '''
 
-
-# pyVows testing engine
-# https://github.com/heynemann/pyvows
+# preggy assertions
+# https://github.com/heynemann/preggy
 
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
-# Copyright (c) 2011 Bernardo Heynemann heynemann@gmail.com
+# Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
-from pyvows import Vows, VowsAssertionError
+from preggy import assertion
 
 
-@Vows.assertion
+@assertion
 def to_be_null(topic):
     '''Asserts that `topic` is `None`.'''
     if topic is not None:
-        raise VowsAssertionError('Expected topic({0}) to be None', topic)
+        raise AssertionError('Expected topic({0}) to be None', topic)
 
 
-@Vows.assertion
+@assertion
 def not_to_be_null(topic):
     '''Asserts that `topic` is NOT `None`.'''
     if topic is None:
-        raise VowsAssertionError('Expected topic({0}) not to be None', topic)
+        raise AssertionError('Expected topic({0}) not to be None', topic)
