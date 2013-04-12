@@ -32,7 +32,7 @@ from preggy.emptiness import *
 from preggy.equality import *
 from preggy.inclusion import *
 from preggy.length import *
-#from preggy.like import *
+from preggy.like import *
 
 #from preggy.types.numeric import *
 #from preggy.types.function import *

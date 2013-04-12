@@ -1,27 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''PyVows similarity assertions.  For use with `expect()` (see `pyvows.core`).
-
-The imprecise nature of "like" comparisons is much more complicated
-than most assertions.  All support code lives in this module
-alongside the assertions.
-
+'''preggy like assertions.  For use with `expect()` (see `preggy.core`).
 '''
 
 
-# pyVows testing engine
-# https://github.com/heynemann/pyvows
+# preggy assertions
+# https://github.com/heynemann/preggy
 
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
-# Copyright (c) 2011 Bernardo Heynemann heynemann@gmail.com
+# Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
 import numbers
 
-from pyvows import Vows
+from preggy import create_assertions
 
 
-@Vows.create_assertions
+@create_assertions
 def to_be_like(topic, expected):
     '''Asserts that `topic` is like (similar to) `expected`. Allows
     some leeway.
