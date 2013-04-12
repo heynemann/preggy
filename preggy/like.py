@@ -25,14 +25,6 @@ def to_be_like(topic, expected):
     return match_alike(expected, topic)
 
 
-def compare_alike(expected, topic, modifier, message):
-    '''Asserts that `topic` is like `expected`, as specified by
-    `modifier`.
-
-    '''
-    assert modifier(match_alike(expected, topic)), message % (topic, expected)
-
-
 def match_alike(expected, topic):
     '''Asserts the "like"-ness of `topic` and `expected` according
     to their types.
@@ -98,9 +90,7 @@ def match_lists(expected, topic):
         if isinstance(item, (list, tuple)):
             found = False
             for inner_item in topic:
-                if not isinstance(inner_item, (list, tuple)):
-                    continue
-                if compare_lists(item, inner_item):
+                if isinstance(inner_item, (list, tuple)) and compare_lists(item, inner_item):
                     found = True
                     break
             if not found:

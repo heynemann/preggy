@@ -29,6 +29,7 @@ EXPECTED_LIST_TEST_DATA = [
     ["b", [3, 1, 2], 2, 1, {"a": 1, "b": 2}, 4, 3, "a"]
 ]
 NOT_EXPECTED_LIST_TEST_DATA = [
+    [1, 2, 3, 4, "a", "b", [2, 3], {"a": 1, "b": 2}],
     [9, 1, 2, 3, 4, "a", {"a": 1, "b": 2}, "b", [1, 2, 3]],
     [9, 4, 3, {"b": 2, "a": 1}, 2, 1, "b", "a", [3, 2, 1]],
     [9, "b", [3, 1, 2], 2, 1, {"a": 1, "b": 2}, 4, "a"]
@@ -67,6 +68,8 @@ def is_not_expected(item, expected):
 
 
 def test_likeness():
+    yield is_expected, None, None
+
     for expected_item in EXPECTED_STRING_TEST_DATA:
         yield is_expected, STRING_TEST_DATA, expected_item
 
@@ -81,6 +84,8 @@ def test_likeness():
 
 
 def test_not_likeness():
+    yield is_not_expected, None, 1
+
     for not_expected_item in NOT_EXPECTED_STRING_TEST_DATA:
         yield is_not_expected, STRING_TEST_DATA, not_expected_item
 
@@ -92,3 +97,14 @@ def test_not_likeness():
 
     for not_expected_item in NOT_EXPECTED_DICT_TEST_DATA:
         yield is_not_expected, DICT_TEST_DATA, not_expected_item
+
+
+def test_likeness_of_objects():
+    try:
+        expect(object()).to_be_like(1)
+    except RuntimeError, err:
+        assert err.__class__ is RuntimeError
+
+
+def test_likeness_of_different_types():
+    expect(1).not_to_be_like("1")
