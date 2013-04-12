@@ -38,7 +38,7 @@ from preggy.types.numeric import *
 from preggy.types.function import *
 from preggy.types.boolean import *
 from preggy.types.classes import *
-#from preggy.types.file import *
+from preggy.types.file import *
 #from preggy.types.nullable import *
 #from preggy.types.regexp import *
 #from preggy.types.errors import *
