@@ -1,33 +1,46 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''PyVows instance assertions.  For use with `expect()` (see `pyvows.core`).
+'''preggy instance assertions.  For use with `expect()` (see `preggy.core`).
 '''
 
-
-# pyVows testing engine
-# https://github.com/heynemann/pyvows
+# preggy assertions
+# https://github.com/heynemann/preggy
 
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
-# Copyright (c) 2011 Bernardo Heynemann heynemann@gmail.com
+# Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
-from pyvows import Vows, VowsAssertionError
+import inspect
+
+from preggy import assertion
 
 
-@Vows.assertion
+@assertion
 def to_be_instance_of(topic, expected):
     '''Asserts that `topic` is an instance of `expected`.'''
-    if not isinstance(topic, expected):
-        raise VowsAssertionError(
-            'Expected topic({0}) to be an instance of {1}, but it was a {2}',
-            topic,
-            expected,
-            topic.__class__
-        )
+    if topic == expected:
+        return True
+
+    if (inspect.isclass(topic) and inspect.isclass(expected)) and issubclass(topic, expected):
+        return True
+
+    if isinstance(topic, expected):
+        return True
+
+    raise AssertionError(
+        'Expected topic({0}) to be an instance of {1}, but it was a {2}',
+        topic,
+        expected,
+        topic.__class__
+    )
 
 
-@Vows.assertion
+@assertion
 def not_to_be_instance_of(topic, expected):
     '''Asserts that `topic` is NOT an instance of `expected`.'''
-    if isinstance(topic, expected):
-        raise VowsAssertionError('Expected topic({0}) not to be an instance of {1}', topic, expected)
+    try:
+        to_be_instance_of(topic, expected)
+    except AssertionError:
+        return True
+
+    raise AssertionError('Expected topic({0}) not to be an instance of {1}', topic, expected)

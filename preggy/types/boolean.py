@@ -1,28 +1,37 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''PyVows boolean assertions.  For use with `expect()` (see `pyvows.core`).
+'''preggy boolean assertions.  For use with `expect()` (see `preggy.core`).
 '''
 
-
-# pyVows testing engine
-# https://github.com/heynemann/pyvows
+# preggy assertions
+# https://github.com/heynemann/preggy
 
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
-# Copyright (c) 2011 Bernardo Heynemann heynemann@gmail.com
+# Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
-from pyvows import Vows, VowsAssertionError
+from preggy import assertion
 
 
-@Vows.assertion
+@assertion
 def to_be_true(topic):
     '''Asserts that the boolean value of `topic` is `True`.'''
     if not bool(topic):
-        raise VowsAssertionError("Expected topic({0}) to be truthy", topic)
+        raise AssertionError("Expected topic({0}) to be truthy", topic)
 
 
-@Vows.assertion
+@assertion
 def to_be_false(topic):
     '''Asserts that the boolean value of `topic` is `False`.'''
     if bool(topic):
-        raise VowsAssertionError("Expected topic({0}) to be falsy", topic)
+        raise AssertionError("Expected topic({0}) to be falsy", topic)
+
+
+@assertion
+def not_to_be_true(topic):
+    return to_be_false(topic)
+
+
+@assertion
+def not_to_be_false(topic):
+    return to_be_true(topic)
