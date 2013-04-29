@@ -32,16 +32,24 @@ def match_alike(expected, topic):
     '''
     if topic is None:
         return expected is None
-    if isinstance(topic, basestring):
-        return compare_strings(expected, topic)
-    elif isinstance(topic, numbers.Number):
+
+    try:
+        if isinstance(topic, basestring):
+            return compare_strings(expected, topic)
+    except NameError:
+        if isinstance(topic, str):
+            return compare_strings(expected, topic)
+
+    if isinstance(topic, numbers.Number):
         return compare_numbers(expected, topic)
-    elif isinstance(topic, (list, tuple)):
+
+    if isinstance(topic, (list, tuple)):
         return compare_lists(expected, topic)
-    elif isinstance(topic, dict):
+
+    if isinstance(topic, dict):
         return compare_dicts(expected, topic)
-    else:
-        raise RuntimeError('Could not compare {expected} and {topic}'.format(expected=expected, topic=topic))
+
+    raise RuntimeError('Could not compare {expected} and {topic}'.format(expected=expected, topic=topic))
 
 
 def compare_strings(expected, topic):
