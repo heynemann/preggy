@@ -16,6 +16,12 @@ a "file" in your tests.
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
 from os.path import isfile
+
+try:
+    import io
+except ImportError:
+    pass
+
 import types
 
 from preggy import assertion
@@ -23,7 +29,24 @@ from preggy import assertion
 
 # Helpers
 _isfile = lambda topic: isfile(topic)
-_is_file_obj = lambda topic: isinstance(topic, types.FileType)
+
+
+def _is_file_obj(topic):
+    try:
+        return isinstance(topic, types.FileType)
+    except AttributeError:
+        return isinstance(topic, io.IOBase)
+
+
+def _is_string(topic):
+    try:
+        if isinstance(topic, basestring):
+            return True
+    except NameError:
+        if isinstance(topic, str):
+            return True
+
+    return False
 
 
 @assertion
@@ -39,7 +62,7 @@ def to_be_a_file(topic):
     '''
     VAE = AssertionError("Expected topic({0}) to be a file", topic)
 
-    if isinstance(topic, basestring):
+    if _is_string(topic):
         if not _isfile(topic):
             raise VAE
     else:
@@ -60,7 +83,7 @@ def not_to_be_a_file(topic):
     '''
     VAE = AssertionError("Expected topic({0}) not to be a file", topic)
 
-    if isinstance(topic, basestring):
+    if _is_string(topic):
         if _isfile(topic):
             raise VAE
     else:

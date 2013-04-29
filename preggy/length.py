@@ -22,6 +22,9 @@ def to_length(topic, expected):
     except AttributeError:
         if hasattr(topic, 'qsize'):
             length = topic.qsize()
+    except TypeError:
+        if hasattr(topic, 'qsize'):
+            length = topic.qsize()
 
     if length != expected:
         raise AssertionError('Expected topic({0}) to have {1} of length, but it has {2}', topic, expected, length)
@@ -33,6 +36,9 @@ def not_to_length(topic, expected):
     try:
         length = len(topic)
     except AttributeError:
+        if hasattr(topic, 'qsize'):
+            length = topic.qsize()
+    except TypeError:
         if hasattr(topic, 'qsize'):
             length = topic.qsize()
 

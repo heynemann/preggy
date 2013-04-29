@@ -78,7 +78,7 @@ def match_dicts(expected, topic):
     '''Asserts the "like"-ness of all keys and values in `topic` and
     `expected`.
     '''
-    for k, v in expected.iteritems():
+    for k, v in expected.items():
         if not k in topic or not match_alike(topic[k], v):
             return False
     return True

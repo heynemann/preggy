@@ -8,6 +8,8 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
+import sys
+
 from preggy import expect
 
 STRING_TEST_DATA = "asdqwe123"
@@ -102,7 +104,8 @@ def test_not_likeness():
 def test_likeness_of_objects():
     try:
         expect(object()).to_be_like(1)
-    except RuntimeError, err:
+    except RuntimeError:
+        err = sys.exc_info()[1]
         assert err.__class__ is RuntimeError
 
 

@@ -26,11 +26,13 @@ UNEQUAL_DATA = [
 ]
 
 
-def is_equal((item, expected)):
+def is_equal(topic):
+    item, expected = topic
     expect(item).to_equal(expected)
 
 
-def is_not_equal((item, expected)):
+def is_not_equal(topic):
+    item, expected = topic
     expect(item).Not.to_equal(expected)
     expect(item).not_to_equal(expected)
 

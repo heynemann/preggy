@@ -8,7 +8,11 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
-from Queue import LifoQueue
+try:
+    from Queue import LifoQueue
+except ImportError:
+    from queue import LifoQueue
+
 from preggy import expect
 
 queue = LifoQueue()
