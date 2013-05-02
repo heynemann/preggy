@@ -83,8 +83,8 @@ expect("some").Not.to_be_numeric()
 ```
 
 
-Truth
------
+True / False
+------------
 
 ```python
 expect(True).to_be_true()
