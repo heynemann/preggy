@@ -21,13 +21,17 @@ test_requires = [
 setup(
     name='preggy',
     version=__version__,
-    description='preggy is a set of matchers extracted from pyVows.',
+    description='preggy is an assertion library extracted from PyVows',
     long_description='''
-preggy is a set of matchers extracted from pyVows.
-''',
-    keywords='test testing vows tdd bdd development coverage profile profiling',
+        preggy is an assertion library extracted from PyVows. 
+        
+        For more info, check out Preggy’s homepage: http://heynemann.github.io/preggy/ 
+
+        ''',
+    keywords='test testing assert assertion development',
     author='Bernardo Heynemann',
     author_email='heynemann@gmail.com',
+    homepage='http://heynemann.github.io/preggy/'
     url='http://github.com/heynemann/preggy/',
     license='MIT',
     classifiers=[
@@ -43,16 +47,14 @@ preggy is a set of matchers extracted from pyVows.
         'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Testing'
     ],
+    
     packages=['preggy', 'preggy.types'],
-
-    install_requires=[
-        'six',
-    ],
-
+    
+    install_requires=['six'],
+    
     extras_require={
         'tests': test_requires,
     },
-
-    entry_points={
-    },
+    
+    entry_points={},
 )
