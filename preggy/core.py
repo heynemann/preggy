@@ -24,7 +24,7 @@ class Assertions(object):
         raise a `AssertionError`.
 
         By raising a `AssertionError`, you get the benefit of highlighting
-        the important values when your vows are broken.
+        the important values when your tests are broken.
 
         If you still just wanna raise an `AssertionError` like old times,
         that’s supported, too.
@@ -142,7 +142,7 @@ class Expect(object):
                 expect(topic).to_be_True()
 
             ...This method is what allows `expect(topic)` to call
-            `.to_be_True()` (or some other VowsAssertion).
+            `.to_be_True()` (or some other Assertion).
 
             '''
             return Assertions.registered_assertions[method_name](self.topic, *args, **kw)

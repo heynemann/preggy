@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# pyVows testing engine
-# https://github.com/heynemann/pyvows
+# preggy assertions
+# https://github.com/heynemann/preggy
 
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
