@@ -11,7 +11,7 @@
 import re
 
 
-class Assertions:
+class Assertions(object):
     registered_assertions = {}
 
     @classmethod
