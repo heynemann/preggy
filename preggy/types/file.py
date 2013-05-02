@@ -60,15 +60,15 @@ def to_be_a_file(topic):
     built-in `file` type.
 
     '''
-    VAE = AssertionError("Expected topic({0}) to be a file", topic)
+    AE = AssertionError("Expected topic({0}) to be a file", topic)
 
     if _is_string(topic):
         if not _isfile(topic):
-            raise VAE
+            raise AE
     else:
         if not _is_file_obj(topic):
-            raise VAE
 
+            raise AE
 
 @assertion
 def not_to_be_a_file(topic):
@@ -81,11 +81,11 @@ def not_to_be_a_file(topic):
     built-in `file` type.
 
     '''
-    VAE = AssertionError("Expected topic({0}) not to be a file", topic)
+    AE = AssertionError("Expected topic({0}) not to be a file", topic)
 
     if _is_string(topic):
         if _isfile(topic):
-            raise VAE
+            raise AE
     else:
         if _is_file_obj(topic):
-            raise VAE
+            raise AE
