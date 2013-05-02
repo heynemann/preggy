@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''preggy numeric assertion.  For use with `expect()` (see `preggy.core`).
 '''
