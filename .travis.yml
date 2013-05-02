@@ -8,7 +8,7 @@ python:
 
 install:
     # install python requirements
-    - pip install -r requirements.txt --use-mirrors
+    - pip install -e .[tests] --use-mirrors
 
 script:
     # finally run tests
