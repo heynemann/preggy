@@ -11,6 +11,7 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
+from six import string_types
 import numbers
 
 from preggy import create_assertions
@@ -33,12 +34,8 @@ def match_alike(expected, topic):
     if topic is None:
         return expected is None
 
-    try:
-        if isinstance(topic, basestring):
-            return compare_strings(expected, topic)
-    except NameError:
-        if isinstance(topic, str):
-            return compare_strings(expected, topic)
+    if isinstance(topic, string_types):
+        return compare_strings(expected, topic)
 
     if isinstance(topic, numbers.Number):
         return compare_numbers(expected, topic)

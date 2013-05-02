@@ -45,7 +45,10 @@ preggy is a set of matchers extracted from pyVows.
     ],
     packages=['preggy', 'preggy.types'],
 
-    install_requires=[],
+    install_requires=[
+        'six',
+    ],
+
     extras_require={
         'tests': test_requires,
     },
