@@ -11,6 +11,13 @@
 from setuptools import setup
 from preggy import __version__
 
+test_requires = [
+    'nose',
+    'yanc',
+    'coverage',
+    'tox',
+]
+
 setup(
     name='preggy',
     version=__version__,
@@ -39,6 +46,9 @@ preggy is a set of matchers extracted from pyVows.
     packages=['preggy', 'preggy.types'],
 
     install_requires=[],
+    extras_require={
+        'tests': test_requires,
+    },
 
     entry_points={
     },
