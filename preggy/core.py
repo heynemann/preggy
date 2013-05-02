@@ -116,21 +116,24 @@ class Expect(object):
         self.not_assert = False
 
     def __getattr__(self, name):
+        # common cases 
         if name == 'topic':
             return super(Expect, self).__getattr__(name)
-
         if name == 'Not':
             self.not_assert = not self.not_assert
             return self
-
+        
+        # update `not_` assertions
         if self.not_assert:
             method_name = 'not_{name}'.format(name=name)
         else:
             method_name = name
-
-        if not method_name in Assertions.registered_assertions:
+        
+        # check for unregistered assertions
+        if method_name not in Assertions.registered_assertions:
             raise AttributeError('Assertion {method_name} was not found!'.format(method_name=method_name))
-
+        
+        # if program gets this far, then it’s time to perform the assertion. (...FINALLY! ;D)
         def assert_topic(*args, **kw):
             '''Allows instances (topics) to chain calls to `Assertion`s.
 

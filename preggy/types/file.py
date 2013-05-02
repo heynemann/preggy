@@ -19,6 +19,7 @@ from os.path import isfile
 try:
     import io
 except ImportError:
+    # FIXME: explain using "pass" here
     pass
 
 import types

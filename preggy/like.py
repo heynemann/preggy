@@ -22,18 +22,12 @@ from preggy import create_assertions
 
 @create_assertions
 def to_be_like(topic, expected):
-    '''Asserts that `topic` is like (similar to) `expected`. Allows
-    some leeway.
-
-    '''
+    '''Asserts that `topic` is like (similar to) `expected`. Allows some leeway.'''
     return match_alike(expected, topic)
 
 
 def match_alike(expected, topic):
-    '''Asserts the "like"-ness of `topic` and `expected` according
-    to their types.
-
-    '''
+    '''Asserts the "like"-ness of `topic` and `expected` according to their types.'''
     if topic is None:
         return expected is None
 
