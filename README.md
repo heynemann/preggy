@@ -9,7 +9,6 @@ Usage
 -----
 
 Using preggy is very simple:
-
 ```python
 from preggy import expect
 
