@@ -37,6 +37,7 @@ Equality
 ```python
 expect(4).to_equal(4)
 expect(5).Not.to_equal(4)
+expect(5).not_to_equal(4)  # same as previous
 ```
 
 Similarity
@@ -56,7 +57,9 @@ expect([[1, 2], [3,4]]).to_be_like([4, 3], [2, 1]])
 expect({ 'some': 1, 'key': 2 }).to_be_like({ 'key': 2, 'some': 1 })
 
 expect("sOmE RandOm     CAse StRiNG").Not.to_be_like('other string')
-expect(1).Not_to_be_like(2)
-expect([[1, 2], [3,4]]).Not.to_be_like([4, 4], [2, 1]])
-expect({ 'some': 1, 'key': 2 }).Not.to_be_like({ 'key': 3, 'some': 4 })
+expect("sOmE RandOm     CAse StRiNG").not_to_be_like('other string')  # same as previous
+
+expect(1).not_to_be_like(2)
+expect([[1, 2], [3,4]]).not_to_be_like([4, 4], [2, 1]])
+expect({ 'some': 1, 'key': 2 }).not_to_be_like({ 'key': 3, 'some': 4 })
 ```
