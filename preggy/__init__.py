@@ -10,7 +10,7 @@
 
 # flake8: noqa
 
-__version__ = "0.3.5"
+__version__ = "0.3.6"
 
 from preggy.core import Assertions
 create_assertions = Assertions.create_assertions
