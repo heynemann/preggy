@@ -14,40 +14,34 @@ a "file" in your tests.
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
-from os.path import isfile
+import six
 
 try:
     import io
 except ImportError:
-    # FIXME: explain using "pass" here
+    ## FIXME: explain using "pass" here
     pass
-
+    
+from os.path import isfile
 import types
 
 from preggy import assertion
 
 
 # Helpers
-_isfile = lambda topic: isfile(topic)
+#-------------------------------------------------------------------------------------------------
 
+_is_file   = lambda topic: isfile(topic)
+_is_string = lambda topic: isinstance(topic, (six.string_types, six.text_type))
 
 def _is_file_obj(topic):
+    ## TODO: investigate using six for better type checking for Python 2 and 3.
     try:
         return isinstance(topic, types.FileType)
     except AttributeError:
         return isinstance(topic, io.IOBase)
 
-
-def _is_string(topic):
-    try:
-        if isinstance(topic, basestring):
-            return True
-    except NameError:
-        if isinstance(topic, str):
-            return True
-
-    return False
-
+#-------------------------------------------------------------------------------------------------
 
 @assertion
 def to_be_a_file(topic):
@@ -63,19 +57,19 @@ def to_be_a_file(topic):
     AE = AssertionError("Expected topic({0}) to be a file", topic)
 
     if _is_string(topic):
-        if not _isfile(topic):
+        if not _is_file(topic):
             raise AE
     else:
         if not _is_file_obj(topic):
-
             raise AE
+
 
 @assertion
 def not_to_be_a_file(topic):
     '''Asserts that `topic` is NOT a file.
 
-     If `topic` is a string, this asserts whether `os.path.isfile()`
-     returns `False`.
+    If `topic` is a string, this asserts whether `os.path.isfile()`
+    returns `False`.
 
     Otherwise, this asserts whether `topic` is not an instance of the
     built-in `file` type.
@@ -84,7 +78,7 @@ def not_to_be_a_file(topic):
     AE = AssertionError("Expected topic({0}) not to be a file", topic)
 
     if _is_string(topic):
-        if _isfile(topic):
+        if _is_file(topic):
             raise AE
     else:
         if _is_file_obj(topic):
