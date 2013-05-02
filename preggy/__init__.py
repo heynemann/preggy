@@ -10,7 +10,7 @@
 
 # flake8: noqa
 
-__version__ = "0.3.3"
+__version__ = "0.3.4"
 
 try:
     from preggy.core import Assertions
