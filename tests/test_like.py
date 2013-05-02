@@ -12,7 +12,7 @@ import sys
 
 from preggy import expect
 
-STRING_TEST_DATA = "asdqwe123"
+STRING_TEST_DATA = b"asdqwe123"
 EXPECTED_STRING_TEST_DATA = [
     "ASdQwE123",
     "ASDQWE123",
