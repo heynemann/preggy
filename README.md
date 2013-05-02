@@ -3,7 +3,8 @@ preggy
 
 [![Build Status](https://travis-ci.org/heynemann/preggy.png?branch=master)](https://travis-ci.org/heynemann/preggy)
 
-preggy is a collection of expectations for python applications, extracted from the pyVows project.
+preggy is a collection of expectations for Python testing, extracted from the [PyVows](http://pyvows.org) project.
+
 
 Installing
 ==========
@@ -12,10 +13,12 @@ Just use `pip` to install preggy:
 
     pip install preggy
 
+
 Usage
 =====
 
 Using preggy is very simple:
+
 ```python
 from preggy import expect
 
@@ -28,8 +31,10 @@ def test_violets_are_not_red():
     expect(violet.color).not_to_equal("red")
 ```
 
+
 Built-in Expectations
 =====================
+
 
 Equality
 --------
@@ -39,6 +44,7 @@ expect(4).to_equal(4)
 expect(5).Not.to_equal(4)
 expect(5).not_to_equal(4)  # same as previous
 ```
+
 
 Similarity
 ----------
@@ -64,8 +70,10 @@ expect([[1, 2], [3,4]]).not_to_be_like([4, 4], [2, 1]])
 expect({ 'some': 1, 'key': 2 }).not_to_be_like({ 'key': 3, 'some': 4 })
 ```
 
+
 Type
 ----
+
 ```python
 expect(os.path).to_be_a_function()
 expect(1).to_be_numeric()
@@ -73,6 +81,7 @@ expect(1).to_be_numeric()
 expect("some").Not.to_be_a_function()
 expect("some").Not.to_be_numeric()
 ```
+
 
 Truth
 -----
@@ -84,14 +93,14 @@ expect([1, 2, 3]).to_be_true()
 expect({ "a": "b" }).to_be_true()
 expect(1).to_be_true()
 
-# while not_to_be_true would work as well, it's just ugly, right?
-expect(False).to_be_false()
+expect(False).to_be_false()  # not_to_be_true() would work, too. but, it's so...eww
 expect(None).to_be_false()
 expect("").to_be_false()
 expect(0).to_be_false()
 expect([]).to_be_false()
 expect({}).to_be_false()
 ```
+
 
 None
 ----
@@ -102,6 +111,7 @@ expect("some").Not.to_be_null()
 expect("some").not_to_be_null()  # same as previous
 ```
 
+
 Inclusion
 ---------
 
@@ -111,17 +121,18 @@ expect((1, 2, 3)).to_include(2)
 expect("123").to_include("2")
 expect({ "a": 1, "b": 2, "c": 3}).to_include("b")
 
-expect([1, 3]).Not.to_include(2)
+expect([1, 3]).Not.to_include(2)  # or, exclusion...
 ```
+
 
 Regular Expressions
 -------------------
 
 ```python
 expect('some').to_match(r'^[a-z]+')
-
 expect("Some").Not.to_match(r'^[a-z]+')
 ```
+
 
 Length
 ------
@@ -138,6 +149,7 @@ expect([1]).Not.to_length(3)
 expect([1]).not_to_length(3)  # same as previous
 ```
 
+
 Emptiness
 ---------
 
@@ -153,6 +165,7 @@ expect({"a": 1}).not_to_be_empty()
 expect("roses are red").not_to_be_empty()
 ```
 
+
 Exceptions
 ----------
 
@@ -165,6 +178,7 @@ expect("I'm not an error").Not.to_be_an_error()
 expect(ValueError()).Not.to_be_an_error_like(RuntimeError)
 expect(ValueError("some")).Not.to_have_an_error_message_of("error")
 ```
+
 
 License
 =======
