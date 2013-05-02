@@ -12,8 +12,8 @@
 __version__ = "0.3.8"
 
 from preggy.core import Assertions
-create_assertions = Assertions.create_assertions
 assertion = Assertions.assertion
+create_assertions = Assertions.create_assertions
 
 from preggy.core import Expect as expect
 
