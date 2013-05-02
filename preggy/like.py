@@ -14,7 +14,7 @@
 try:
     from six import string_types, binary_type
 except ImportError:
-    print "Ignoring six. Probably setup.py installing package."
+    print("Ignoring six. Probably setup.py installing package.")
 
 import numbers
 
