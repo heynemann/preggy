@@ -58,8 +58,8 @@ def compare_strings(expected, topic):
     Allows some leeway.  (Strings don't have to exactly match.)
 
     '''
-    replaced_topic = str(topic).lower().replace(' ', '').replace('\n', '')
-    replaced_expected = str(expected).lower().replace(' ', '').replace('\n', '')
+    replaced_topic = topic.lower().replace(' ', '').replace('\n', '')
+    replaced_expected = expected.lower().replace(' ', '').replace('\n', '')
     return replaced_expected == replaced_topic
 
 
