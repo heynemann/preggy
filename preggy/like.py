@@ -58,6 +58,13 @@ def compare_strings(expected, topic):
     Allows some leeway.  (Strings don't have to exactly match.)
 
     '''
+
+    if isinstance(topic, (binary_type, )):
+        topic = topic.decode('utf-8')
+
+    if isinstance(expected, (binary_type, )):
+        expected = expected.decode('utf-8')
+
     replaced_topic = topic.lower().replace(' ', '').replace('\n', '')
     replaced_expected = expected.lower().replace(' ', '').replace('\n', '')
     return replaced_expected == replaced_topic
