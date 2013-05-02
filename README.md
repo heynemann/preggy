@@ -5,6 +5,13 @@ preggy
 
 preggy is a collection of expectations for python applications, extracted from the pyVows project.
 
+Installing
+----------
+
+Just use `pip` to install preggy:
+
+    pip install preggy
+
 Usage
 -----
 
