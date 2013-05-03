@@ -31,7 +31,7 @@ setup(
     keywords='test testing assert assertion development',
     author='Bernardo Heynemann',
     author_email='heynemann@gmail.com',
-    homepage='http://heynemann.github.io/preggy/'
+    homepage='http://heynemann.github.io/preggy/',
     url='http://github.com/heynemann/preggy/',
     license='MIT',
     classifiers=[
