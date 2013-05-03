@@ -14,14 +14,17 @@ a "file" in your tests.
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
-import six
+try:
+    import six
+except ImportError:
+    print("Ignoring six. Probably setup.py installing package.")
 
 try:
     import io
 except ImportError:
     ## FIXME: explain using "pass" here
     pass
-    
+
 from os.path import isfile
 import types
 
@@ -31,17 +34,18 @@ from preggy import assertion
 # Helpers
 #-------------------------------------------------------------------------------------------------
 
-_is_file   = lambda topic: isfile(topic)
+_is_file = lambda topic: isfile(topic)
 _is_string = lambda topic: isinstance(topic, (six.string_types, six.text_type))
 
+
 def _is_file_obj(topic):
-    ## TODO: investigate using six for better type checking for Python 2 and 3.
     try:
         return isinstance(topic, types.FileType)
     except AttributeError:
         return isinstance(topic, io.IOBase)
 
 #-------------------------------------------------------------------------------------------------
+
 
 @assertion
 def to_be_a_file(topic):
