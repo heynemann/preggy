@@ -180,6 +180,48 @@ expect(ValueError("some")).Not.to_have_an_error_message_of("error")
 ```
 
 
+Development
+===========
+
+Hacking preggy is very simple. Just code whatever you feel like and then make sure it has tests and it runs in all supported python versions: 2.6, 2.7, 3.2, 3.3 and pypy.
+
+We recommend using pythonbrew to install all those python versions to your home, like so:
+
+    $ curl -kL http://xrl.us/pythonbrewinstall | bash
+
+Then add this line to your .bashrc (or .bash_profile):
+
+    [[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
+
+After that all you have to do is install all the needed versions of python:
+
+    $ pythonbrew list -k
+    Python-1.5.2
+    Python-1.6.1
+    Python-2.0.1
+    Python-2.1.3
+    Python-2.2.3
+    Python-2.3.7
+    Python-2.4.6
+    Python-2.5.6
+    Python-2.6.8
+    Python-2.7.3
+    Python-3.0.1
+    Python-3.1.4
+    Python-3.2.3
+    Python-3.3.0
+    $ pythonbrew install Python-2.6.8
+    $ pythonbrew install Python-2.7.3
+    $ pythonbrew install Python-3.2.3
+    $ pythonbrew install Python-3.3.0
+
+Pypy should be installed separately. You should check Pypy's own installation instructions.
+
+After having all the python versions in your home directory, running the build for all python version is as simple as:
+
+    make tox
+
+
 License
 =======
 
