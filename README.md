@@ -210,6 +210,7 @@ After that all you have to do is install all the needed versions of python:
     Python-3.1.4
     Python-3.2.3
     Python-3.3.0
+
     $ pythonbrew install Python-2.6.8
     $ pythonbrew install Python-2.7.3
     $ pythonbrew install Python-3.2.3
