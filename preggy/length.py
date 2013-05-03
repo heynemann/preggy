@@ -16,6 +16,8 @@ from preggy import assertion
 @assertion
 def to_length(topic, expected):
     '''Asserts that `len(topic)` == `expected`.'''
+    length = None
+
     try:
         length = len(topic)
     except AttributeError:
@@ -25,13 +27,19 @@ def to_length(topic, expected):
         if hasattr(topic, 'qsize'):
             length = topic.qsize()
 
+    if length is None:
+        raise AssertionError("Could not determine \"{0}\"'s length.".format(topic))
+
     if length != expected:
-        raise AssertionError('Expected topic({0}) to have {1} of length, but it has {2}', topic, expected, length)
+        raise AssertionError('Expected "{0}" to have {1} of length, but it has {2}'.format(topic, expected, length))
 
 
 @assertion
 def not_to_length(topic, expected):
     '''Asserts that `len(topic)` != `expected`.'''
+
+    length = None
+
     try:
         length = len(topic)
     except AttributeError:
@@ -41,5 +49,8 @@ def not_to_length(topic, expected):
         if hasattr(topic, 'qsize'):
             length = topic.qsize()
 
+    if length is None:
+        raise AssertionError("Could not determine \"{0}\"'s length.".format(topic))
+
     if length == expected:
-        raise AssertionError('Expected topic({0}) not to have {1} of length', topic, expected)
+        raise AssertionError('Expected {0} not to have {1} of length'.format(topic, expected))

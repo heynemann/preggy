@@ -86,12 +86,12 @@ class Assertions(object):
         def exec_assertion(*args):
             raw_msg = _assertion_msg(humanized_method_name, *args)
             if not method(*args):
-                raise AssertionError(raw_msg, *args)
+                raise AssertionError(raw_msg.format(*args))
 
         def exec_not_assertion(*args):
             raw_msg = _assertion_msg('not {0}'.format(humanized_method_name), *args)
             if method(*args):
-                raise AssertionError(raw_msg, *args)
+                raise AssertionError(raw_msg.format(*args))
 
         Assertions.registered_assertions[method.__name__] = exec_assertion
         Assertions.registered_assertions['not_{method_name}'.format(method_name=method.__name__)] = exec_not_assertion
@@ -116,23 +116,23 @@ class Expect(object):
         self.not_assert = False
 
     def __getattr__(self, name):
-        # common cases 
+        # common cases
         if name == 'topic':
             return super(Expect, self).__getattr__(name)
         if name == 'Not':
             self.not_assert = not self.not_assert
             return self
-        
+
         # update `not_` assertions
         if self.not_assert:
             method_name = 'not_{name}'.format(name=name)
         else:
             method_name = name
-        
+
         # check for unregistered assertions
         if method_name not in Assertions.registered_assertions:
             raise AttributeError('Assertion {method_name} was not found!'.format(method_name=method_name))
-        
+
         # if program gets this far, then it’s time to perform the assertion. (...FINALLY! ;D)
         def assert_topic(*args, **kw):
             '''Allows instances (topics) to chain calls to `Assertion`s.

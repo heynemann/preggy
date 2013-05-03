@@ -7,6 +7,7 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
+import sys
 try:
     from Queue import LifoQueue
 except ImportError:
@@ -72,3 +73,25 @@ def test_length():
 def test_not_includes():
     for index, item in enumerate(TEST_DATA):
         yield is_not_expected, item, NOT_EXPECTED_DATA[index]
+
+
+def test_unable_to_identify_length():
+    try:
+        expect(object()).to_length(1)
+    except AssertionError:
+        exc = sys.exc_info()[1]
+        expect(str(exc)).to_match("Could not determine \"<object object at .+\"'s length.")
+        return
+
+    assert False, "Should not have gotten this far"
+
+
+def test_unable_to_identify_not_length():
+    try:
+        expect(object()).not_to_length(1)
+    except AssertionError:
+        exc = sys.exc_info()[1]
+        expect(str(exc)).to_match("Could not determine \"<object object at .+\"'s length.")
+        return
+
+    assert False, "Should not have gotten this far"
