@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''preggy core assertion class.
+'''preggy core classes: `Assertions` and `Expect`.
 '''
 # preggy assertions
 # https://github.com/heynemann/preggy

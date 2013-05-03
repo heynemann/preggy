@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''preggy like assertions.  For use with `expect()` (see `preggy.core`).
+'''preggy 'like' assertions.  For use with `expect()` (see `preggy.core`).
 '''
 
 
