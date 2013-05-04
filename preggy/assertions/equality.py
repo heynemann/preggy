@@ -22,11 +22,8 @@ from preggy import create_assertions
 @create_assertions
 def to_equal(topic, expected):
     '''Asserts that `topic == expected`.'''
-
     if isinstance(topic, (six.binary_type, )):
         topic = topic.decode('utf-8')
-
     if isinstance(expected, (six.binary_type, )):
         expected = expected.decode('utf-8')
-
     return expected == topic

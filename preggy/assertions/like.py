@@ -47,9 +47,8 @@ def _compare_strings(expected, topic):
         topic = topic.decode('utf-8')
     if isinstance(expected, (binary_type, )):
         expected = expected.decode('utf-8')
-    replaced_topic = topic.lower().replace(' ', '').replace('\n', '')
-    replaced_expected = expected.lower().replace(' ', '').replace('\n', '')
-    return replaced_expected == replaced_topic
+    _filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '')
+    return _filter_str(expected) == _filter_str(topic)
 
 
 def _compare_numbers(expected, topic):
@@ -59,7 +58,8 @@ def _compare_numbers(expected, topic):
     if any(FALSE_CONDITIONS):
         return False
     return float(expected) == float(topic)
-        
+
+
 def _compare_dicts(expected, topic):
     '''Asserts the "like"-ness of `topic` and `expected` as dicts.'''
     return _match_dicts(expected, topic) and _match_dicts(topic, expected)
@@ -79,10 +79,7 @@ def _compare_lists(expected, topic):
 
 
 def _match_lists(expected, topic):
-    '''Asserts the "like"-ness each item in of `topic` and `expected`
-    (as lists or tuples).
-
-    '''
+    '''Asserts the "like"-ness each item in of `topic` and `expected` (as lists or tuples).'''
     for item in expected:
         if isinstance(item, (list, tuple)):
             found = False
