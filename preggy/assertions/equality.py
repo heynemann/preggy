@@ -12,7 +12,7 @@
 
 try:
     import six
-except ImportError:
+except ImportError:  # pragma: no cover
     import warnings
     warnings.warn("Ignoring six. Probably setup.py installing package.")
 

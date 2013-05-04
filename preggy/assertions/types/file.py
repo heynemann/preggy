@@ -16,13 +16,13 @@ a "file" in your tests.
 
 try:
     import six
-except ImportError:
+except ImportError:  # pragma: no cover
     import warnings
     warnings.warn("Ignoring six. Probably setup.py installing package.")
 
 try:
     import io
-except ImportError:
+except ImportError:  # pragma: no cover
     ## FIXME: explain using "pass" here
     pass
 
@@ -41,7 +41,9 @@ _is_string = lambda topic: isinstance(topic, (six.string_types, six.text_type))
 def _is_file_obj(topic):
     try:
         return isinstance(topic, types.FileType)
-    except AttributeError:
+    except AttributeError:  # pragma: no cover
+        # FIXME: add comment...
+        #        what is this for?
         return isinstance(topic, io.IOBase)
 
 
