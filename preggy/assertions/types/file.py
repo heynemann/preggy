@@ -29,7 +29,7 @@ except ImportError:  # pragma: no cover
 from os.path import isfile
 import types
 
-from preggy import assertion
+from preggy import create_assertions
 
 
 #-------------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ def _is_file_obj(topic):
 #-------------------------------------------------------------------------------------------------
 # Assertions
 #-------------------------------------------------------------------------------------------------
-@assertion
+@create_assertions
 def to_be_a_file(topic):
     '''Asserts that `topic` is a file.
 
@@ -61,32 +61,6 @@ def to_be_a_file(topic):
     built-in `file` type.
 
     '''
-    AE = AssertionError("Expected topic({0}) to be a file", topic)
-
     if _is_string(topic):
-        if not _is_file(topic):
-            raise AE
-    else:
-        if not _is_file_obj(topic):
-            raise AE
-
-
-@assertion
-def not_to_be_a_file(topic):
-    '''Asserts that `topic` is NOT a file.
-
-    If `topic` is a string, this asserts whether `os.path.isfile()`
-    returns `False`.
-
-    Otherwise, this asserts whether `topic` is not an instance of the
-    built-in `file` type.
-
-    '''
-    AE = AssertionError("Expected topic({0}) not to be a file", topic)
-
-    if _is_string(topic):
-        if _is_file(topic):
-            raise AE
-    else:
-        if _is_file_obj(topic):
-            raise AE
+        return _is_file(topic)
+    return _is_file_obj(topic)
