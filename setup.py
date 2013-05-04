@@ -48,7 +48,7 @@ setup(
         'Topic :: Software Development :: Testing'
     ],
     
-    packages=['preggy', 'preggy.types'],
+    packages=['preggy', 'preggy.assertions', 'preggy.assertions.types'],
     
     install_requires=['six'],
     
