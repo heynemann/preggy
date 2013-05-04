@@ -34,4 +34,4 @@ def to_have_an_error_message_of(topic, expected):
 @create_assertions
 def to_be_an_error(topic):
     '''Asserts that `topic` is an error.'''
-    return topic and (isinstance(topic, Exception) or (inspect.isclass(topic) and issubclass(topic, Exception)))
+    return isinstance(topic, BaseException)
