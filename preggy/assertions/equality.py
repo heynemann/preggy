@@ -13,7 +13,8 @@
 try:
     import six
 except ImportError:
-    print("Ignoring six. Probably setup.py installing package.")
+    import warnings
+    warnings.warn("Ignoring six. Probably setup.py installing package.")
 
 from preggy import create_assertions
 
