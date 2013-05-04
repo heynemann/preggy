@@ -17,7 +17,8 @@ a "file" in your tests.
 try:
     import six
 except ImportError:
-    print("Ignoring six. Probably setup.py installing package.")
+    import warnings
+    warnings.warn("Ignoring six. Probably setup.py installing package.")
 
 try:
     import io
