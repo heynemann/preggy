@@ -13,9 +13,12 @@
 from preggy import assertion
 
 
-@assertion
-def to_length(topic, expected):
-    '''Asserts that `len(topic)` == `expected`.'''
+#-------------------------------------------------------------------------------------------------
+# Helpers
+#-------------------------------------------------------------------------------------------------
+_NoLengthError = lambda topic: AssertionError("Could not determine \"{0}\"'s length.".format(topic))
+
+def _get_length(topic, expected):
     length = None
 
     try:
@@ -25,26 +28,23 @@ def to_length(topic, expected):
             length = topic.qsize()
 
     if length is None:
-        raise AssertionError("Could not determine \"{0}\"'s length.".format(topic))
+        raise _NoLengthError(topic)
+    return length
 
+
+#-------------------------------------------------------------------------------------------------
+# Assertions
+#-------------------------------------------------------------------------------------------------
+@assertion
+def to_length(topic, expected):
+    '''Asserts that `len(topic)` == `expected`.'''
+    length = _get_length(topic, expected)
     if length != expected:
         raise AssertionError('Expected "{0}" to have {1} of length, but it has {2}'.format(topic, expected, length))
-
 
 @assertion
 def not_to_length(topic, expected):
     '''Asserts that `len(topic)` != `expected`.'''
-
-    length = None
-
-    try:
-        length = len(topic)
-    except (AttributeError, TypeError):
-        if hasattr(topic, 'qsize'):
-            length = topic.qsize()
-
-    if length is None:
-        raise AssertionError("Could not determine \"{0}\"'s length.".format(topic))
-
+    length = _get_length(topic, expected)
     if length == expected:
         raise AssertionError('Expected {0} not to have {1} of length'.format(topic, expected))
