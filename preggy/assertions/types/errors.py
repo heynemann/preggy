@@ -16,9 +16,7 @@ from preggy import assertion, create_assertions
 
 @assertion
 def to_be_an_error_like(topic, expected):
-    '''Asserts that `topic` is an instance (or subclass) of type
-    `expected.
-    '''
+    '''Asserts that `topic` is an instance (or subclass) of type `expected`.'''
     if not isinstance(topic, expected):
         raise AssertionError(
             'Expected topic({0}) to be an error of type {1}, but it was a {2}',

@@ -13,16 +13,24 @@ import inspect
 
 from preggy import assertion
 
+#-------------------------------------------------------------------------------------------------
+# Helpers
+#-------------------------------------------------------------------------------------------------
+_is_func = lambda topic: inspect.ismethod(topic) or inspect.isfunction(topic)
 
+
+#-------------------------------------------------------------------------------------------------
+# Assertions
+#-------------------------------------------------------------------------------------------------
 @assertion
 def to_be_a_function(topic):
     '''Asserts that `topic` is a function.'''
-    if not (inspect.ismethod(topic) or inspect.isfunction(topic)):
+    if not _is_func(topic):
         raise AssertionError('Expected topic({0}) to be a function or a method, but it was a {1}', topic, topic.__class__)
 
 
 @assertion
 def not_to_be_a_function(topic):
     '''Asserts that `topic` is NOT a function.'''
-    if inspect.ismethod(topic) or inspect.isfunction(topic):
+    if _is_func(topic):
         raise AssertionError('Expected topic({0}) not to be a function or a method', topic)

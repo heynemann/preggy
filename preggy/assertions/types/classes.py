@@ -17,15 +17,13 @@ from preggy import assertion
 @assertion
 def to_be_instance_of(topic, expected):
     '''Asserts that `topic` is an instance of `expected`.'''
-    if topic == expected:
+    TRUE_CONDITIONS = (
+        topic == expected,
+        isinstance(topic, expected),
+        (inspect.isclass(topic) and inspect.isclass(expected)) and issubclass(topic, expected), 
+        )
+    if any(TRUE_CONDITIONS):
         return True
-
-    if (inspect.isclass(topic) and inspect.isclass(expected)) and issubclass(topic, expected):
-        return True
-
-    if isinstance(topic, expected):
-        return True
-
     raise AssertionError(
         'Expected topic({0}) to be an instance of {1}, but it was a {2}',
         topic,
@@ -41,5 +39,4 @@ def not_to_be_instance_of(topic, expected):
         to_be_instance_of(topic, expected)
     except AssertionError:
         return True
-
     raise AssertionError('Expected topic({0}) not to be an instance of {1}', topic, expected)

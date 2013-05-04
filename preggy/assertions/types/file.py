@@ -31,12 +31,11 @@ import types
 from preggy import assertion
 
 
+#-------------------------------------------------------------------------------------------------
 # Helpers
 #-------------------------------------------------------------------------------------------------
-
 _is_file = lambda topic: isfile(topic)
 _is_string = lambda topic: isinstance(topic, (six.string_types, six.text_type))
-
 
 def _is_file_obj(topic):
     try:
@@ -44,9 +43,10 @@ def _is_file_obj(topic):
     except AttributeError:
         return isinstance(topic, io.IOBase)
 
+
 #-------------------------------------------------------------------------------------------------
-
-
+# Assertions
+#-------------------------------------------------------------------------------------------------
 @assertion
 def to_be_a_file(topic):
     '''Asserts that `topic` is a file.
