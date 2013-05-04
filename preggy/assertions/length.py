@@ -16,19 +16,15 @@ from preggy import assertion
 #-------------------------------------------------------------------------------------------------
 # Helpers
 #-------------------------------------------------------------------------------------------------
-_NoLengthError = lambda topic: AssertionError("Could not determine \"{0}\"'s length.".format(topic))
-
 def _get_length(topic, expected):
     length = None
-
     try:
         length = len(topic)
     except (AttributeError, TypeError):
         if hasattr(topic, 'qsize'):
             length = topic.qsize()
-
     if length is None:
-        raise _NoLengthError(topic)
+        raise AssertionError("Could not determine \"{0}\"'s length.".format(topic))
     return length
 
 
