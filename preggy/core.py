@@ -15,7 +15,7 @@ class Assertions(object):
     registered_assertions = {}
 
     @classmethod
-    def assertion(cls, method):
+    def assertion(cls, func):
         '''Function decorator.  Provides lower-level control for custom
         assertions than `@Assertions.create_assertions`.
 
@@ -34,18 +34,17 @@ class Assertions(object):
             expect(-3).Not.to_be_a_positive_integer()
             
         '''
-        def method_name(*args, **kw):
-            method(*args, **kw)
+        def func_name(*args, **kw):
+            func(*args, **kw)
 
-        def exec_assertion(*args, **kw):
-            return method_name(*args, **kw)
+        def test_assertion(*args, **kw):
+            return func_name(*args, **kw)
 
-        cls.registered_assertions[method.__name__] = exec_assertion
-
-        return method_name
+        cls.registered_assertions[func.__name__] = test_assertion
+        return func_name
 
     @classmethod
-    def create_assertions(cls, method):
+    def create_assertions(cls, func):
         '''Function decorator.  Use to create custom assertions for your
         tests.
         ''' '''
@@ -74,32 +73,30 @@ class Assertions(object):
             Expected topic(4) not to be greater than 3.
             
         '''
-        humanized_method_name = re.sub(r'_+', ' ', method.__name__)
+        humanized_name = re.sub(r'_+', ' ', func.__name__)
 
-        def _assertion_msg(assertion_clause=None, *args):
-            raw_msg = 'Expected topic({{0}}) {assertion_clause}'.format(
+        def _assertion_msg(assertion_clause, *args):
+            raw_msg = 'Expected topic({{0!r}}) {assertion_clause}'.format(
                 assertion_clause=assertion_clause)
             if len(args) is 2:
-                raw_msg += ' {1}'
-            if not raw_msg.endswith('.'):
-                raw_msg += '.'
+                raw_msg += ' {1!r}'
             return raw_msg
 
-        def exec_assertion(*args):
-            raw_msg = _assertion_msg(humanized_method_name, *args)
-            if not method(*args):
+        def test_assertion(*args):
+            raw_msg = _assertion_msg(humanized_name, *args)
+            if not func(*args):
                 raise AssertionError(raw_msg.format(*args))
 
-        def exec_not_assertion(*args):
-            raw_msg = _assertion_msg('not {0}'.format(humanized_method_name), *args)
-            if method(*args):
+        def test_not_assertion(*args):
+            raw_msg = _assertion_msg('not {0}'.format(humanized_name), *args)
+            if func(*args):
                 raise AssertionError(raw_msg.format(*args))
 
-        cls.registered_assertions[method.__name__] = exec_assertion
-        cls.registered_assertions['not_{method_name}'.format(method_name=method.__name__)] = exec_not_assertion
+        cls.registered_assertions[func.__name__] = test_assertion
+        cls.registered_assertions['not_{method_name}'.format(method_name=func.__name__)] = test_not_assertion
 
         def wrapper(*args, **kw):
-            return method(*args, **kw)
+            return func(*args, **kw)
 
         return wrapper
 
