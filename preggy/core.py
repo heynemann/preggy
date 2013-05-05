@@ -40,7 +40,7 @@ class Assertions(object):
         def exec_assertion(*args, **kw):
             return method_name(*args, **kw)
 
-        Assertions.registered_assertions[method.__name__] = exec_assertion
+        cls.registered_assertions[method.__name__] = exec_assertion
 
         return method_name
 
@@ -93,8 +93,8 @@ class Assertions(object):
             if method(*args):
                 raise AssertionError(raw_msg.format(*args))
 
-        Assertions.registered_assertions[method.__name__] = exec_assertion
-        Assertions.registered_assertions['not_{method_name}'.format(method_name=method.__name__)] = exec_not_assertion
+        cls.registered_assertions[method.__name__] = exec_assertion
+        cls.registered_assertions['not_{method_name}'.format(method_name=method.__name__)] = exec_not_assertion
 
         def wrapper(*args, **kw):
             return method(*args, **kw)
