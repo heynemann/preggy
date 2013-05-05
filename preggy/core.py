@@ -81,6 +81,8 @@ class Assertions(object):
                 assertion_clause=assertion_clause)
             if len(args) is 2:
                 raw_msg += ' {1}'
+            if not raw_msg.endswith('.'):
+                raw_msg += '.'
             return raw_msg
 
         def exec_assertion(*args):
