@@ -19,21 +19,20 @@ class Assertions(object):
         '''Function decorator.  Provides lower-level control for custom
         assertions than `@Assertions.create_assertions`.
 
-        If you need more control over your error message, or your assertion
-        doesn’t have a corresponding `not_`, use this decorator and
-        raise a `AssertionError`.
+        This decorator is preferable over `@Assertions.create_assertions` 
+        if you need to fine-tune your error message, or if your assertion 
+        doesn’t have a corresponding `not_`. 
+        
+        Unlike `@Assertions.create_assertions`, functions decorated with
+        this shouldn’t return a boolean. Instead, they should check for 
+        undesirable conditions and raise an `AssertionError` when appropriate. 
 
-        By raising a `AssertionError`, you get the benefit of highlighting
-        the important values when your tests are broken.
-
-        If you still just wanna raise an `AssertionError` like old times,
-        that’s supported, too.
-
-        It’s recommended to always declare both the assertion and the `not_`
-        assertion (if applicable), so they can be used like this:
+        Whenever possible, you should declare both the normal assertion as well
+        as a `not_` counterpart, so they can be used like this:
 
             expect(5).to_be_a_positive_integer()
             expect(-3).Not.to_be_a_positive_integer()
+            
         '''
         def method_name(*args, **kw):
             method(*args, **kw)
@@ -73,6 +72,7 @@ class Assertions(object):
         …will report:
 
             Expected topic(4) not to be greater than 3.
+            
         '''
         humanized_method_name = re.sub(r'_+', ' ', method.__name__)
 
