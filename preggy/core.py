@@ -130,7 +130,7 @@ class Expect(object):
 
         # check for unregistered assertions
         if method_name not in Assertions.registered_assertions:
-            raise AttributeError('Assertion {method_name} was not found!'.format(method_name=method_name))
+            raise AttributeError('Assertion "{method_name}" was not found!'.format(method_name=method_name))
 
         # if program gets this far, then it’s time to perform the assertion. (...FINALLY! ;D)
         def assert_topic(*args, **kw):
