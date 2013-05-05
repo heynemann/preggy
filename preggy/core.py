@@ -124,12 +124,9 @@ class Expect(object):
         if name == 'Not':
             self.not_assert = not self.not_assert
             return self
-
-        # update `not_` assertions
-        if self.not_assert:
-            method_name = 'not_{name}'.format(name=name)
-        else:
-            method_name = name
+        
+        # determine whether assertion is of "not" form
+        method_name = 'not_{name}'.format(name=name) if self.not_assert  else name
 
         # check for unregistered assertions
         if method_name not in Assertions.registered_assertions:
