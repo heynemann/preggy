@@ -16,14 +16,16 @@ from preggy import assertion
 def to_be_true(topic):
     '''Asserts that the boolean value of `topic` is `True`.'''
     if not bool(topic):
-        raise AssertionError("Expected topic({0}) to be truthy", topic)
+        msg = 'Expected topic({0}) to be truthy'.format(topic)
+        raise AssertionError(msg)
 
 
 @assertion
 def to_be_false(topic):
     '''Asserts that the boolean value of `topic` is `False`.'''
     if bool(topic):
-        raise AssertionError("Expected topic({0}) to be falsy", topic)
+        msg = 'Expected topic({0}) to be falsy'.format(topic)
+        raise AssertionError(msg)
 
 
 @assertion

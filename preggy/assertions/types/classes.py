@@ -24,12 +24,11 @@ def to_be_instance_of(topic, expected):
         )
     if any(TRUE_CONDITIONS):
         return True
-    raise AssertionError(
-        'Expected topic({0}) to be an instance of {1}, but it was a {2}',
+    msg = 'Expected topic({0}) to be an instance of {1}, but it was a {2}'.format(
         topic,
         expected,
-        topic.__class__
-    )
+        topic.__class__)
+    raise AssertionError(msg)
 
 
 @assertion
@@ -39,4 +38,5 @@ def not_to_be_instance_of(topic, expected):
         to_be_instance_of(topic, expected)
     except AssertionError:
         return True
-    raise AssertionError('Expected topic({0}) not to be an instance of {1}', topic, expected)
+    msg = 'Expected topic({0}) not to be an instance of {1}'.format(topic, expected)
+    raise AssertionError(msg)

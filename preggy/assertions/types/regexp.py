@@ -18,11 +18,13 @@ from preggy import assertion
 def to_match(topic, expected):
     '''Asserts that `topic` matches the regular expression `expected`.'''
     if not re.match(expected, topic):
-        raise AssertionError('Expected topic({0}) to match the regular expression {1}', topic, expected)
+        msg = 'Expected topic({0!r}) to match the regular expression {1!r}'.format(topic, expected)
+        raise AssertionError(msg)
 
 
 @assertion
 def not_to_match(topic, expected):
     '''Asserts that `topic` DOES NOT match the regular expression `expected`.'''
     if re.match(expected, topic):
-        raise AssertionError('Expected topic({0}) not to match the regular expression {1}', topic, expected)
+        msg = 'Expected topic({0!r}) not to match the regular expression {1!r}'.format(topic, expected)
+        raise AssertionError(msg)

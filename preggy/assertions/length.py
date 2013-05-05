@@ -24,7 +24,8 @@ def _get_length(topic, expected):
         if hasattr(topic, 'qsize'):
             length = topic.qsize()
     if length is None:
-        raise AssertionError("Could not determine \"{0}\"'s length.".format(topic))
+        msg = "Could not determine \"{0}\"'s length.".format(topic)
+        raise AssertionError(msg)
     return length
 
 
@@ -36,11 +37,13 @@ def to_length(topic, expected):
     '''Asserts that `len(topic)` == `expected`.'''
     length = _get_length(topic, expected)
     if length != expected:
-        raise AssertionError('Expected "{0}" to have {1} of length, but it has {2}'.format(topic, expected, length))
+        msg = 'Expected topic({0!r}) to have {1} of length, but it has {2}'.format(topic, expected, length)
+        raise AssertionError(msg)
 
 @assertion
 def not_to_length(topic, expected):
     '''Asserts that `len(topic)` != `expected`.'''
     length = _get_length(topic, expected)
     if length == expected:
-        raise AssertionError('Expected {0} not to have {1} of length'.format(topic, expected))
+        msg = 'Expected topic({0!r}) not to have {1} of length'.format(topic, expected)
+        raise AssertionError(msg)

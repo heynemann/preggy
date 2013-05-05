@@ -16,11 +16,13 @@ from preggy import assertion
 def to_be_null(topic):
     '''Asserts that `topic` is `None`.'''
     if topic is not None:
-        raise AssertionError('Expected topic({0}) to be None', topic)
+        msg = 'Expected topic({0}) to be None'.format(topic)
+        raise AssertionError(msg)
 
 
 @assertion
 def not_to_be_null(topic):
     '''Asserts that `topic` is NOT `None`.'''
     if topic is None:
-        raise AssertionError('Expected topic({0}) not to be None', topic)
+        msg = 'Expected topic({0}) not to be None'.format(topic)
+        raise AssertionError(msg)

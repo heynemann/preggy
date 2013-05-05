@@ -26,11 +26,16 @@ _is_func = lambda topic: inspect.ismethod(topic) or inspect.isfunction(topic)
 def to_be_a_function(topic):
     '''Asserts that `topic` is a function.'''
     if not _is_func(topic):
-        raise AssertionError('Expected topic({0}) to be a function or a method, but it was a {1}', topic, topic.__class__)
+        msg = 'Expected topic({0}) to be a function or a method, but it was a {1}'.format(
+            topic, 
+            topic.__class__
+            )
+        raise AssertionError(msg)
 
 
 @assertion
 def not_to_be_a_function(topic):
     '''Asserts that `topic` is NOT a function.'''
     if _is_func(topic):
-        raise AssertionError('Expected topic({0}) not to be a function or a method', topic)
+        msg = 'Expected topic({0}) not to be a function or a method'.format(topic)
+        raise AssertionError(msg)
