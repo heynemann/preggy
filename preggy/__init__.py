@@ -11,7 +11,7 @@
 
 from __future__ import absolute_import
 
-__version__ = "0.3.12"
+__version__ = "0.3.13"
 
 from preggy.core import Assertions
 assertion = Assertions.assertion
