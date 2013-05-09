@@ -53,15 +53,18 @@ def _compare_strings(expected, topic):
     Allows some leeway.  (Strings don't have to exactly match.)
 
     '''
+    _filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '')
+    for regex in REMOVE_COLORS_REGEXES:
+        expected = regex.sub('', expected)
+        topic = regex.sub('', topic)
+
+    expected = _filter_str(expected)
+    topic = _filter_str(topic)
+
     if isinstance(topic, (binary_type, )):
         topic = topic.decode('utf-8')
     if isinstance(expected, (binary_type, )):
         expected = expected.decode('utf-8')
-
-    _filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '')
-    for regex in REMOVE_COLORS_REGEXES:
-        expected = regex.sub('', expected)
-    expected = _filter_str(expected)
 
     return expected == _filter_str(topic)
 
