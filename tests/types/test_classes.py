@@ -30,7 +30,7 @@ def is_expected(item):
         expect(item).not_to_be_instance_of(FakeClass)
     except AssertionError:
         return
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 
 def is_not_expected(item):
@@ -41,7 +41,7 @@ def is_not_expected(item):
         expect(item).to_be_instance_of(dict)
     except AssertionError:
         return
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 #-----------------------------------------------------------------------------
 

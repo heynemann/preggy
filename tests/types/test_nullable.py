@@ -19,16 +19,16 @@ def test_to_be_null():
     except AssertionError:
         return
 
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 
 def test_not_to_be_null():
-    expect("something").Not.to_be_null()
-    expect("something").not_to_be_null()
+    expect('something').Not.to_be_null()
+    expect('something').not_to_be_null()
 
     try:
-        expect("something").to_be_null()
+        expect('something').to_be_null()
     except AssertionError:
         return
 
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'

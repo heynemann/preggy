@@ -31,7 +31,7 @@ def is_expected(item):
         expect(item).not_to_be_a_function()
     except AssertionError:
         return
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 
 def is_not_expected(item):
@@ -42,7 +42,7 @@ def is_not_expected(item):
         expect(item).to_be_a_function()
     except AssertionError:
         return
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 #-----------------------------------------------------------------------------
 
@@ -52,6 +52,6 @@ def test_to_be_a_function():
 
 
 def test_not_to_be_a_function():
-    is_not_expected("a")
+    is_not_expected('a')
     is_not_expected((1, 2))
     is_not_expected([1, 2])

@@ -12,11 +12,11 @@ from preggy import expect
 #-----------------------------------------------------------------------------
 
 TEST_DATA = frozenset([
-    "./README.md",
+    './README.md',
 ])
 
 FAIL_DATA = frozenset([
-    "./READM.md",
+    './READM.md',
     0,
     (1, 2, 3)
 ])
@@ -31,7 +31,7 @@ def is_expected(item):
             expect(item).not_to_be_a_file()
         except AssertionError:
             return
-        assert False, "Should not have gotten this far"
+        assert False, 'Should not have gotten this far'
 
 
 def is_not_expected(item):
@@ -43,7 +43,7 @@ def is_not_expected(item):
     except AssertionError:
         return
 
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 #-----------------------------------------------------------------------------
 
@@ -64,4 +64,4 @@ def test_is_not_file_obj():
         except AssertionError:
             return
 
-        assert False, "Should not have gotten this far"
+        assert False, 'Should not have gotten this far'

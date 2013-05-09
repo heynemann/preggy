@@ -13,16 +13,16 @@ from preggy import expect
 
 EXPECTED_TEST_DATA = (
     True,
-    "qwe",
+    'qwe',
     1,
     [1],
     tuple([1]),
-    {"a": "b"}
+    {'a': 'b'}
 )
 
 NOT_EXPECTED_TEST_DATA = (
     False,
-    "",
+    '',
     0,
     [],
     tuple([]),
@@ -37,7 +37,7 @@ def is_true(item):
         expect(item).not_to_be_true()
     except AssertionError:
         return
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 
 def is_not_true(item):
@@ -48,7 +48,7 @@ def is_not_true(item):
         expect(item).to_be_true()
     except AssertionError:
         return
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 
 def is_false(item):
@@ -57,7 +57,7 @@ def is_false(item):
         expect(item).not_to_be_false()
     except AssertionError:
         return
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 
 def is_not_false(item):
@@ -68,7 +68,7 @@ def is_not_false(item):
         expect(item).to_be_false()
     except AssertionError:
         return
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 #-----------------------------------------------------------------------------
 

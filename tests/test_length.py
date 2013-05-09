@@ -23,9 +23,9 @@ queue.put(2)
 queue.put(3)
 
 TEST_DATA = (
-    "12345",
+    '12345',
     [1, 2, 3],
-    {"a": 1, "b": 2},
+    {'a': 1, 'b': 2},
     tuple([1, 2, 3, 4, 5, 6]),
     queue
 )
@@ -54,7 +54,7 @@ def is_expected(item, expected):
         expect(item).not_to_length(expected)
     except AssertionError:
         return
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 
 def is_not_expected(item, expected):
@@ -65,7 +65,7 @@ def is_not_expected(item, expected):
         expect(item).to_length(expected)
     except AssertionError:
         return
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 #-----------------------------------------------------------------------------
 
@@ -84,10 +84,10 @@ def test_unable_to_identify_length():
         expect(object()).to_length(1)
     except AssertionError:
         exc = sys.exc_info()[1]
-        expect(str(exc)).to_match("Could not determine \"<object object at .+\"'s length.")
+        expect(str(exc)).to_match('Could not determine "<object object at .+"\'s length.')
         return
 
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 
 def test_unable_to_identify_not_length():
@@ -95,7 +95,7 @@ def test_unable_to_identify_not_length():
         expect(object()).not_to_length(1)
     except AssertionError:
         exc = sys.exc_info()[1]
-        expect(str(exc)).to_match("Could not determine \"<object object at .+\"'s length.")
+        expect(str(exc)).to_match('Could not determine "<object object at .+"\'s length.')
         return
 
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'

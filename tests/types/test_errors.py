@@ -13,28 +13,28 @@ from preggy import expect
 
 def test_is_error():
     expect(RuntimeError()).to_be_an_error()
-    expect(RuntimeError("Something Wrong")).to_be_an_error_like(RuntimeError)
-    expect(RuntimeError("Something Wrong")).to_have_an_error_message_of("Something Wrong")
+    expect(RuntimeError('Something Wrong')).to_be_an_error_like(RuntimeError)
+    expect(RuntimeError('Something Wrong')).to_have_an_error_message_of('Something Wrong')
 
 
 def test_not_to_be_an_error():
-    expect("b123a").Not.to_be_an_error()
-    expect("b123a").not_to_be_an_error()
+    expect('b123a').Not.to_be_an_error()
+    expect('b123a').not_to_be_an_error()
 
 
 def test_not_to_be_an_error_like():
     try:
-        expect(RuntimeError("Something Wrong")).to_be_an_error_like(ValueError)
+        expect(RuntimeError('Something Wrong')).to_be_an_error_like(ValueError)
     except AssertionError:
         return
 
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'
 
 
 def test_not_to_have_error_message():
     try:
-        expect(RuntimeError("Something Wrong")).to_have_an_error_message_of("Something Else")
+        expect(RuntimeError('Something Wrong')).to_have_an_error_message_of('Something Else')
     except AssertionError:
         return
 
-    assert False, "Should not have gotten this far"
+    assert False, 'Should not have gotten this far'

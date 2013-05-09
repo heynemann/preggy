@@ -12,23 +12,23 @@ from preggy import expect
 #-----------------------------------------------------------------------------
 
 TEST_DATA = (
-    "my_string",
+    'my_string',
     [1, 2, 3,],
-    {"a": 1, "b": 2},
+    {'a': 1, 'b': 2},
     tuple([1, 2, 3])
 )
 
 INCLUDED_DATA = (
-    "str",
+    'str',
     1,
-    "a",
+    'a',
     2
 )
 
 NOT_INCLUDED_DATA = (
-    "potatoh",
+    'potatoh',
     4,
-    "c",
+    'c',
     5
 )
 
