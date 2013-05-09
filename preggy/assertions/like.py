@@ -23,8 +23,11 @@ import numbers
 from preggy import create_assertions
 
 
-REMOVE_COLORS_REGEX = re.compile(r'\033\[[0-9]*m')
-REMOVE_COLORS_REGEX2 = re.compile(r'\x1b\[[0-9]*m')
+REMOVE_COLORS_REGEXES = [
+    re.compile('\033\[[0-9]*m', re.UNICODE),
+    re.compile('\x1b\[[0-9]*m', re.UNICODE),
+    re.compile('\x03\[[0-9]*m', re.UNICODE),
+]
 
 
 #-------------------------------------------------------------------------------------------------
@@ -57,10 +60,10 @@ def _compare_strings(expected, topic):
 
     _filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '')
     expected = _filter_str(expected)
-    expected = REMOVE_COLORS_REGEX.sub('', expected)
-    expected = REMOVE_COLORS_REGEX2.sub('', expected)
+    for regex in REMOVE_COLORS_REGEXES:
+        expected = regex.sub('', expected)
 
-    return _filter_str(expected) == _filter_str(topic)
+    return expected == _filter_str(topic)
 
 
 def _compare_numbers(expected, topic):
