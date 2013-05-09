@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''preggy core classes: `Assertions` and `Expect`.
+'''preggy core: the `Expect` class, and the `@assertion` and `@create_assertions` decorators.
 '''
 # preggy assertions
 # https://github.com/heynemann/preggy
@@ -10,95 +10,92 @@
 
 import re
 
+_registered_assertions = dict()
 
-class Assertions(object):
-    registered_assertions = {}
+def assertion(func):
+    '''Function decorator.  Provides lower-level control for custom
+    assertions than `@preggy.create_assertions`.
 
-    @classmethod
-    def assertion(cls, func):
-        '''Function decorator.  Provides lower-level control for custom
-        assertions than `@Assertions.create_assertions`.
+    This decorator is preferable over `@preggy.create_assertions` 
+    if you need to fine-tune your error message, or if your assertion 
+    doesn’t have a corresponding `not_`. 
+    
+    Unlike `@preggy.create_assertions`, functions decorated with
+    this shouldn’t return a boolean. Instead, they should check for 
+    undesirable conditions and raise an `AssertionError` when appropriate. 
 
-        This decorator is preferable over `@Assertions.create_assertions` 
-        if you need to fine-tune your error message, or if your assertion 
-        doesn’t have a corresponding `not_`. 
+    Whenever possible, you should declare both the normal assertion as well
+    as a `not_` counterpart, so they can be used like this:
+
+        expect(5).to_be_a_positive_integer()
+        expect(-3).Not.to_be_a_positive_integer()
         
-        Unlike `@Assertions.create_assertions`, functions decorated with
-        this shouldn’t return a boolean. Instead, they should check for 
-        undesirable conditions and raise an `AssertionError` when appropriate. 
+    '''
+    def func_name(*args, **kw):
+        func(*args, **kw)
 
-        Whenever possible, you should declare both the normal assertion as well
-        as a `not_` counterpart, so they can be used like this:
+    def test_assertion(*args, **kw):
+        return func_name(*args, **kw)
 
-            expect(5).to_be_a_positive_integer()
-            expect(-3).Not.to_be_a_positive_integer()
-            
-        '''
-        def func_name(*args, **kw):
-            func(*args, **kw)
+    _registered_assertions[func.__name__] = test_assertion
+    return func_name
 
-        def test_assertion(*args, **kw):
-            return func_name(*args, **kw)
 
-        cls.registered_assertions[func.__name__] = test_assertion
-        return func_name
+def create_assertions(func):
+    '''Function decorator.  Use to create custom assertions for your
+    tests.
+    ''' '''
+    Creating new assertions for use with `expect` is as simple as using
+    this decorator on a function. The function expects `topic` as the
+    first parameter, and `expectation` second:
 
-    @classmethod
-    def create_assertions(cls, func):
-        '''Function decorator.  Use to create custom assertions for your
-        tests.
-        ''' '''
-        Creating new assertions for use with `expect` is as simple as using
-        this decorator on a function. The function expects `topic` as the
-        first parameter, and `expectation` second:
+        @preggy.create_assertions
+        def to_be_greater_than(topic, expected):
+            return topic > expected
 
-            @Assertions.create_assertions
-            def to_be_greater_than(topic, expected):
-                return topic > expected
+    Now, the following expectation…
 
-        Now, the following expectation…
+        expect(2).to_be_greater_than(3)
 
-            expect(2).to_be_greater_than(3)
+    …will report:
 
-        …will report:
+        Expected topic(2) to be greater than 3.
 
-            Expected topic(2) to be greater than 3.
+    It will also create the corresponding `not_` assertion:
 
-        It will also create the corresponding `not_` assertion:
+        expect(4).not_to_be_greater_than(3);
 
-            expect(4).not_to_be_greater_than(3);
+    …will report:
 
-        …will report:
+        Expected topic(4) not to be greater than 3.
+        
+    '''
+    humanized_name = re.sub(r'_+', ' ', func.__name__)
 
-            Expected topic(4) not to be greater than 3.
-            
-        '''
-        humanized_name = re.sub(r'_+', ' ', func.__name__)
+    def _assertion_msg(assertion_clause, *args):
+        raw_msg = 'Expected topic({{0!r}}) {assertion_clause}'.format(
+            assertion_clause=assertion_clause)
+        if len(args) is 2:
+            raw_msg += ' {1!r}'
+        return raw_msg
 
-        def _assertion_msg(assertion_clause, *args):
-            raw_msg = 'Expected topic({{0!r}}) {assertion_clause}'.format(
-                assertion_clause=assertion_clause)
-            if len(args) is 2:
-                raw_msg += ' {1!r}'
-            return raw_msg
+    def test_assertion(*args):
+        raw_msg = _assertion_msg(humanized_name, *args)
+        if not func(*args):
+            raise AssertionError(raw_msg.format(*args))
 
-        def test_assertion(*args):
-            raw_msg = _assertion_msg(humanized_name, *args)
-            if not func(*args):
-                raise AssertionError(raw_msg.format(*args))
+    def test_not_assertion(*args):
+        raw_msg = _assertion_msg('not {0}'.format(humanized_name), *args)
+        if func(*args):
+            raise AssertionError(raw_msg.format(*args))
 
-        def test_not_assertion(*args):
-            raw_msg = _assertion_msg('not {0}'.format(humanized_name), *args)
-            if func(*args):
-                raise AssertionError(raw_msg.format(*args))
+    _registered_assertions[func.__name__] = test_assertion
+    _registered_assertions['not_{method_name}'.format(method_name=func.__name__)] = test_not_assertion
 
-        cls.registered_assertions[func.__name__] = test_assertion
-        cls.registered_assertions['not_{method_name}'.format(method_name=func.__name__)] = test_not_assertion
+    def wrapper(*args, **kw):
+        return func(*args, **kw)
 
-        def wrapper(*args, **kw):
-            return func(*args, **kw)
-
-        return wrapper
+    return wrapper
 
 
 class Expect(object):
@@ -126,7 +123,7 @@ class Expect(object):
         method_name = 'not_{name}'.format(name=name) if self.not_assert  else name
 
         # check for unregistered assertions
-        if method_name not in Assertions.registered_assertions:
+        if method_name not in _registered_assertions:
             raise AttributeError('Assertion "{method_name}" was not found!'.format(method_name=method_name))
 
         # if program gets this far, then it’s time to perform the assertion. (...FINALLY! ;D)
@@ -141,6 +138,6 @@ class Expect(object):
             `.to_be_True()` (or some other Assertion).
 
             '''
-            return Assertions.registered_assertions[method_name](self.topic, *args, **kw)
+            return _registered_assertions[method_name](self.topic, *args, **kw)
 
         return assert_topic
