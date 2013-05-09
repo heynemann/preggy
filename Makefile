@@ -1,8 +1,11 @@
+NOSE_TEST_COVER_OPTS = --with-coverage --cover-erase --cover-inclusive --cover-package=preggy --cover-package=preggy.assertions --cover-package=preggy.assertions.types
+NOSE_TEST = @nosetests -vv --detailed-errors --with-yanc -s $(NOSE_TEST_COVER_OPTS) tests/
+
 test:
-	@nosetests -vv --with-yanc -s --with-coverage --cover-erase --cover-inclusive --cover-package=preggy tests/
+	$(NOSE_TEST)
 
 ci-test:
-	@nosetests -vv --with-yanc -s --with-coverage --cover-erase --cover-inclusive --cover-package=preggy tests/
+	$(NOSE_TEST)
 
 tox:
 	# refer to the readme for instructions on installing these python versions to run tox
