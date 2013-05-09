@@ -59,9 +59,9 @@ def _compare_strings(expected, topic):
         expected = expected.decode('utf-8')
 
     _filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '')
-    expected = _filter_str(expected)
     for regex in REMOVE_COLORS_REGEXES:
         expected = regex.sub('', expected)
+    expected = _filter_str(expected)
 
     return expected == _filter_str(topic)
 
