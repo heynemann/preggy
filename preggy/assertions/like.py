@@ -23,7 +23,7 @@ import numbers
 from preggy import create_assertions
 
 
-REMOVE_COLORS_REGEX = re.compile(r'\/033\[\d+m')
+REMOVE_COLORS_REGEX = re.compile(r'\033\[\d+m')
 
 
 #-------------------------------------------------------------------------------------------------
