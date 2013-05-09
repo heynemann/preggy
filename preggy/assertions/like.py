@@ -23,16 +23,16 @@ import numbers
 from preggy import create_assertions
 
 
-REMOVE_COLORS_REGEXES = [
-    re.compile('\033\[[0-9]*m', re.UNICODE),
-    re.compile('\x1b\[[0-9]*m', re.UNICODE),
-    re.compile('\x03\[[0-9]*m', re.UNICODE),
-]
-
-
 #-------------------------------------------------------------------------------------------------
 # Helpers
 #-------------------------------------------------------------------------------------------------
+REMOVE_COLORS_REGEX = re.compile(
+    r'(\033|\x1b|\x03)'  # prefixes
+    r'\['                # non-regex bracket
+    r'[0-9]*m',          # suffix
+    re.UNICODE
+)
+
 def _match_alike(expected, topic):
     '''Asserts the "like"-ness of `topic` and `expected` according to their types.'''
     if topic is None:
@@ -59,9 +59,8 @@ def _compare_strings(expected, topic):
         expected = expected.decode('utf-8')
 
     _filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '')
-    for regex in REMOVE_COLORS_REGEXES:
-        expected = regex.sub('', expected)
-        topic = regex.sub('', topic)
+    expected = REMOVE_COLORS_REGEX.sub('', expected)
+    topic = REMOVE_COLORS_REGEX.sub('', topic)
 
     expected = _filter_str(expected)
     topic = _filter_str(topic)
