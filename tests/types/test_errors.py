@@ -9,6 +9,7 @@
 
 from preggy import expect
 
+#-----------------------------------------------------------------------------
 
 def test_is_error():
     expect(RuntimeError()).to_be_an_error()

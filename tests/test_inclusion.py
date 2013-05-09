@@ -9,6 +9,7 @@
 
 from preggy import expect
 
+#-----------------------------------------------------------------------------
 
 TEST_DATA = (
     "my_string",
@@ -31,6 +32,7 @@ NOT_INCLUDED_DATA = (
     5
 )
 
+#-----------------------------------------------------------------------------
 
 def is_included(item, expected):
     expect(item).to_include(expected)
@@ -40,6 +42,7 @@ def is_not_included(item, expected):
     expect(item).Not.to_include(expected)
     expect(item).not_to_include(expected)
 
+#-----------------------------------------------------------------------------
 
 def test_includes():
     for index, item in enumerate(TEST_DATA):

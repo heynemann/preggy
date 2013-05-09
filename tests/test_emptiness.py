@@ -9,6 +9,7 @@
 
 from preggy import expect
 
+#-----------------------------------------------------------------------------
 
 EMPTY_DATA = (
     "",
@@ -24,6 +25,7 @@ NOT_EMPTY_DATA = (
     tuple([2])
 )
 
+#-----------------------------------------------------------------------------
 
 def is_empty(item):
     expect(item).to_be_empty()
@@ -33,6 +35,7 @@ def is_not_empty(item):
     expect(item).Not.to_be_empty()
     expect(item).not_to_be_empty()
 
+#-----------------------------------------------------------------------------
 
 def test_emptiness_assertion_works():
     for empty_item in EMPTY_DATA:

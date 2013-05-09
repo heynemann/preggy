@@ -9,6 +9,7 @@
 
 from preggy import expect
 
+#-----------------------------------------------------------------------------
 
 class FakeClass(object): pass
 class Other(FakeClass):  pass
@@ -21,6 +22,7 @@ TEST_DATA = frozenset([
     Other()
 ])
 
+#-----------------------------------------------------------------------------
 
 def is_expected(item):
     expect(item).to_be_instance_of(FakeClass)
@@ -41,6 +43,7 @@ def is_not_expected(item):
         return
     assert False, "Should not have gotten this far"
 
+#-----------------------------------------------------------------------------
 
 def test_to_be_instance_of():
     for item in TEST_DATA:

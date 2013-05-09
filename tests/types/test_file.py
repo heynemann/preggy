@@ -9,6 +9,7 @@
 
 from preggy import expect
 
+#-----------------------------------------------------------------------------
 
 TEST_DATA = frozenset([
     "./README.md",
@@ -20,6 +21,7 @@ FAIL_DATA = frozenset([
     (1, 2, 3)
 ])
 
+#-----------------------------------------------------------------------------
 
 def is_expected(item):
     with open(item) as f:
@@ -43,6 +45,7 @@ def is_not_expected(item):
 
     assert False, "Should not have gotten this far"
 
+#-----------------------------------------------------------------------------
 
 def test_to_be_a_file():
     for item in TEST_DATA:

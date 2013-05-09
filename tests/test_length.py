@@ -15,6 +15,8 @@ except ImportError:
 
 from preggy import expect
 
+#-----------------------------------------------------------------------------
+
 queue = LifoQueue()
 queue.put(1)
 queue.put(2)
@@ -44,6 +46,7 @@ NOT_EXPECTED_DATA = (
     5
 )
 
+#-----------------------------------------------------------------------------
 
 def is_expected(item, expected):
     expect(item).to_length(expected)
@@ -64,6 +67,7 @@ def is_not_expected(item, expected):
         return
     assert False, "Should not have gotten this far"
 
+#-----------------------------------------------------------------------------
 
 def test_length():
     for index, item in enumerate(TEST_DATA):

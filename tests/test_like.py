@@ -11,6 +11,8 @@ import sys
 
 from preggy import expect
 
+#-----------------------------------------------------------------------------
+
 STRING_TEST_DATA = b"asdqwe123"
 EXPECTED_STRING_TEST_DATA = [
     "ASdQwE123",
@@ -61,6 +63,7 @@ NOT_EXPECTED_DICT_TEST_DATA = [
     {"Z": "W", "B": {"X": 10, "Y": 20}, "A": [2, 1, 3]}
 ]
 
+#-----------------------------------------------------------------------------
 
 def is_expected(item, expected):
     expect(item).to_be_like(expected)
@@ -70,6 +73,7 @@ def is_not_expected(item, expected):
     expect(item).Not.to_be_like(expected)
     expect(item).not_to_be_like(expected)
 
+#-----------------------------------------------------------------------------
 
 def test_likeness():
     yield is_expected, None, None

@@ -9,6 +9,7 @@
 
 from preggy import expect
 
+#-----------------------------------------------------------------------------
 
 TEST_DATA = (
     "qwe",
@@ -24,6 +25,7 @@ UNEQUAL_DATA = (
     tuple([3])
 )
 
+#-----------------------------------------------------------------------------
 
 def is_equal(topic):
     item, expected = topic
@@ -35,6 +37,7 @@ def is_not_equal(topic):
     expect(item).Not.to_equal(expected)
     expect(item).not_to_equal(expected)
 
+#-----------------------------------------------------------------------------
 
 def test_equal():
     for item in TEST_DATA:

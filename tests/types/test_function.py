@@ -9,15 +9,13 @@
 
 from preggy import expect
 
+#-----------------------------------------------------------------------------
 
-def fake_method():
+def fake_method(): 
     pass
-
-
 class FakeClass(object):
-    def whatever(self):
+    def whatever(self): 
         pass
-
 
 TEST_DATA = frozenset([
     fake_method,
@@ -25,6 +23,7 @@ TEST_DATA = frozenset([
     FakeClass().whatever
 ])
 
+#-----------------------------------------------------------------------------
 
 def is_expected(item):
     expect(item).to_be_a_function()
@@ -45,6 +44,7 @@ def is_not_expected(item):
         return
     assert False, "Should not have gotten this far"
 
+#-----------------------------------------------------------------------------
 
 def test_to_be_a_function():
     for item in TEST_DATA:

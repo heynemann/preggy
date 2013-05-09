@@ -9,6 +9,7 @@
 
 from preggy import expect
 
+#-----------------------------------------------------------------------------
 
 def test_to_match():
     expect("a123b").to_match(r"a\d+b")

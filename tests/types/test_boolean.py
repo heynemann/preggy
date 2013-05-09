@@ -9,6 +9,7 @@
 
 from preggy import expect
 
+#-----------------------------------------------------------------------------
 
 EXPECTED_TEST_DATA = (
     True,
@@ -27,6 +28,8 @@ NOT_EXPECTED_TEST_DATA = (
     tuple([]),
     {}
 )
+
+#-----------------------------------------------------------------------------
 
 def is_true(item):
     expect(item).to_be_true()
@@ -67,6 +70,7 @@ def is_not_false(item):
         return
     assert False, "Should not have gotten this far"
 
+#-----------------------------------------------------------------------------
 
 def test_to_be_true():
     for item in EXPECTED_TEST_DATA:
