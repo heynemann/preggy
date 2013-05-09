@@ -16,6 +16,7 @@ EXPECTED_STRING_TEST_DATA = [
     "ASdQwE123",
     "ASDQWE123",
     "asdqwe123",
+    "/033[31masdqwe123/033[32m"
 ]
 NOT_EXPECTED_STRING_TEST_DATA = [
     "ZASdQwE123",

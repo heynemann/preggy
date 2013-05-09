@@ -10,6 +10,8 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
+import re
+
 try:
     from six import string_types, binary_type
 except ImportError:  # pragma: no cover
@@ -19,6 +21,9 @@ except ImportError:  # pragma: no cover
 import numbers
 
 from preggy import create_assertions
+
+
+REMOVE_COLORS_REGEX = re.compile(r'\/033\[\d+m')
 
 
 #-------------------------------------------------------------------------------------------------
@@ -48,7 +53,7 @@ def _compare_strings(expected, topic):
         topic = topic.decode('utf-8')
     if isinstance(expected, (binary_type, )):
         expected = expected.decode('utf-8')
-    _filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '')
+    _filter_str = lambda s: REMOVE_COLORS_REGEX.sub('', s.strip().lower().replace(' ', '').replace('\n', ''))
     return _filter_str(expected) == _filter_str(topic)
 
 
