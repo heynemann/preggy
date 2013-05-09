@@ -10,12 +10,12 @@
 from preggy import expect
 
 
-TEST_DATA = [
+TEST_DATA = frozenset([
     10,
     20,
     30.5,
     10 / 3
-]
+])
 
 
 def is_expected(item):

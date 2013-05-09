@@ -10,19 +10,19 @@
 from preggy import expect
 
 
-EMPTY_DATA = [
+EMPTY_DATA = (
     "",
     [],
     {},
     tuple([])
-]
+)
 
-NOT_EMPTY_DATA = [
+NOT_EMPTY_DATA = (
     "qwe",
     [1],
     {"a": "b"},
     tuple([2])
-]
+)
 
 
 def is_empty(item):

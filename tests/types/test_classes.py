@@ -10,20 +10,16 @@
 from preggy import expect
 
 
-class FakeClass(object):
-    pass
+class FakeClass(object): pass
+class Other(FakeClass):  pass
 
 
-class Other(FakeClass):
-    pass
-
-
-TEST_DATA = [
+TEST_DATA = frozenset([
     FakeClass,
     FakeClass(),
     Other,
     Other()
-]
+])
 
 
 def is_expected(item):

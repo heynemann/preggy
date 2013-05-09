@@ -10,24 +10,23 @@
 from preggy import expect
 
 
-EXPECTED_TEST_DATA = [
+EXPECTED_TEST_DATA = (
     True,
     "qwe",
     1,
     [1],
     tuple([1]),
     {"a": "b"}
-]
+)
 
-NOT_EXPECTED_TEST_DATA = [
+NOT_EXPECTED_TEST_DATA = (
     False,
     "",
     0,
     [],
     tuple([]),
     {}
-]
-
+)
 
 def is_true(item):
     expect(item).to_be_true()

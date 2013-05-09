@@ -19,11 +19,11 @@ class FakeClass(object):
         pass
 
 
-TEST_DATA = [
+TEST_DATA = frozenset([
     fake_method,
     FakeClass.whatever,
     FakeClass().whatever
-]
+])
 
 
 def is_expected(item):

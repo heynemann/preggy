@@ -10,26 +10,26 @@
 from preggy import expect
 
 
-TEST_DATA = [
+TEST_DATA = (
     "my_string",
-    [1, 2, 3],
+    [1, 2, 3,],
     {"a": 1, "b": 2},
     tuple([1, 2, 3])
-]
+)
 
-INCLUDED_DATA = [
+INCLUDED_DATA = (
     "str",
     1,
     "a",
     2
-]
+)
 
-NOT_INCLUDED_DATA = [
+NOT_INCLUDED_DATA = (
     "potatoh",
     4,
     "c",
     5
-]
+)
 
 
 def is_included(item, expected):

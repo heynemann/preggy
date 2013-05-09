@@ -10,19 +10,19 @@
 from preggy import expect
 
 
-TEST_DATA = [
+TEST_DATA = (
     "qwe",
     [1],
     {"a": "b"},
     tuple([2])
-]
+)
 
-UNEQUAL_DATA = [
+UNEQUAL_DATA = (
     "asd",
     [2],
     {"c": "d"},
     tuple([3])
-]
+)
 
 
 def is_equal(topic):

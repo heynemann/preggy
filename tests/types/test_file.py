@@ -10,16 +10,15 @@
 from preggy import expect
 
 
-TEST_DATA = [
+TEST_DATA = frozenset([
     "./README.md",
-]
+])
 
-
-FAIL_DATA = [
+FAIL_DATA = frozenset([
     "./READM.md",
     0,
-    [1, 2, 3]
-]
+    (1, 2, 3)
+])
 
 
 def is_expected(item):
