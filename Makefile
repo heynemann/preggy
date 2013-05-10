@@ -1,4 +1,4 @@
-NOSE_TEST_COVER_OPTS = --with-coverage --cover-erase --cover-inclusive --cover-package=preggy --cover-package=preggy.assertions --cover-package=preggy.assertions.types
+NOSE_TEST_COVER_OPTS = --with-coverage --cover-package=preggy --cover-package=preggy.assertions --cover-package=preggy.assertions.types
 NOSE_TEST = @nosetests -vv --detailed-errors --with-yanc -s $(NOSE_TEST_COVER_OPTS) tests/
 
 test:
