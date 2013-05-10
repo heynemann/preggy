@@ -5,7 +5,8 @@ test:
 	$(NOSE_TEST) $(NOSE_TEST_COVER_OPTS)
 
 ci-test:
-	$(NOSE_TEST) $(NOSE_TEST_COVER_OPTS)
+	@rm -f .coverage
+	$(NOSE_TEST) --with-coverage
 
 tox:
 	# refer to the readme for instructions on installing these python versions to run tox

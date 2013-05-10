@@ -1,6 +1,12 @@
 [run]
 omit =
     *tests.py
+branch = True
+source =
+    preggy
+    preggy.assertions
+    preggy.assertions.types
+
 
 [report]
 exclude_lines =
