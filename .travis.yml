@@ -8,6 +8,7 @@ python:
 
 install:
   # install python requirements
+  - pip install python-coveralls
   - pip install -e .[tests] --use-mirrors
 
 script:
