@@ -2,8 +2,8 @@ preggy
 ======
 
 [![Build Status](https://travis-ci.org/heynemann/preggy.png?branch=master)](https://travis-ci.org/heynemann/preggy) [![codeq](https://codeq.io/github/heynemann/preggy/badges/master.png)](https://codeq.io/github/heynemann/preggy/branches/master)
-[![PyPi version](https://pypip.in/v/$REPO/badge.png)](https://crate.io/packages/$REPO/)
-[![PyPi downloads](https://pypip.in/d/$REPO/badge.png)](https://crate.io/packages/$REPO/)
+[![PyPi version](https://pypip.in/v/preggy/badge.png)](https://crate.io/packages/preggy/)
+[![PyPi downloads](https://pypip.in/d/preggy/badge.png)](https://crate.io/packages/preggy/)
 
 preggy is a collection of expectations for Python testing, extracted from the [PyVows](http://pyvows.org) project.
 
