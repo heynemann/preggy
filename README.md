@@ -4,6 +4,7 @@ preggy
 [![Build Status](https://travis-ci.org/heynemann/preggy.png?branch=master)](https://travis-ci.org/heynemann/preggy) [![codeq](https://codeq.io/github/heynemann/preggy/badges/master.png)](https://codeq.io/github/heynemann/preggy/branches/master)
 [![PyPi version](https://pypip.in/v/preggy/badge.png)](https://crate.io/packages/preggy/)
 [![PyPi downloads](https://pypip.in/d/preggy/badge.png)](https://crate.io/packages/preggy/)
+[![Coverage Status](https://coveralls.io/repos/heynemann/preggy/badge.png?branch=master)](https://coveralls.io/r/heynemann/preggy?branch=master)
 
 preggy is a collection of expectations for Python testing, extracted from the [PyVows](http://pyvows.org) project.
 

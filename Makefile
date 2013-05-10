@@ -2,10 +2,10 @@ NOSE_TEST_COVER_OPTS = --with-coverage --cover-erase --cover-inclusive --cover-p
 NOSE_TEST = @nosetests -vv --detailed-errors --with-yanc -s $(NOSE_TEST_COVER_OPTS) tests/
 
 test:
-	$(NOSE_TEST)
+	$(NOSE_TEST) $(NOSE_TEST_COVER_OPTS)
 
 ci-test:
-	$(NOSE_TEST)
+	$(NOSE_TEST) $(NOSE_TEST_COVER_OPTS)
 
 tox:
 	# refer to the readme for instructions on installing these python versions to run tox
