@@ -79,8 +79,15 @@ def _compare_strings(expected, topic):
     return expected == _filter_str(topic)
 
 
+def __get_total_seconds(timedelta):
+    ms = 10 ** 6
+    days = 24 * 3600
+
+    return abs((float(timedelta.microseconds) + (float(timedelta.seconds) + float(timedelta.days) * days) * ms) / ms)
+
+
 def _compare_datetime(expected, topic):
-    return (topic - expected).total_seconds > DATE_THRESHOLD
+    return __get_total_seconds(topic - expected) <= DATE_THRESHOLD
 
 
 def _compare_numbers(expected, topic):

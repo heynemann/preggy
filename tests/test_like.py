@@ -127,7 +127,7 @@ def test_not_likeness():
         yield is_not_expected, DICT_TEST_DATA, not_expected_item
 
     for expected_item in NOT_EXPECTED_DATETIME_TEST_DATA:
-        yield is_expected, DATETIME_TEST_DATA, expected_item
+        yield is_not_expected, DATETIME_TEST_DATA, expected_item
 
 
 def test_likeness_of_objects():
