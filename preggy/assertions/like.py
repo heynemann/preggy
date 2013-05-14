@@ -11,6 +11,7 @@
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
 import re
+from datetime import datetime
 
 try:
     from six import string_types, binary_type
@@ -22,6 +23,8 @@ import numbers
 
 from preggy import create_assertions
 
+DATE_THRESHOLD = 5.0
+
 
 #-------------------------------------------------------------------------------------------------
 # Helpers
@@ -32,6 +35,7 @@ REMOVE_COLORS_REGEX = re.compile(
     r'[0-9]*m',          # suffix
     re.UNICODE
 )
+
 
 def _match_alike(expected, topic):
     '''Asserts the "like"-ness of `topic` and `expected` according to their types.'''
@@ -45,6 +49,8 @@ def _match_alike(expected, topic):
         return _compare_lists(expected, topic)
     if isinstance(topic, dict):
         return _compare_dicts(expected, topic)
+    if isinstance(topic, datetime):
+        return _compare_datetime(expected, topic)
     raise RuntimeError('Could not compare {expected} and {topic}'.format(expected=expected, topic=topic))
 
 
@@ -71,6 +77,10 @@ def _compare_strings(expected, topic):
         expected = expected.decode('utf-8')
 
     return expected == _filter_str(topic)
+
+
+def _compare_datetime(expected, topic):
+    return (topic - expected).total_seconds > DATE_THRESHOLD
 
 
 def _compare_numbers(expected, topic):

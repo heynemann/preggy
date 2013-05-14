@@ -8,6 +8,7 @@
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
 import sys
+from datetime import datetime
 
 from preggy import expect
 
@@ -26,6 +27,20 @@ NOT_EXPECTED_STRING_TEST_DATA = [
     'ZASdQwE123',
     'ZASDQWE123',
     'Zasdqwe123',
+]
+
+DATETIME_TEST_DATA = datetime(2010, 11, 12, 13, 14, 15, 123456)
+EXPECTED_DATETIME_TEST_DATA = [
+    datetime(2010, 11, 12, 13, 14, 15, 123456),
+    datetime(2010, 11, 12, 13, 14, 16, 123456),
+    datetime(2010, 11, 12, 13, 14, 15, 123457)
+]
+NOT_EXPECTED_DATETIME_TEST_DATA = [
+    datetime(2010, 11, 12, 13, 15, 15, 123456),
+    datetime(2010, 11, 12, 14, 14, 15, 123456),
+    datetime(2010, 11, 13, 13, 14, 15, 123456),
+    datetime(2010, 12, 12, 13, 14, 15, 123456),
+    datetime(2011, 11, 12, 13, 14, 15, 123456),
 ]
 
 LIST_TEST_DATA = [1, 2, 3, 4, 'a', 'b', [1, 2, 3], {'a': 1, 'b': 2}]
@@ -65,6 +80,7 @@ NOT_EXPECTED_DICT_TEST_DATA = [
 
 #-----------------------------------------------------------------------------
 
+
 def is_expected(item, expected):
     expect(item).to_be_like(expected)
 
@@ -74,6 +90,7 @@ def is_not_expected(item, expected):
     expect(item).not_to_be_like(expected)
 
 #-----------------------------------------------------------------------------
+
 
 def test_likeness():
     yield is_expected, None, None
@@ -90,6 +107,9 @@ def test_likeness():
     for expected_item in EXPECTED_DICT_TEST_DATA:
         yield is_expected, DICT_TEST_DATA, expected_item
 
+    for expected_item in EXPECTED_DATETIME_TEST_DATA:
+        yield is_expected, DATETIME_TEST_DATA, expected_item
+
 
 def test_not_likeness():
     yield is_not_expected, None, 1
@@ -105,6 +125,9 @@ def test_not_likeness():
 
     for not_expected_item in NOT_EXPECTED_DICT_TEST_DATA:
         yield is_not_expected, DICT_TEST_DATA, not_expected_item
+
+    for expected_item in NOT_EXPECTED_DATETIME_TEST_DATA:
+        yield is_expected, DATETIME_TEST_DATA, expected_item
 
 
 def test_likeness_of_objects():
