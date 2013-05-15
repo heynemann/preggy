@@ -82,7 +82,11 @@ def _compare_strings(expected, topic):
 def __timedelta_to_seconds(timedelta):
     ms = 10 ** 6
     days = 24 * 3600
-    return abs((float(timedelta.microseconds) + (float(timedelta.seconds) + float(timedelta.days) * days) * ms) / ms)
+
+    microseconds_in_seconds = float(timedelta.microseconds) / ms
+    seconds = float(timedelta.seconds)
+    days_in_seconds = float(timedelta.days) * days
+    return abs(microseconds_in_seconds + seconds + days_in_seconds)
 
 
 def _compare_datetime(expected, topic):
