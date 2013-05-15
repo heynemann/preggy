@@ -80,13 +80,16 @@ def _compare_strings(expected, topic):
 
 
 def __timedelta_to_seconds(timedelta):
-    ms = 10 ** 6
-    days = 24 * 3600
-
-    microseconds_in_seconds = float(timedelta.microseconds) / ms
-    seconds = float(timedelta.seconds)
-    days_in_seconds = float(timedelta.days) * days
-    return abs(microseconds_in_seconds + seconds + days_in_seconds)
+    ms   = 10 ** 6          # microseconds/second
+    days = 24 * 60 * 60     # seconds/day
+    
+    ms_as_seconds   = float(timedelta.microseconds) / ms
+    seconds         = float(timedelta.seconds)
+    days_as_seconds = float(timedelta.days) * days
+    total_seconds   = sum( (ms_as_seconds, 
+                            seconds, 
+                            days_as_seconds) )
+    return abs(total_seconds)  # abs() comes last
 
 
 def _compare_datetime(expected, topic):
