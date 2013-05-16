@@ -19,6 +19,7 @@ EXPECTED_STRING_TEST_DATA = [
     'ASdQwE123',
     'ASDQWE123',
     'asdqwe123',
+    '\tasd\nqwe\r123',
     '\033[0m\033[31masdqwe123\033[32m',
     '\x1b[0m\x1b[31masdqwe123\x1b[32m',
     '\x03[0m\x03[31masdqwe123\x03[32m',

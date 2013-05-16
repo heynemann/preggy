@@ -41,7 +41,7 @@ REMOVE_COLORS_REGEX = re.compile(
     r'[0-9]*m',          # suffix
     re.UNICODE
 )
-_filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '')
+_filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '').replace('\t', '').replace('\r', '')
 
 
 def compare(first, second):
