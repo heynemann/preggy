@@ -37,6 +37,7 @@ YELLOW = "\033[33m"
 REMOVE_COLORS_REGEX = re.compile(
     r'(\033|\x1b|\x03)'  # prefixes
     r'\['                # non-regex bracket
+    r'([0-9]*[;])?'      # semi-colon
     r'[0-9]*m',          # suffix
     re.UNICODE
 )

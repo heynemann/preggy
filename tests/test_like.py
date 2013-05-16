@@ -21,7 +21,8 @@ EXPECTED_STRING_TEST_DATA = [
     'asdqwe123',
     '\033[0m\033[31masdqwe123\033[32m',
     '\x1b[0m\x1b[31masdqwe123\x1b[32m',
-    '\x03[0m\x03[31masdqwe123\x03[32m'
+    '\x03[0m\x03[31masdqwe123\x03[32m',
+    '\x1b[32;01masdqwe123\x1b[0m'
 ]
 NOT_EXPECTED_STRING_TEST_DATA = [
     'ZASdQwE123',
