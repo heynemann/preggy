@@ -12,6 +12,7 @@
 
 import re
 from datetime import datetime
+import difflib
 
 try:
     from six import string_types, binary_type
@@ -21,9 +22,13 @@ except ImportError:  # pragma: no cover
 
 import numbers
 
-from preggy import create_assertions
+from preggy import assertion
 
 DATE_THRESHOLD = 5.0
+RESET = u"\033[m"
+RED = u"\033[31m"
+GREEN = u"\033[32m"
+YELLOW = u"\033[33m"
 
 
 #-------------------------------------------------------------------------------------------------
@@ -35,6 +40,46 @@ REMOVE_COLORS_REGEX = re.compile(
     r'[0-9]*m',          # suffix
     re.UNICODE
 )
+_filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '')
+
+
+def compare(first, second):
+    matcher = difflib.SequenceMatcher(None, first, second)
+    first = get_match_for_text(matcher, first, True)
+    second = get_match_for_text(matcher, second, True)
+
+    return matcher, first, second
+
+
+def get_match_for_text(matcher, text, first):
+    result = []
+    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+
+        if tag == 'delete':
+            if first:
+                result.append("%s%s%s" % (RED, text[i1:i2], RESET))
+            else:
+                result.append("%s%s%s" % (RED, text[j1:j2], RESET))
+
+        elif tag == 'equal':
+            if first:
+                result.append(text[i1:i2])
+            else:
+                result.append(text[j1:j2])
+
+        elif tag == 'insert':
+            if first:
+                result.append("%s%s%s" % (GREEN, text[i1:i2], RESET))
+            else:
+                result.append("%s%s%s" % (GREEN, text[j1:j2], RESET))
+
+        elif tag == 'replace':
+            if first:
+                result.append("%s%s%s" % (YELLOW, text[i1:i2], RESET))
+            else:
+                result.append("%s%s%s" % (YELLOW, text[j1:j2], RESET))
+
+    return "".join(result)
 
 
 def _match_alike(expected, topic):
@@ -54,27 +99,26 @@ def _match_alike(expected, topic):
     raise RuntimeError('Could not compare {expected} and {topic}'.format(expected=expected, topic=topic))
 
 
+def _strip_string(text):
+    if isinstance(text, (binary_type, )):
+        text = text.decode('utf-8')
+
+    text = REMOVE_COLORS_REGEX.sub('', text)
+    text = _filter_str(text)
+
+    if isinstance(text, (binary_type, )):
+        text = text.decode('utf-8')
+
+    return text
+
+
 def _compare_strings(expected, topic):
     '''Asserts the "like"-ness of `topic` and `expected` as strings.
     Allows some leeway.  (Strings don't have to exactly match.)
 
     '''
-    if isinstance(topic, (binary_type, )):
-        topic = topic.decode('utf-8')
-    if isinstance(expected, (binary_type, )):
-        expected = expected.decode('utf-8')
-
-    _filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '')
-    expected = REMOVE_COLORS_REGEX.sub('', expected)
-    topic = REMOVE_COLORS_REGEX.sub('', topic)
-
-    expected = _filter_str(expected)
-    topic = _filter_str(topic)
-
-    if isinstance(topic, (binary_type, )):
-        topic = topic.decode('utf-8')
-    if isinstance(expected, (binary_type, )):
-        expected = expected.decode('utf-8')
+    topic = _strip_string(topic)
+    expected = _strip_string(expected)
 
     return expected == _filter_str(topic)
 
@@ -142,7 +186,25 @@ def _match_lists(expected, topic):
 #-------------------------------------------------------------------------------------------------
 # Assertions
 #-------------------------------------------------------------------------------------------------
-@create_assertions
+@assertion
 def to_be_like(topic, expected):
     '''Asserts that `topic` is like (similar to) `expected`. Allows some leeway.'''
-    return _match_alike(expected, topic)
+    result = _match_alike(expected, topic)
+
+    if not result:
+        if isinstance(topic, string_types + (binary_type, )) and isinstance(expected, string_types + (binary_type, )):
+            matcher, first, second = compare(_strip_string(topic), _strip_string(expected))
+            import ipdb;ipdb.set_trace()
+            print "Expected strings to be equal, but they were different:"
+            print first
+            print second
+        raise AssertionError("Expected '%s' to be like '%s'." % (topic, expected))
+
+
+@assertion
+def not_to_be_like(topic, expected):
+    '''Asserts that `topic` is like (similar to) `expected`. Allows some leeway.'''
+    result = _match_alike(expected, topic)
+
+    if result:
+        raise AssertionError("Expected '%s' not to be like '%s'." % (topic, expected))

@@ -85,6 +85,15 @@ def is_expected(item, expected):
     expect(item).to_be_like(expected)
 
 
+def is_expected_to_fail(item, expected):
+    try:
+        expect(item).to_be_like(expected)
+    except AssertionError:
+        return
+
+    assert False, "Shouldn't have gotten this far"
+
+
 def is_not_expected(item, expected):
     expect(item).Not.to_be_like(expected)
     expect(item).not_to_be_like(expected)
@@ -109,6 +118,25 @@ def test_likeness():
 
     for expected_item in EXPECTED_DATETIME_TEST_DATA:
         yield is_expected, DATETIME_TEST_DATA, expected_item
+
+
+def test_likeness_fails():
+    yield is_expected, None, None
+
+    for expected_item in NOT_EXPECTED_STRING_TEST_DATA:
+        yield is_expected_to_fail, STRING_TEST_DATA, expected_item
+
+    for expected_item in NOT_EXPECTED_LIST_TEST_DATA:
+        yield is_expected_to_fail, LIST_TEST_DATA, expected_item
+
+    for expected_item in NOT_EXPECTED_TUPLE_TEST_DATA:
+        yield is_expected_to_fail, TUPLE_TEST_DATA, expected_item
+
+    for expected_item in NOT_EXPECTED_DICT_TEST_DATA:
+        yield is_expected_to_fail, DICT_TEST_DATA, expected_item
+
+    for expected_item in NOT_EXPECTED_DATETIME_TEST_DATA:
+        yield is_expected_to_fail, DATETIME_TEST_DATA, expected_item
 
 
 def test_not_likeness():
