@@ -25,10 +25,10 @@ import numbers
 from preggy import assertion
 
 DATE_THRESHOLD = 5.0
-RESET = u"\033[m"
-RED = u"\033[31m"
-GREEN = u"\033[32m"
-YELLOW = u"\033[33m"
+RESET = "\033[m"
+RED = "\033[31m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
 
 
 #-------------------------------------------------------------------------------------------------
