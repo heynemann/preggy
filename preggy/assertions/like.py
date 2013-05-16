@@ -194,7 +194,6 @@ def to_be_like(topic, expected):
     if not result:
         if isinstance(topic, string_types + (binary_type, )) and isinstance(expected, string_types + (binary_type, )):
             matcher, first, second = compare(_strip_string(topic), _strip_string(expected))
-            import ipdb;ipdb.set_trace()
             print "Expected strings to be equal, but they were different:"
             print first
             print second
