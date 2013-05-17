@@ -128,14 +128,11 @@ class Expect(object):
 
         # if program gets this far, then it’s time to perform the assertion. (...FINALLY! ;D)
         def assert_topic(*args, **kw):
-            '''Allows instances (topics) to chain calls to `Assertion`s.
-
-            In the following preggy-test snippet:
-
-                expect(topic).to_be_True()
-
-            ...This method is what allows `expect(topic)` to call
-            `.to_be_True()` (or some other Assertion).
+            '''Allows chained calls to `Assertion`s.  For example, in:
+                
+                expect(topic).to_be_true()
+            
+            This method is what allows `expect(topic)` to call `.to_be_true()`.
 
             '''
             return _registered_assertions[method_name](self.topic, *args, **kw)
