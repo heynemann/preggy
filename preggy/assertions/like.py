@@ -75,7 +75,7 @@ def get_match_for_text(matcher, text, first):
 
 
 def _match_alike(expected, topic):
-    '''Asserts the "like"-ness of `topic` and `expected` according to their types.'''
+    '''Determines the types of `expected` and `topic`, and calls the appropriate comparison function.'''
     if topic is None:
         return expected is None
     if isinstance(topic, string_types + (binary_type, )):
