@@ -54,33 +54,21 @@ def compare(first, second):
 
 def get_match_for_text(matcher, text, first):
     result = []
+    COLOR_MAP = {
+        'delete': RED,
+        'insert': GREEN,
+        'replace': YELLOW
+    }
+
     for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+        start, stop = (i1, i2) if first else (j1, j2)
+        to_append = text[start:stop]
+        if tag in COLOR_MAP:
+            to_append = ''.join((COLOR_MAP[tag], to_append, RESET))
+        result.append(to_append)
 
-        if tag == 'delete':
-            if first:
-                result.append("%s%s%s" % (RED, text[i1:i2], RESET))
-            else:
-                result.append("%s%s%s" % (RED, text[j1:j2], RESET))
+    return ''.join(result)
 
-        elif tag == 'equal':
-            if first:
-                result.append(text[i1:i2])
-            else:
-                result.append(text[j1:j2])
-
-        elif tag == 'insert':
-            if first:
-                result.append("%s%s%s" % (GREEN, text[i1:i2], RESET))
-            else:
-                result.append("%s%s%s" % (GREEN, text[j1:j2], RESET))
-
-        elif tag == 'replace':
-            if first:
-                result.append("%s%s%s" % (YELLOW, text[i1:i2], RESET))
-            else:
-                result.append("%s%s%s" % (YELLOW, text[j1:j2], RESET))
-
-    return "".join(result)
 
 
 def _match_alike(expected, topic):
