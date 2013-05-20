@@ -178,8 +178,9 @@ def _match_lists(expected, topic):
 def to_be_like(topic, expected):
     '''Asserts that `topic` is like (similar to) `expected`. Allows some leeway.'''
     result = _match_alike(expected, topic)
+    is_str = lambda x: isinstance(x, string_types + (binary_type,))
     if not result:
-        if isinstance(topic, string_types + (binary_type, )) and isinstance(expected, string_types + (binary_type, )):
+        if is_str(topic) and is_str(expected):
             matcher, first, second = compare(_strip_string(topic), _strip_string(expected))
             print()
             print("Expected strings to be equal, but they were different:")
