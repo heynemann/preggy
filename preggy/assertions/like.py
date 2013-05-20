@@ -41,8 +41,13 @@ REMOVE_COLORS_REGEX = re.compile(
     r'[0-9]*m',          # suffix
     re.UNICODE
 )
-_filter_str = lambda s: s.strip().lower().replace(' ', '').replace('\n', '').replace('\t', '').replace('\r', '')
 
+NORMALIZE_WHITESPACE_REGEX = re.compile(
+    r'\s+',
+    flags=re.UNICODE|re.MULTILINE|re.IGNORECASE
+)
+
+_filter_str = lambda s: NORMALIZE_WHITESPACE_REGEX.sub('', s.lower()).strip()
 
 def compare(first, second):
     matcher = difflib.SequenceMatcher(None, first, second)
