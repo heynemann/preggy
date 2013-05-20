@@ -181,7 +181,7 @@ def to_be_like(topic, expected):
             print(first)
             print(second)
             print()
-        raise AssertionError("Expected '%s' to be like '%s'." % (topic, expected))
+        raise AssertionError("Expected '{topic}' to be like '{expected}'.".format(topic=topic, expected=expected))
 
 
 @assertion
@@ -189,4 +189,4 @@ def not_to_be_like(topic, expected):
     '''Asserts that `topic` is like (similar to) `expected`. Allows some leeway.'''
     result = _match_alike(expected, topic)
     if result:
-        raise AssertionError("Expected '%s' not to be like '%s'." % (topic, expected))
+        raise AssertionError("Expected '{topic}' not to be like '{expected}'.".format(topic=topic, expected=expected))
