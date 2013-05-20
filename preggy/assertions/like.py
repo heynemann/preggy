@@ -18,22 +18,22 @@ try:
     from six import string_types, binary_type
 except ImportError:  # pragma: no cover
     import warnings
-    warnings.warn("Ignoring six. Probably setup.py installing package.")
+    warnings.warn('Ignoring six. Probably setup.py installing package.')
 
 import numbers
 
 from preggy import assertion
 
-DATE_THRESHOLD = 5.0
-RESET = "\033[m"
-RED = "\033[31m"
-GREEN = "\033[32m"
-YELLOW = "\033[33m"
-
-
 #-------------------------------------------------------------------------------------------------
 # Helpers
 #-------------------------------------------------------------------------------------------------
+DATE_THRESHOLD = 5.0
+
+RESET = '\033[m'
+RED = '\033[31m'
+GREEN = '\033[32m'
+YELLOW = '\033[33m'
+
 REMOVE_COLORS_REGEX = re.compile(
     r'(\033|\x1b|\x03)'  # prefixes
     r'\['                # non-regex bracket
@@ -48,7 +48,6 @@ def compare(first, second):
     matcher = difflib.SequenceMatcher(None, first, second)
     first = get_match_for_text(matcher, first, True)
     second = get_match_for_text(matcher, second, True)
-
     return matcher, first, second
 
 
@@ -68,7 +67,6 @@ def get_match_for_text(matcher, text, first):
         result.append(to_append)
 
     return ''.join(result)
-
 
 
 def _match_alike(expected, topic):
@@ -91,13 +89,10 @@ def _match_alike(expected, topic):
 def _strip_string(text):
     if isinstance(text, (binary_type, )):
         text = text.decode('utf-8')
-
     text = REMOVE_COLORS_REGEX.sub('', text)
     text = _filter_str(text)
-
     if isinstance(text, (binary_type, )):
         text = text.decode('utf-8')
-
     return text
 
 
@@ -108,7 +103,6 @@ def _compare_strings(expected, topic):
     '''
     topic = _strip_string(topic)
     expected = _strip_string(expected)
-
     return expected == _filter_str(topic)
 
 
@@ -179,7 +173,6 @@ def _match_lists(expected, topic):
 def to_be_like(topic, expected):
     '''Asserts that `topic` is like (similar to) `expected`. Allows some leeway.'''
     result = _match_alike(expected, topic)
-
     if not result:
         if isinstance(topic, string_types + (binary_type, )) and isinstance(expected, string_types + (binary_type, )):
             matcher, first, second = compare(_strip_string(topic), _strip_string(expected))
@@ -195,6 +188,5 @@ def to_be_like(topic, expected):
 def not_to_be_like(topic, expected):
     '''Asserts that `topic` is like (similar to) `expected`. Allows some leeway.'''
     result = _match_alike(expected, topic)
-
     if result:
         raise AssertionError("Expected '%s' not to be like '%s'." % (topic, expected))
