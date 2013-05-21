@@ -185,7 +185,7 @@ def to_be_like(topic, expected):
         if is_str(topic) and is_str(expected):
             matcher, first, second = compare(_strip_string(topic), _strip_string(expected))
             print()
-            print("Expected strings to be equal, but they were different:")
+            print('Expected strings to be equal, but they were different:')
             print(first)
             print(second)
             print()
