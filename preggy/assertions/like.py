@@ -41,7 +41,7 @@ REMOVE_COLORS_REGEX = re.compile(
     r'\['                # non-regex bracket
     r'([0-9]*[;])?'      # semi-colon
     r'[0-9]*m',          # suffix
-    re.UNICODE
+    flags=re.UNICODE
 )
 
 NORMALIZE_WHITESPACE_REGEX = re.compile(
