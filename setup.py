@@ -31,8 +31,8 @@ setup(
     keywords='test testing assert assertion development',
     author='Bernardo Heynemann',
     author_email='heynemann@gmail.com',
-    contributor='Zearin',
-    contributor_email='zearin@gonk.net',
+    maintainer='Zearin',
+    maintainer_email='zearin@gonk.net',
     url='http://github.com/heynemann/preggy/',
     download_url='http://heynemann.github.io/preggy/',
     license='MIT',
@@ -47,6 +47,8 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
         'Topic :: Software Development :: Testing'
     ],
     
