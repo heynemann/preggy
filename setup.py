@@ -35,6 +35,11 @@ setup(
     maintainer_email='zearin@gonk.net',
     url='http://github.com/heynemann/preggy/',
     download_url='http://heynemann.github.io/preggy/',
+    
+    ### For future, when Python packaging gets its crap together. See:
+    ###   http://stackoverflow.com/questions/14459828/how-to-set-bug-tracker-url-in-setup-py-script
+    #bugtrack_url='http://github.com/heynemann/preggy/issues/',
+    
     license='MIT',
     classifiers=[
         'Development Status :: 4 - Beta',
