@@ -9,7 +9,12 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
-import six
+try:
+    import six
+except ImportError:  # pragma: no cover
+    import warnings
+    warnings.warn("Ignoring six. Probably setup.py installing package.")
+
 from preggy import create_assertions
 
 
