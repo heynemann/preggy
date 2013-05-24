@@ -13,7 +13,7 @@ from preggy import expect
 
 TEST_DATA = (
     'my_string',
-    [1, 2, 3,],
+    [1, 2, 3, ],
     {'a': 1, 'b': 2},
     tuple([1, 2, 3]),
     '123',
@@ -40,6 +40,7 @@ NOT_INCLUDED_DATA = (
 
 #-----------------------------------------------------------------------------
 
+
 def is_included(item, expected):
     expect(item).to_include(expected)
 
@@ -49,6 +50,7 @@ def is_not_included(item, expected):
     expect(item).not_to_include(expected)
 
 #-----------------------------------------------------------------------------
+
 
 def test_includes():
     for index, item in enumerate(TEST_DATA):

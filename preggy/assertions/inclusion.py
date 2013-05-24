@@ -9,13 +9,13 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
-
+import six
 from preggy import create_assertions
 
 
 @create_assertions
 def to_include(topic, expected):
     '''Asserts that `expected` is in `topic`.'''
-    if isinstance(topic, str):
+    if isinstance(topic, six.string_types + tuple([six.binary_type, six.text_type])):
         return str(expected) in topic
     return expected in topic
