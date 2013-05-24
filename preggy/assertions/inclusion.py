@@ -16,4 +16,6 @@ from preggy import create_assertions
 @create_assertions
 def to_include(topic, expected):
     '''Asserts that `expected` is in `topic`.'''
+    if isinstance(topic, str):
+        return str(expected) in topic
     return expected in topic
