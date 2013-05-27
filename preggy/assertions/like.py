@@ -27,7 +27,7 @@ from preggy import assertion
 __all__ = ('to_be_like', 'not_to_be_like')
 
 #-------------------------------------------------------------------------------------------------
-# Helpers
+#   CONSTANTS
 #-------------------------------------------------------------------------------------------------
 DATE_THRESHOLD = 5.0
 
@@ -49,6 +49,9 @@ NORMALIZE_WHITESPACE_REGEX = re.compile(
     flags=re.UNICODE|re.MULTILINE|re.IGNORECASE
 )
 
+#-------------------------------------------------------------------------------------------------
+#   HELPERS
+#-------------------------------------------------------------------------------------------------
 _filter_str = lambda s: NORMALIZE_WHITESPACE_REGEX.sub('', s.lower()).strip()
 
 def compare(first, second):
