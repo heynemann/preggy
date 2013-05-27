@@ -9,6 +9,9 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
+
+from __future__ import absolute_import
+
 try:
     import six
 except ImportError:  # pragma: no cover

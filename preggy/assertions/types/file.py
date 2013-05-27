@@ -14,6 +14,8 @@ a "file" in your tests.
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
+from __future__ import absolute_import
+
 try:
     import six
 except ImportError:  # pragma: no cover
@@ -23,8 +25,7 @@ except ImportError:  # pragma: no cover
 try:
     import io
 except ImportError:  # pragma: no cover
-    ## FIXME: explain using "pass" here
-    pass
+    pass  ## FIXME: explain using "pass" here
 
 from os.path import isfile
 import types
