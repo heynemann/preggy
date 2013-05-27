@@ -9,7 +9,7 @@
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
-
+from __future__ import print_function
 import re
 from datetime import datetime
 import difflib
