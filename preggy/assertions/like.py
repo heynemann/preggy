@@ -79,7 +79,7 @@ def get_match_for_text(matcher, text, first):
     return ''.join(result)
 
 
-def _match_alike(expected, topic):
+def _match_alike(expected, topic, diff=False):
     '''Determines the types of `expected` and `topic`, and calls the appropriate comparison function.'''
     if topic is None:
         return expected is None
@@ -180,12 +180,15 @@ def _match_lists(expected, topic):
 # Assertions
 #-------------------------------------------------------------------------------------------------
 @assertion
-def to_be_like(topic, expected):
+def to_be_like(topic, expected, diff=True):
     '''Asserts that `topic` is like (similar to) `expected`. Allows some leeway.'''
-    result = _match_alike(expected, topic)
+    result = _match_alike(expected, topic, diff=diff)
     is_str = lambda x: isinstance(x, string_types + (binary_type,))
     if not result:
-        if is_str(topic) and is_str(expected):
+        if diff is True and (
+            is_str(topic) and 
+            is_str(expected)
+        ):
             matcher, first, second = compare(_strip_string(topic), _strip_string(expected))
             print()
             print('Expected strings to be equal, but they were different:')
@@ -196,8 +199,8 @@ def to_be_like(topic, expected):
 
 
 @assertion
-def not_to_be_like(topic, expected):
+def not_to_be_like(topic, expected, diff=False):
     '''Asserts that `topic` is like (similar to) `expected`. Allows some leeway.'''
-    result = _match_alike(expected, topic)
+    result = _match_alike(expected, topic, diff=diff)
     if result:
         raise AssertionError("Expected topic('{topic}') not to be like '{expected}'".format(topic=topic, expected=expected))
