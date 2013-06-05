@@ -31,8 +31,8 @@ setup(
     keywords='test testing assert assertion development',
     author='Bernardo Heynemann',
     author_email='heynemann@gmail.com',
-    maintainer='Zearin',
-    maintainer_email='zearin@gonk.net',
+    contributor='Zearin',
+    contributor_email='zearin@gonk.net',
     url='http://github.com/heynemann/preggy/',
     download_url='http://heynemann.github.io/preggy/',
     
