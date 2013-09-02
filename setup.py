@@ -8,7 +8,7 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2011 Bernardo Heynemann heynemann@gmail.com
 
-from setuptools import setup
+from setuptools import setup, find_packages
 from preggy import __version__
 
 test_requires = [
@@ -58,7 +58,7 @@ setup(
         'Topic :: Software Development :: Testing'
     ],
     
-    packages=['preggy', 'preggy.assertions', 'preggy.assertions.types'],
+    packages=find_packages(),
     
     install_requires=['six'],
     

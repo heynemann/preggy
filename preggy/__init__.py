@@ -11,7 +11,7 @@
 
 from __future__ import absolute_import
 
-__version__ = '0.6.0'
+__version__ = '0.6.1'
 
 from preggy.core import (assertion, create_assertions, Expect as expect)
 from preggy.assertions import *
