@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import 
 
-from preggy.assertions.emptiness import *
-from preggy.assertions.equality import *
-from preggy.assertions.inclusion import *
-from preggy.assertions.length import *
-from preggy.assertions.like import *
+from __future__ import absolute_import  # NOQA
 
-from preggy.assertions.types import *
+from preggy.assertions.emptiness import *  # NOQA
+from preggy.assertions.equality import *  # NOQA
+from preggy.assertions.inclusion import *  # NOQA
+from preggy.assertions.length import *  # NOQA
+from preggy.assertions.like import *  # NOQA
+from preggy.assertions.comparison import *  # NOQA
+
+from preggy.assertions.types import *  # NOQA
