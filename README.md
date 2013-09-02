@@ -49,6 +49,32 @@ expect(5).not_to_equal(4)  # same as previous
 ```
 
 
+Comparison
+--------
+
+```python
+expect(4).to_be_lesser_than(5)
+expect(5).to_be_greater_than(4)
+expect(5).Not.to_be_lesser_than(4)
+expect(4).not_to_be_greater(5)  # same as previous
+
+expect(4).to_be_lesser_or_equal_to(5)
+expect(4).to_be_lesser_or_equal_to(4)
+expect(5).not_to_be_lesser_or_equal_to(4)
+
+expect(5).to_be_greater_or_equal_to(4)
+expect(5).to_be_greater_or_equal_to(5)
+expect(4).not_to_be_greater_or_equal_to(5)
+
+expect("b").to_be_greater_than("a")
+expect("a").to_be_lesser_than("b")
+
+expect([1, 2, 3]).to_be_greater_than([1, 2])  # comparing using length
+expect((1, 2, 3)).to_be_greater_than((1, 2))  # comparing using length
+expect({ "a": "b", "c": "d" }).to_be_greater_than({ "a": "b" })  # comparing using length of keys
+```
+
+
 Similarity
 ----------
 
