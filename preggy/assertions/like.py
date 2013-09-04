@@ -22,7 +22,7 @@ except ImportError:  # pragma: no cover
 
 import numbers
 
-from preggy import assertion
+from preggy import assertion, fix_string
 
 __all__ = ('to_be_like', 'not_to_be_like')
 
@@ -46,13 +46,14 @@ REMOVE_COLORS_REGEX = re.compile(
 
 NORMALIZE_WHITESPACE_REGEX = re.compile(
     r'\s+',
-    flags=re.UNICODE|re.MULTILINE|re.IGNORECASE
+    flags=re.UNICODE | re.MULTILINE | re.IGNORECASE
 )
 
 #-------------------------------------------------------------------------------------------------
 #   HELPERS
 #-------------------------------------------------------------------------------------------------
 _filter_str = lambda s: NORMALIZE_WHITESPACE_REGEX.sub('', s.lower()).strip()
+
 
 def compare(first, second):
     matcher = difflib.SequenceMatcher(None, first, second)
@@ -97,12 +98,10 @@ def _match_alike(expected, topic, diff=False):
 
 
 def _strip_string(text):
-    if isinstance(text, (binary_type, )):
-        text = text.decode('utf-8')
+    text = fix_string(text)
     text = REMOVE_COLORS_REGEX.sub('', text)
     text = _filter_str(text)
-    if isinstance(text, (binary_type, )):
-        text = text.decode('utf-8')
+    text = fix_string(text)
     return text
 
 
@@ -186,7 +185,7 @@ def to_be_like(topic, expected, diff=True):
     is_str = lambda x: isinstance(x, string_types + (binary_type,))
     if not result:
         if diff is True and (
-            is_str(topic) and 
+            is_str(topic) and
             is_str(expected)
         ):
             matcher, first, second = compare(_strip_string(topic), _strip_string(expected))

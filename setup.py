@@ -23,9 +23,9 @@ setup(
     version=__version__,
     description='preggy is an assertion library extracted from PyVows',
     long_description='''
-        preggy is an assertion library extracted from PyVows. 
-        
-        For more info, check out Preggy’s homepage: http://heynemann.github.io/preggy/ 
+        preggy is an assertion library extracted from PyVows.
+
+        For more info, check out Preggy’s homepage: http://heynemann.github.io/preggy/
 
         ''',
     keywords='test testing assert assertion development',
@@ -35,11 +35,11 @@ setup(
     contributor_email='zearin@gonk.net',
     url='http://github.com/heynemann/preggy/',
     download_url='http://heynemann.github.io/preggy/',
-    
+
     ### For future, when Python packaging gets its crap together. See:
     ###   http://stackoverflow.com/questions/14459828/how-to-set-bug-tracker-url-in-setup-py-script
     #bugtrack_url='http://github.com/heynemann/preggy/issues/',
-    
+
     license='MIT',
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -57,14 +57,14 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Software Development :: Testing'
     ],
-    
+
     packages=find_packages(),
-    
-    install_requires=['six'],
-    
+
+    install_requires=['six', 'unidecode'],
+
     extras_require={
         'tests': test_requires,
     },
-    
+
     entry_points={},
 )

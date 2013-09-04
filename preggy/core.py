@@ -11,26 +11,40 @@
 from __future__ import absolute_import
 import re
 
+try:
+    import six
+except ImportError:  # pragma: no cover
+    import warnings
+    warnings.warn("Ignoring six. Probably setup.py installing package.")
+
+try:
+    from unidecode import unidecode
+except ImportError:  # pragma: no cover
+    import warnings
+    warnings.warn("Ignoring unidecode. Probably setup.py installing package.")
+
+
 _registered_assertions = dict()
+
 
 def assertion(func):
     '''Function decorator.  Provides lower-level control for custom
     assertions than `@preggy.create_assertions`.
 
-    This decorator is preferable over `@preggy.create_assertions` 
-    if you need to fine-tune your error message, or if your assertion 
-    doesn’t have a corresponding `not_`. 
-    
+    This decorator is preferable over `@preggy.create_assertions`
+    if you need to fine-tune your error message, or if your assertion
+    doesn’t have a corresponding `not_`.
+
     Unlike `@preggy.create_assertions`, functions decorated with
-    this shouldn’t return a boolean. Instead, they should check for 
-    undesirable conditions and raise an `AssertionError` when appropriate. 
+    this shouldn’t return a boolean. Instead, they should check for
+    undesirable conditions and raise an `AssertionError` when appropriate.
 
     Whenever possible, you should declare both the normal assertion as well
     as a `not_` counterpart, so they can be used like this:
 
         expect(5).to_be_a_positive_integer()
         expect(-3).Not.to_be_a_positive_integer()
-        
+
     '''
     def func_name(*args, **kw):
         func(*args, **kw)
@@ -69,7 +83,7 @@ def create_assertions(func):
     …will report:
 
         Expected topic(4) not to be greater than 3.
-        
+
     '''
     humanized_name = re.sub(r'_+', ' ', func.__name__)
 
@@ -119,9 +133,9 @@ class Expect(object):
         if name == 'Not':
             self.not_assert = not self.not_assert
             return self
-        
+
         # determine whether assertion is of "not" form
-        method_name = 'not_{name}'.format(name=name) if self.not_assert  else name
+        method_name = 'not_{name}'.format(name=name) if self.not_assert else name
 
         # check for unregistered assertions
         if method_name not in _registered_assertions:
@@ -130,12 +144,21 @@ class Expect(object):
         # if program gets this far, then it’s time to perform the assertion. (...FINALLY! ;D)
         def assert_topic(*args, **kw):
             '''Allows chained calls to `Assertion`s.  For example, in:
-                
+
                 expect(topic).to_be_true()
-            
+
             This method is what allows `expect(topic)` to call `.to_be_true()`.
 
             '''
             return _registered_assertions[method_name](self.topic, *args, **kw)
 
         return assert_topic
+
+
+def fix_string(obj):
+    if isinstance(obj, (six.binary_type, )):
+        try:
+            return obj.decode('utf-8')
+        except Exception:
+            return unidecode(obj)
+    return obj

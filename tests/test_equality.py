@@ -18,6 +18,11 @@ TEST_DATA = (
     tuple([2])
 )
 
+UNICODE_TEST_DATA = (
+    b'asdqwe123',
+    'asdqwe123',
+)
+
 UNEQUAL_DATA = (
     'asd',
     [2],
@@ -26,6 +31,7 @@ UNEQUAL_DATA = (
 )
 
 #-----------------------------------------------------------------------------
+
 
 def is_equal(topic):
     item, expected = topic
@@ -37,7 +43,13 @@ def is_not_equal(topic):
     expect(item).Not.to_equal(expected)
     expect(item).not_to_equal(expected)
 
+
 #-----------------------------------------------------------------------------
+
+
+def test_unicode_equal():
+    is_equal((UNICODE_TEST_DATA[0], UNICODE_TEST_DATA[1]))
+
 
 def test_equal():
     for item in TEST_DATA:

@@ -13,6 +13,7 @@ from preggy import expect
 
 TEST_DATA = (
     'qwe',
+    b'qwe',
     5,
     {'a': 'b', 'c': 'd'},
     tuple([2, 3]),
@@ -22,6 +23,7 @@ TEST_DATA = (
 
 GREATER_THAN_DATA = (
     'asd',
+    b'asd',
     2,
     {'c': 'd'},
     tuple([3]),
@@ -31,6 +33,7 @@ GREATER_THAN_DATA = (
 
 LESSER_THAN_DATA = (
     'zcs',
+    b'zcs',
     7,
     {'a': 'b', 'c': 'd', 'e': 'f'},
     tuple([3, 4, 5]),
@@ -40,6 +43,7 @@ LESSER_THAN_DATA = (
 
 LESSER_OR_EQUAL_TO_DATA = (
     'qwe',
+    b'qwe',
     5,
     {'a': 'b', 'c': 'd'},
     tuple([2, 3]),
@@ -49,6 +53,7 @@ LESSER_OR_EQUAL_TO_DATA = (
 
 NOT_LESSER_OR_EQUAL_TO_DATA = (
     'zcs',
+    b'zcs',
     7,
     {'a': 'b', 'c': 'd', 'e': 'f'},
     tuple([3, 4, 5]),
@@ -58,6 +63,7 @@ NOT_LESSER_OR_EQUAL_TO_DATA = (
 
 LESSER_OR_EQUAL_TO_DATA_2 = (
     'zcs',
+    b'zcs',
     7,
     {'a': 'b', 'c': 'd', 'e': 'f'},
     tuple([3, 4, 5]),
@@ -67,6 +73,7 @@ LESSER_OR_EQUAL_TO_DATA_2 = (
 
 GREATER_OR_EQUAL_TO_DATA = (
     'qwe',
+    b'qwe',
     5,
     {'a': 'b', 'c': 'd'},
     tuple([2, 3]),
@@ -76,6 +83,7 @@ GREATER_OR_EQUAL_TO_DATA = (
 
 NOT_GREATER_OR_EQUAL_TO_DATA = (
     'abc',
+    b'abc',
     1,
     {'a': 'b'},
     tuple([3]),
@@ -85,6 +93,7 @@ NOT_GREATER_OR_EQUAL_TO_DATA = (
 
 GREATER_OR_EQUAL_TO_DATA_2 = (
     'abc',
+    b'abc',
     1,
     {'a': 'b'},
     tuple([3]),

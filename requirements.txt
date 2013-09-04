@@ -5,6 +5,7 @@ nose==1.3.0
 -e git+git@github.com:heynemann/preggy.git@b2510e1e941aaded75bad0674a427f5358de5b2c#egg=preggy-dev
 py==1.4.13
 six==1.3.0
+Unidecode==0.04.13
 tox==1.4.3
 virtualenv==1.9.1
 wsgiref==0.1.2
