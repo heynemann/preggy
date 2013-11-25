@@ -88,7 +88,7 @@ def _match_alike(expected, topic, diff=False):
         return _compare_strings(expected, topic)
     if isinstance(topic, numbers.Number):
         return _compare_numbers(expected, topic)
-    if isinstance(topic, (list, tuple)):
+    if isinstance(topic, (list, tuple, set)):
         return _compare_lists(expected, topic)
     if isinstance(topic, dict):
         return _compare_dicts(expected, topic)

@@ -70,6 +70,18 @@ NOT_EXPECTED_TUPLE_TEST_DATA = [
     (9, 'b', (3, 1, 2), 2, 1, {'a': 1, 'b': 2}, 4, 'a')
 ]
 
+SET_TEST_DATA = set([1, 2, 3, 4, 'a', 'b', (1, 2, 3)])
+EXPECTED_SET_TEST_DATA = [
+    set([1, 2, 3, 4, 'a', 'b', (1, 2, 3)]),
+    set([4, 3, 2, 1, 'b', 'a', (3, 2, 1)]),
+    set(['b', (3, 1, 2), 2, 1, 4, 3, 'a'])
+]
+NOT_EXPECTED_SET_TEST_DATA = [
+    set([9, 1, 2, 3, 4, 'a', 'b', (1, 2, 3)]),
+    set([9, 4, 3, 2, 1, 'b', 'a', (3, 2, 1)]),
+    set([9, 'b', (3, 1, 2), 2, 1, 4, 'a'])
+]
+
 DICT_TEST_DATA = {'a': [1, 2, 3], 'b': {'x': 10, 'y': 20}}
 EXPECTED_DICT_TEST_DATA = [
     {'a': [2, 1, 3], 'b': {'y': 20, 'x': 10}},
@@ -115,6 +127,9 @@ def test_likeness():
     for expected_item in EXPECTED_TUPLE_TEST_DATA:
         yield is_expected, TUPLE_TEST_DATA, expected_item
 
+    for expected_item in EXPECTED_SET_TEST_DATA:
+        yield is_expected, SET_TEST_DATA, expected_item
+
     for expected_item in EXPECTED_DICT_TEST_DATA:
         yield is_expected, DICT_TEST_DATA, expected_item
 
@@ -134,6 +149,9 @@ def test_likeness_fails():
     for expected_item in NOT_EXPECTED_TUPLE_TEST_DATA:
         yield is_expected_to_fail, TUPLE_TEST_DATA, expected_item
 
+    for expected_item in NOT_EXPECTED_SET_TEST_DATA:
+        yield is_expected_to_fail, SET_TEST_DATA, expected_item
+
     for expected_item in NOT_EXPECTED_DICT_TEST_DATA:
         yield is_expected_to_fail, DICT_TEST_DATA, expected_item
 
@@ -152,6 +170,9 @@ def test_not_likeness():
 
     for not_expected_item in NOT_EXPECTED_TUPLE_TEST_DATA:
         yield is_not_expected, TUPLE_TEST_DATA, not_expected_item
+
+    for not_expected_item in NOT_EXPECTED_SET_TEST_DATA:
+        yield is_not_expected, SET_TEST_DATA, not_expected_item
 
     for not_expected_item in NOT_EXPECTED_DICT_TEST_DATA:
         yield is_not_expected, DICT_TEST_DATA, not_expected_item
