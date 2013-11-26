@@ -9,6 +9,7 @@
 
 import sys
 from datetime import datetime
+from uuid import uuid4
 
 from preggy import expect
 
@@ -92,6 +93,15 @@ NOT_EXPECTED_DICT_TEST_DATA = [
     {'Z': 'W', 'B': {'X': 10, 'Y': 20}, 'A': [2, 1, 3]}
 ]
 
+UUID_TEST_DATA = uuid4()
+EXPECTED_UUID_TEST_DATA = [
+    UUID_TEST_DATA
+]
+NOT_EXPECTED_UUID_TEST_DATA = [
+    uuid4(),
+    uuid4()
+]
+
 #-----------------------------------------------------------------------------
 
 
@@ -136,6 +146,9 @@ def test_likeness():
     for expected_item in EXPECTED_DATETIME_TEST_DATA:
         yield is_expected, DATETIME_TEST_DATA, expected_item
 
+    for expected_item in EXPECTED_UUID_TEST_DATA:
+        yield is_expected, UUID_TEST_DATA, expected_item
+
 
 def test_likeness_fails():
     yield is_expected, None, None
@@ -158,6 +171,9 @@ def test_likeness_fails():
     for expected_item in NOT_EXPECTED_DATETIME_TEST_DATA:
         yield is_expected_to_fail, DATETIME_TEST_DATA, expected_item
 
+    for expected_item in NOT_EXPECTED_UUID_TEST_DATA:
+        yield is_expected_to_fail, UUID_TEST_DATA, expected_item
+
 
 def test_not_likeness():
     yield is_not_expected, None, 1
@@ -179,6 +195,9 @@ def test_not_likeness():
 
     for expected_item in NOT_EXPECTED_DATETIME_TEST_DATA:
         yield is_not_expected, DATETIME_TEST_DATA, expected_item
+
+    for expected_item in NOT_EXPECTED_UUID_TEST_DATA:
+        yield is_not_expected, UUID_TEST_DATA, expected_item
 
 
 def test_likeness_of_objects():

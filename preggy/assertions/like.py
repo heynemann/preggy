@@ -13,6 +13,7 @@ from __future__ import absolute_import, print_function
 import re
 from datetime import datetime
 import difflib
+from uuid import UUID
 
 try:
     from six import string_types, binary_type
@@ -94,6 +95,9 @@ def _match_alike(expected, topic, diff=False):
         return _compare_dicts(expected, topic)
     if isinstance(topic, datetime):
         return _compare_datetime(expected, topic)
+    if isinstance(topic, UUID):
+        return _compare_uuid(expected, topic)
+
     raise RuntimeError('Could not compare {expected} and {topic}'.format(expected=expected, topic=topic))
 
 
@@ -113,6 +117,13 @@ def _compare_strings(expected, topic):
     topic = _strip_string(topic)
     expected = _strip_string(expected)
     return expected == _filter_str(topic)
+
+
+def _compare_uuid(expected, topic):
+    '''Asserts the "like"-ness of `topic` and `expected` as UUID.'''
+    topic = str(topic)
+    expected = str(expected)
+    return expected == topic
 
 
 def __timedelta_to_seconds(timedelta):
