@@ -41,7 +41,7 @@ def to_be_lesser_than(topic, expected):
 
 @create_assertions
 def to_be_greater_or_equal_to(topic, expected):
-    '''Asserts that `topic < expected`.'''
+    '''Asserts that `topic >= expected`.'''
     topic = fix_string(topic)
     expected = fix_string(expected)
 
@@ -53,7 +53,7 @@ def to_be_greater_or_equal_to(topic, expected):
 
 @create_assertions
 def to_be_lesser_or_equal_to(topic, expected):
-    '''Asserts that `topic < expected`.'''
+    '''Asserts that `topic <= expected`.'''
     topic = fix_string(topic)
     expected = fix_string(expected)
 
