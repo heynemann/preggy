@@ -11,6 +11,7 @@ Currently contains only string formatting code, but this may (or may not) change
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
 from __future__ import absolute_import
+import logging
 import re
 
 try:
@@ -26,6 +27,10 @@ except ImportError:  # pragma: no cover
     warnings.warn('Ignoring unidecode. Probably setup.py installing package.')
 
 
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
+
+
 humanized_name = lambda x: re.sub(r'_+', ' ', x.__name__)
 
 def fix_string(obj):
@@ -35,3 +40,20 @@ def fix_string(obj):
         except Exception:
             return unidecode(obj)
     return obj
+
+
+class AssertionsMap(dict):
+    '''A simple dict with a dash of logging.'''
+    
+    def __getitem__(self, k):
+        log.debug('fetching assertion {name!r}'.format(name=k))
+        return super(AssertionsMap, self).__getitem__(k)
+        
+    def __setitem__(self, k, v):
+        log.debug('registered assertion {name!r}'.format(name=k))
+        return super(AssertionsMap, self).__setitem__(k, v)
+            
+    def __delitem__(self, k):
+        log.debug('deleted assertion {name!r}'.format(name=k))
+        return super(AssertionsMap, self).__delitem__(k)
+        
