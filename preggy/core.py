@@ -9,23 +9,9 @@
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
 from __future__ import absolute_import
-import re
-
-try:
-    import six
-except ImportError:  # pragma: no cover
-    import warnings
-    warnings.warn("Ignoring six. Probably setup.py installing package.")
-
-try:
-    from unidecode import unidecode
-except ImportError:  # pragma: no cover
-    import warnings
-    warnings.warn("Ignoring unidecode. Probably setup.py installing package.")
-
+from preggy import utils
 
 _registered_assertions = dict()
-
 
 def assertion(func):
     '''Function decorator.  Provides lower-level control for custom
@@ -85,7 +71,7 @@ def create_assertions(func):
         Expected topic(4) not to be greater than 3.
 
     '''
-    humanized_name = re.sub(r'_+', ' ', func.__name__)
+    
 
     def _assertion_msg(assertion_clause, *args):
         raw_msg = 'Expected topic({{0!r}}) {assertion_clause}'.format(
@@ -95,12 +81,12 @@ def create_assertions(func):
         return raw_msg
 
     def test_assertion(*args):
-        raw_msg = _assertion_msg(humanized_name, *args)
+        raw_msg = _assertion_msg(utils.humanized_name, *args)
         if not func(*args):
             raise AssertionError(raw_msg.format(*args))
 
     def test_not_assertion(*args):
-        raw_msg = _assertion_msg('not {0}'.format(humanized_name), *args)
+        raw_msg = _assertion_msg('not {0}'.format(utils.humanized_name), *args)
         if func(*args):
             raise AssertionError(raw_msg.format(*args))
 
@@ -153,12 +139,3 @@ class Expect(object):
             return _registered_assertions[method_name](self.topic, *args, **kw)
 
         return assert_topic
-
-
-def fix_string(obj):
-    if isinstance(obj, (six.binary_type, )):
-        try:
-            return obj.decode('utf-8')
-        except Exception:
-            return unidecode(obj)
-    return obj
