@@ -9,6 +9,7 @@
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
 from __future__ import absolute_import
+import functools
 
 from preggy import utils
 
@@ -33,14 +34,13 @@ def assertion(func):
         expect(-3).Not.to_be_a_positive_integer()
 
     '''
-    def func_name(*args, **kw):
-        func(*args, **kw)
-
-    def test_assertion(*args, **kw):
-        return func_name(*args, **kw)
-
-    _registered_assertions[func.__name__] = test_assertion
-    return func_name
+    
+    @functools.wraps(func)
+    def wrapper(*args, **kw):
+        return func(*args, **kw)
+    
+    _registered_assertions[wrapper.__name__] = wrapper
+    return wrapper
 
 
 def create_assertions(func):
@@ -73,31 +73,48 @@ def create_assertions(func):
 
     '''
     
+    
+    # modified functools.update_wrapper
+    def _update_wrapper(wrapper, wrapped):
+        '''A modified version of functools.update_wrapper. Auto-modifies the 
+        wrapper's __name__ and __doc__ to create a not_assertion.
+        '''
+        # the usual
+        wrapper = functools.update_wrapper(wrapper, wrapped)
+        
+        # compute our overrided values
+        new_name = 'not_{0.__name__}'.format(wrapped)
+        new_doc = 'Asserts the opposite of {0.__name__!r}.'.format(wrapped)
+        
+        # set our overrides
+        setattr(wrapper, '__name__', new_name)
+        setattr(wrapper, '__doc__', new_doc)
 
-    def _assertion_msg(assertion_clause, *args):
-        raw_msg = 'Expected topic({{0!r}}) {assertion_clause}'.format(
-            assertion_clause=assertion_clause)
-        if len(args) is 2:
-            raw_msg += ' {1!r}'
-        return raw_msg
-
+        # Return the wrapper so this can be used as a decorator via partial()
+        return wrapper
+    
+    # Generate first assertion with existing decorator
+    @assertion
+    @functools.wraps(func)
     def test_assertion(*args):
-        raw_msg = _assertion_msg(utils.humanized_name, *args)
+        raw_msg = utils.format_assertion_msg(utils.humanized_name, *args)
+        err_msg = raw_msg.format(*args)
         if not func(*args):
-            raise AssertionError(raw_msg.format(*args))
-
+            raise AssertionError(err_msg)
+    
+    # Second assertion: begin
     def test_not_assertion(*args):
-        raw_msg = _assertion_msg('not {0}'.format(utils.humanized_name), *args)
+        raw_msg = utils.format_assertion_msg(utils.humanized_name, *args)
+        raw_msg = 'not {0}'.format(raw_msg)
+        err_msg = raw_msg.format(*args)
         if func(*args):
-            raise AssertionError(raw_msg.format(*args))
-
-    _registered_assertions[func.__name__] = test_assertion
-    _registered_assertions['not_{method_name}'.format(method_name=func.__name__)] = test_not_assertion
-
-    def wrapper(*args, **kw):
-        return func(*args, **kw)
-
-    return wrapper
+            raise AssertionError(err_msg)
+    
+    # Second assertion: update
+    test_not_assertion = _update_wrapper(test_not_assertion, func)
+    
+    # Second assertion: register
+    assertion(test_not_assertion)
 
 
 class Expect(object):
@@ -123,10 +140,6 @@ class Expect(object):
 
         # determine whether assertion is of "not" form
         method_name = 'not_{name}'.format(name=name) if self.not_assert else name
-
-        # check for unregistered assertions
-        if method_name not in _registered_assertions:
-            raise AttributeError('Assertion "{method_name}" was not found!'.format(method_name=method_name))
 
         # if program gets this far, then it’s time to perform the assertion. (...FINALLY! ;D)
         def assert_topic(*args, **kw):

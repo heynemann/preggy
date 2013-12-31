@@ -33,6 +33,13 @@ log = logging.getLogger(__name__)
 
 humanized_name = lambda x: re.sub(r'_+', ' ', x.__name__)
 
+def format_assertion_msg(assertion_clause, *args):
+    raw_msg = 'Expected topic({{0!r}}) {assertion_clause}'
+    raw_msg = raw_msg.format(assertion_clause=assertion_clause)
+    if len(args) is 2:
+        raw_msg += ' {1!r}'
+    return raw_msg
+        
 def fix_string(obj):
     if isinstance(obj, (six.binary_type, )):
         try:
@@ -48,7 +55,7 @@ class AssertionsMap(dict):
     def __getitem__(self, k):
         log.debug('fetching assertion {name!r}'.format(name=k))
         return super(AssertionsMap, self).__getitem__(k)
-        
+
     def __setitem__(self, k, v):
         log.debug('registered assertion {name!r}'.format(name=k))
         return super(AssertionsMap, self).__setitem__(k, v)
