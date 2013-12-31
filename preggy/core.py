@@ -9,9 +9,10 @@
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
 from __future__ import absolute_import
+
 from preggy import utils
 
-_registered_assertions = dict()
+_registered_assertions = utils.AssertionsMap()
 
 def assertion(func):
     '''Function decorator.  Provides lower-level control for custom
