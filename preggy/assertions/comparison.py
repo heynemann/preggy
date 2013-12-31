@@ -12,14 +12,15 @@
 
 from __future__ import absolute_import
 
-from preggy import create_assertions, fix_string
+from preggy import create_assertions
+from preggy import utils
 
 
 @create_assertions
 def to_be_greater_than(topic, expected):
     '''Asserts that `topic > expected`.'''
-    topic = fix_string(topic)
-    expected = fix_string(expected)
+    topic = utils.fix_string(topic)
+    expected = utils.fix_string(expected)
 
     if isinstance(expected, (tuple, list, set, dict)):
         return len(topic) > len(expected)
@@ -30,8 +31,8 @@ def to_be_greater_than(topic, expected):
 @create_assertions
 def to_be_lesser_than(topic, expected):
     '''Asserts that `topic < expected`.'''
-    topic = fix_string(topic)
-    expected = fix_string(expected)
+    topic = utils.fix_string(topic)
+    expected = utils.fix_string(expected)
 
     if isinstance(expected, (tuple, list, set, dict)):
         return len(topic) < len(expected)
@@ -42,8 +43,8 @@ def to_be_lesser_than(topic, expected):
 @create_assertions
 def to_be_greater_or_equal_to(topic, expected):
     '''Asserts that `topic >= expected`.'''
-    topic = fix_string(topic)
-    expected = fix_string(expected)
+    topic = utils.fix_string(topic)
+    expected = utils.fix_string(expected)
 
     if isinstance(expected, (tuple, list, set, dict)):
         return len(topic) >= len(expected)
@@ -54,8 +55,8 @@ def to_be_greater_or_equal_to(topic, expected):
 @create_assertions
 def to_be_lesser_or_equal_to(topic, expected):
     '''Asserts that `topic <= expected`.'''
-    topic = fix_string(topic)
-    expected = fix_string(expected)
+    topic = utils.fix_string(topic)
+    expected = utils.fix_string(expected)
 
     if isinstance(expected, (tuple, list, set, dict)):
         return len(topic) <= len(expected)

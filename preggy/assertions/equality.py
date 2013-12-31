@@ -12,13 +12,14 @@
 
 from __future__ import absolute_import
 
-from preggy import create_assertions, fix_string
+from preggy import create_assertions
+from preggy import utils
 
 
 @create_assertions
 def to_equal(topic, expected):
     '''Asserts that `topic == expected`.'''
-    topic = fix_string(topic)
-    expected = fix_string(expected)
+    topic = utils.fix_string(topic)
+    expected = utils.fix_string(expected)
 
     return expected == topic
