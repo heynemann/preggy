@@ -23,7 +23,8 @@ except ImportError:  # pragma: no cover
 
 import numbers
 
-from preggy import assertion, fix_string
+from preggy import assertion
+from preggy import utils
 
 __all__ = ('to_be_like', 'not_to_be_like')
 
@@ -102,10 +103,10 @@ def _match_alike(expected, topic, diff=False):
 
 
 def _strip_string(text):
-    text = fix_string(text)
+    text = utils.fix_string(text)
     text = REMOVE_COLORS_REGEX.sub('', text)
     text = _filter_str(text)
-    text = fix_string(text)
+    text = utils.fix_string(text)
     return text
 
 
