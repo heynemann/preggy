@@ -15,7 +15,7 @@ from preggy import assertion
 
 @assertion
 def to_be_true(topic):
-    '''Asserts that the boolean value of `topic` is `True`.'''
+    '''Asserts that the boolean value of `topic` == `True`.'''
     if not bool(topic):
         msg = 'Expected topic({0}) to be truthy'.format(topic)
         raise AssertionError(msg)
@@ -23,7 +23,7 @@ def to_be_true(topic):
 
 @assertion
 def to_be_false(topic):
-    '''Asserts that the boolean value of `topic` is `False`.'''
+    '''Asserts that the boolean value of `topic` == `False`.'''
     if bool(topic):
         msg = 'Expected topic({0}) to be falsy'.format(topic)
         raise AssertionError(msg)
@@ -31,9 +31,11 @@ def to_be_false(topic):
 
 @assertion
 def not_to_be_true(topic):
+    '''Asserts that the boolean value of `topic` != `True`.'''
     return to_be_false(topic)
 
 
 @assertion
 def not_to_be_false(topic):
+    '''Asserts that the boolean value of `topic` != `False`.'''
     return to_be_true(topic)
