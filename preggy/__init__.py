@@ -15,3 +15,4 @@ __version__ = '0.8.1'
 
 from preggy.core import (assertion, create_assertions, Expect as expect)
 from preggy.assertions import *
+
