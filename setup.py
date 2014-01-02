@@ -25,20 +25,22 @@ setup(
     long_description='''
         preggy is an assertion library extracted from PyVows.
 
-        For more info, check out Preggy’s homepage: http://heynemann.github.io/preggy/
+        For more info, check out Preggy’s homepage: http://heynemann.github.io/preggy
 
         ''',
     keywords='test testing assert assertion development',
+    
     author='Bernardo Heynemann',
     author_email='heynemann@gmail.com',
-    contributor='Zearin',
-    contributor_email='zearin@gonk.net',
-    url='http://github.com/heynemann/preggy/',
-    download_url='http://heynemann.github.io/preggy/',
+    maintainer='Zearin',
+    maintainer_email='zearin@gonk.net',
+    
+    url='http://heynemann.github.io/preggy',
+    download_url='https://github.com/heynemann/preggy/releases/tag/{version}'.format(version=__version__),
 
     ### For future, when Python packaging gets its crap together. See:
     ###   http://stackoverflow.com/questions/14459828/how-to-set-bug-tracker-url-in-setup-py-script
-    #bugtrack_url='http://github.com/heynemann/preggy/issues/',
+    #bugtrack_url='http://github.com/heynemann/preggy/issues',
 
     license='MIT',
     classifiers=[
@@ -47,6 +49,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: MacOS',
+        'Operating System :: MacOS :: MacOS X',
         'Operating System :: POSIX',
         'Operating System :: Unix',
         'Operating System :: OS Independent',
@@ -55,13 +58,13 @@ setup(
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: Implementation :: PyPy',
+        'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Testing'
     ],
 
     packages=find_packages(),
 
     install_requires=['six', 'unidecode'],
-
     extras_require={
         'tests': test_requires,
     },
