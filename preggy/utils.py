@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''Assorted helpers used elsewhere in preggy.  
+'''Assorted helpers used elsewhere in preggy.
 
 Currently contains only string formatting code, but this may (or may not) change.
 '''
@@ -39,7 +39,7 @@ def format_assertion_msg(assertion_clause, *args):
     if len(args) is 2:
         raw_msg += ' {1!r}'
     return raw_msg
-        
+
 def fix_string(obj):
     if isinstance(obj, (six.binary_type, )):
         try:
@@ -51,7 +51,7 @@ def fix_string(obj):
 
 class AssertionsMap(dict):
     '''A simple dict with a dash of logging.'''
-    
+
     def __getitem__(self, k):
         log.debug('fetching assertion {name!r}'.format(name=k))
         return super(AssertionsMap, self).__getitem__(k)
@@ -59,8 +59,8 @@ class AssertionsMap(dict):
     def __setitem__(self, k, v):
         log.debug('registered assertion {name!r}'.format(name=k))
         return super(AssertionsMap, self).__setitem__(k, v)
-            
+
     def __delitem__(self, k):
         log.debug('deleted assertion {name!r}'.format(name=k))
         return super(AssertionsMap, self).__delitem__(k)
-        
+

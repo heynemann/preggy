@@ -29,7 +29,7 @@ def to_be_a_function(topic):
     '''Asserts that `topic` is a function.'''
     if not _is_func(topic):
         msg = 'Expected topic({0}) to be a function or a method, but it was a {1}'.format(
-            topic, 
+            topic,
             topic.__class__
             )
         raise AssertionError(msg)

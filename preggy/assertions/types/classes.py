@@ -21,7 +21,7 @@ def to_be_instance_of(topic, expected):
     TRUE_CONDITIONS = (
         topic == expected,
         isinstance(topic, expected),
-        (inspect.isclass(topic) and inspect.isclass(expected)) and issubclass(topic, expected), 
+        (inspect.isclass(topic) and inspect.isclass(expected)) and issubclass(topic, expected),
     )
     if any(TRUE_CONDITIONS):
         return True

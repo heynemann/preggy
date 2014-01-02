@@ -34,11 +34,11 @@ def assertion(func):
         expect(-3).Not.to_be_a_positive_integer()
 
     '''
-    
+
     @functools.wraps(func)
     def wrapper(*args, **kw):
         return func(*args, **kw)
-    
+
     _registered_assertions[wrapper.__name__] = wrapper
     return wrapper
 
@@ -72,27 +72,27 @@ def create_assertions(func):
         Expected topic(4) not to be greater than 3.
 
     '''
-    
-    
+
+
     # modified functools.update_wrapper
     def _update_wrapper(wrapper, wrapped):
-        '''A modified version of functools.update_wrapper. Auto-modifies the 
+        '''A modified version of functools.update_wrapper. Auto-modifies the
         wrapper's __name__ and __doc__ to create a not_assertion.
         '''
         # the usual
         wrapper = functools.update_wrapper(wrapper, wrapped)
-        
+
         # compute our overrided values
         new_name = 'not_{0.__name__}'.format(wrapped)
         new_doc = 'Asserts the opposite of {0.__name__!r}.'.format(wrapped)
-        
+
         # set our overrides
         setattr(wrapper, '__name__', new_name)
         setattr(wrapper, '__doc__', new_doc)
 
         # Return the wrapper so this can be used as a decorator via partial()
         return wrapper
-    
+
     # Generate first assertion with existing decorator
     @assertion
     @functools.wraps(func)
@@ -101,7 +101,7 @@ def create_assertions(func):
         err_msg = raw_msg.format(*args)
         if not func(*args):
             raise AssertionError(err_msg)
-    
+
     # Second assertion: begin
     def test_not_assertion(*args):
         raw_msg = utils.format_assertion_msg(utils.humanized_name, *args)
@@ -109,10 +109,10 @@ def create_assertions(func):
         err_msg = raw_msg.format(*args)
         if func(*args):
             raise AssertionError(err_msg)
-    
+
     # Second assertion: update
     test_not_assertion = _update_wrapper(test_not_assertion, func)
-    
+
     # Second assertion: register
     assertion(test_not_assertion)
 
