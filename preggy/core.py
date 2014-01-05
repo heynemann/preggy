@@ -84,7 +84,7 @@ def create_assertions(func):
 
         # compute our overrided values
         new_name = 'not_{0.__name__}'.format(wrapped)
-        new_doc = 'Asserts the opposite of {0.__name__!r}.'.format(wrapped)
+        new_doc = ''#.format(wrapped)
 
         # set our overrides
         setattr(wrapper, '__name__', new_name)

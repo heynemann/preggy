@@ -9,40 +9,39 @@
 # Copyright (c) 2011 Bernardo Heynemann heynemann@gmail.com
 
 from setuptools import setup, find_packages
-from preggy import __version__
 
-test_requires = [
-    'nose',
-    'yanc',
-    'coverage',
-    'tox',
-]
+from preggy import __doc__, __meta__, __version__
+
+REQUIREMENTS = {
+    'install': ['six', 'unidecode'],
+    'extras': {
+        'tests':['nose', 'yanc', 'coverage', 'tox',]
+    }
+}
+
 
 setup(
-    name='preggy',
-    version=__version__,
-    description='preggy is an assertion library extracted from PyVows',
-    long_description='''
-        preggy is an assertion library extracted from PyVows.
-
-        For more info, check out Preggy’s homepage: http://heynemann.github.io/preggy
-
-        ''',
-    keywords='test testing assert assertion development',
+    name        ='preggy',
+    version     =__version__,
+    description =__doc__.splitlines()[0],
+    long_description=__doc__,
+    keywords    =__meta__.__keywords__,
     
-    author='Bernardo Heynemann',
-    author_email='heynemann@gmail.com',
-    maintainer='Zearin',
-    maintainer_email='zearin@gonk.net',
+    author      =__meta__.__author__,
+    author_email=__meta__.__author_email__,
     
-    url='http://heynemann.github.io/preggy',
-    download_url='https://github.com/heynemann/preggy/releases/tag/{version}'.format(version=__version__),
+    maintainer  =__meta__.__maintainer__,
+    maintainer_email=__meta__.__maintainer_email__,
+    
+    url         =__meta__.__url__,
+    download_url=__meta__.__download_url__,
 
     ### For future, when Python packaging gets its crap together. See:
     ###   http://stackoverflow.com/questions/14459828/how-to-set-bug-tracker-url-in-setup-py-script
     #bugtrack_url='http://github.com/heynemann/preggy/issues',
 
-    license='MIT',
+    license     =__meta__.__license__,
+    
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -63,11 +62,9 @@ setup(
     ],
 
     packages=find_packages(),
-
-    install_requires=['six', 'unidecode'],
-    extras_require={
-        'tests': test_requires,
-    },
+    
+    install_requires= REQUIREMENTS['install'],
+    extras_require  = REQUIREMENTS['extras'],
 
     entry_points={},
 )

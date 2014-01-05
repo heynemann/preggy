@@ -211,7 +211,7 @@ def to_be_like(topic, expected, diff=True):
 
 @assertion
 def not_to_be_like(topic, expected, diff=False):
-    '''Asserts that `topic` is like (similar to) `expected`. Allows some leeway.'''
+    '''Asserts that `topic` is NOT like (NOT similar to) `expected`. Allows some leeway.'''
     result = _match_alike(expected, topic, diff=diff)
     if result:
         raise AssertionError("Expected topic('{topic}') not to be like '{expected}'".format(topic=topic, expected=expected))
