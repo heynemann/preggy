@@ -32,8 +32,10 @@ http://heynemann.github.io/preggy
 
 from __future__ import absolute_import
 
-__version__ = '0.8.1'
 
 from preggy.core import (assertion, create_assertions, Expect as expect)
 from preggy.assertions import *
+from preggy.__meta__ import __version__
+
+__version__ = __version__
 
