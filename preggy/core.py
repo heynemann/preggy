@@ -97,14 +97,14 @@ def create_assertions(func):
     @assertion
     @functools.wraps(func)
     def test_assertion(*args):
-        raw_msg = utils.format_assertion_msg(utils.humanized_name, *args)
+        raw_msg = utils.format_assertion_msg(utils.humanized_name(func), *args)
         err_msg = raw_msg.format(*args)
         if not func(*args):
             raise AssertionError(err_msg)
 
     # Second assertion: begin
     def test_not_assertion(*args):
-        raw_msg = utils.format_assertion_msg(utils.humanized_name, *args)
+        raw_msg = utils.format_assertion_msg(utils.humanized_name(func), *args)
         raw_msg = 'not {0}'.format(raw_msg)
         err_msg = raw_msg.format(*args)
         if func(*args):
