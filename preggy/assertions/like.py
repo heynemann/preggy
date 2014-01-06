@@ -86,6 +86,9 @@ def _match_alike(expected, topic, diff=False):
     '''Determines the types of `expected` and `topic`, and calls the appropriate comparison function.'''
     if topic is None:
         return expected is None
+
+    if isinstance(topic, UUID):
+        return _compare_uuid(expected, topic)
     if isinstance(topic, string_types + (binary_type, )):
         return _compare_strings(expected, topic)
     if isinstance(topic, numbers.Number):
@@ -96,17 +99,18 @@ def _match_alike(expected, topic, diff=False):
         return _compare_dicts(expected, topic)
     if isinstance(topic, datetime):
         return _compare_datetime(expected, topic)
-    if isinstance(topic, UUID):
-        return _compare_uuid(expected, topic)
 
     raise RuntimeError('Could not compare {expected} and {topic}'.format(expected=expected, topic=topic))
 
 
 def _strip_string(text):
-    text = utils.fix_string(text)
+    if not text:
+        return text
+
     text = REMOVE_COLORS_REGEX.sub('', text)
     text = _filter_str(text)
     text = utils.fix_string(text)
+
     return text
 
 
