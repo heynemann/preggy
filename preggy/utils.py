@@ -30,8 +30,11 @@ except ImportError:  # pragma: no cover
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
+UNDERSCORES = re.compile(r'_+')
 
-humanized_name = lambda x: re.sub(r'_+', ' ', x.__name__)
+def humanized_name(thing):
+    try:                    return UNDERSCORES.sub(' ', thing.__name__)
+    except AttributeError:  return UNDERSCORES.sub(' ', thing)
 
 def format_assertion_msg(assertion_clause, *args):
     raw_msg = 'Expected topic({{0!r}}) {assertion_clause}'
