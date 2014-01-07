@@ -140,16 +140,10 @@ class Expect(object):
 
         # determine whether assertion is of "not" form
         method_name = 'not_{name}'.format(name=name) if self.not_assert else name
-
+        
         # if program gets this far, then it’s time to perform the assertion. (...FINALLY! ;D)
-        def assert_topic(*args, **kw):
-            '''Allows chained calls to `Assertion`s.  For example, in:
-
-                expect(topic).to_be_true()
-
-            This method is what allows `expect(topic)` to call `.to_be_true()`.
-
-            '''
+        def _assert_topic(*args, **kw):
+            # Allows chained calls to assertions, such as `expect(topic).to_be_true()`.
             return _registered_assertions[method_name](self.topic, *args, **kw)
-
-        return assert_topic
+        
+        return _assert_topic
