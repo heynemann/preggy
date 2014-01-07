@@ -133,8 +133,8 @@ class Expect(object):
 
     def __getattr__(self, name):
         # common cases
-        if name == 'topic':
-            return super(Expect, self).__getattr__(name)
+        # if name == 'topic':
+        #     return super(Expect, self).__getattr__(name)
         if name == 'Not':
             self.not_assert = not self.not_assert
             return self
