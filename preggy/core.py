@@ -37,7 +37,7 @@ def assertion(func):
 
     @functools.wraps(func)
     def wrapper(*args, **kw):
-        setattr(func, '__str__', lambda x: humanized_name(x))
+        setattr(func, '__str__', lambda x: humanized_name(x.__name__))
         return func(*args, **kw)
 
     _registered_assertions[wrapper.__name__] = wrapper
@@ -98,15 +98,14 @@ def create_assertions(func):
     @assertion
     @functools.wraps(func)
     def test_assertion(*args):
-        raw_msg = utils.format_assertion_msg(utils.humanized_name(func), *args)
+        raw_msg = utils.format_assertion_msg(str(func), *args)
         err_msg = raw_msg.format(*args)
         if not func(*args):
             raise AssertionError(err_msg)
 
     # Second assertion: begin
     def test_not_assertion(*args):
-        raw_msg = utils.format_assertion_msg(utils.humanized_name(func), *args)
-        raw_msg = 'not {0}'.format(raw_msg)
+        raw_msg = utils.format_assertion_msg('not {0!s}'.format(func), *args)
         err_msg = raw_msg.format(*args)
         if func(*args):
             raise AssertionError(err_msg)
