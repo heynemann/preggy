@@ -37,6 +37,7 @@ def assertion(func):
 
     @functools.wraps(func)
     def wrapper(*args, **kw):
+        setattr(func, '__str__', lambda x: humanized_name(x))
         return func(*args, **kw)
 
     _registered_assertions[wrapper.__name__] = wrapper
