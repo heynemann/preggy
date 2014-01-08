@@ -15,6 +15,7 @@ from preggy import utils
 
 _registered_assertions = utils.AssertionsMap()
 
+
 def assertion(func):
     '''Function decorator.  Provides lower-level control for custom
     assertions than `@preggy.create_assertions`.
@@ -34,10 +35,11 @@ def assertion(func):
         expect(-3).Not.to_be_a_positive_integer()
 
     '''
-
+    if not hasattr(func, 'humanized'):
+        setattr(func, 'humanized', utils.humanized_name(func.__name__))
+        
     @functools.wraps(func)
     def wrapper(*args, **kw):
-        setattr(func, '__str__', lambda x: humanized_name(x.__name__))
         return func(*args, **kw)
 
     _registered_assertions[wrapper.__name__] = wrapper
@@ -58,71 +60,66 @@ def create_assertions(func):
 
     Now, the following expectation…
 
-        expect(2).to_be_greater_than(3)
-
-    …will report:
-
-        Expected topic(2) to be greater than 3.
+        >>> expect(2).to_be_greater_than(3)
+        Expected topic(2) to equal 3
 
     It will also create the corresponding `not_` assertion:
 
-        expect(4).not_to_be_greater_than(3);
-
-    …will report:
-
+        >>> expect(4).not_to_be_greater_than(3);
         Expected topic(4) not to be greater than 3.
 
     '''
-
+    # set custom func attribute "humanized"
+    setattr(func, 'humanized', utils.humanized_name(func.__name__))
 
     # modified functools.update_wrapper
-    def _update_wrapper(wrapper, wrapped):
+    def _update_wrapper(wrapper, wrapped, not_assertion=True):
         '''A modified version of functools.update_wrapper. Auto-modifies the
         wrapper's __name__ and __doc__ to create a not_assertion.
         '''
-        # the usual
+        # begin as usual
         wrapper = functools.update_wrapper(wrapper, wrapped)
+        
+        # compute overrides for not_* assertions values
+        if not_assertion:
+            new_name = 'not_{0.__name__}'.format(wrapped)
+            new_doc = ''#.format(wrapped)
 
-        # compute our overrided values
-        new_name = 'not_{0.__name__}'.format(wrapped)
-        new_doc = ''#.format(wrapped)
-
-        # set our overrides
-        setattr(wrapper, '__name__', new_name)
-        setattr(wrapper, '__doc__', new_doc)
+            # set our overrides
+            setattr(wrapper, '__name__', new_name)
+            setattr(wrapper, '__doc__', new_doc)
+            # update to reflect new __name__
+            setattr(wrapper, 'humanized', utils.humanized_name(wrapper.__name__))
 
         # Return the wrapper so this can be used as a decorator via partial()
         return wrapper
-
-    # Generate first assertion with existing decorator
+    
     @assertion
     @functools.wraps(func)
     def test_assertion(*args):
-        raw_msg = utils.format_assertion_msg(str(func), *args)
+        raw_msg = utils.format_assertion_msg(func.humanized, *args)
         err_msg = raw_msg.format(*args)
         if not func(*args):
             raise AssertionError(err_msg)
-
-    # Second assertion: begin
+    
+    # Second assertion: prepare
     def test_not_assertion(*args):
-        raw_msg = utils.format_assertion_msg('not {0!s}'.format(func), *args)
+        raw_msg = utils.format_assertion_msg('not {0!s}'.format(func.humanized), *args)
         err_msg = raw_msg.format(*args)
         if func(*args):
             raise AssertionError(err_msg)
 
-    # Second assertion: update
+    # Second assertion: update and register
     test_not_assertion = _update_wrapper(test_not_assertion, func)
-
-    # Second assertion: register
-    assertion(test_not_assertion)
+    test_not_assertion = assertion(test_not_assertion)
 
 
 class Expect(object):
     '''This atypical class provides a key part of the preggy testing syntax.
 
     For example:
-
-        expect(True).to_be_true()
+        
+        >>> expect(True).to_be_true()
 
     '''
 
@@ -131,9 +128,6 @@ class Expect(object):
         self.not_assert = False
 
     def __getattr__(self, name):
-        # common cases
-        # if name == 'topic':
-        #     return super(Expect, self).__getattr__(name)
         if name == 'Not':
             self.not_assert = not self.not_assert
             return self
