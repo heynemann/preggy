@@ -177,6 +177,8 @@ def _compare_lists(expected, topic):
 
 def _match_lists(expected, topic):
     '''Asserts the "like"-ness each item in of `topic` and `expected` (as lists or tuples).'''
+    # TODO: Rewrite this using itertools
+    #       http://docs.python.org/2/library/itertools.html
     for item in expected:
         if isinstance(item, (list, tuple)):
             found = False
