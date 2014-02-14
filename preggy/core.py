@@ -30,9 +30,24 @@ def assertion(func):
 
     Whenever possible, you should declare both the normal assertion as well
     as a `not_` counterpart, so they can be used like this:
-
-        expect(5).to_be_a_positive_integer()
-        expect(-3).Not.to_be_a_positive_integer()
+    
+    ... # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+    >>>
+    >>> import preggy
+    >>> from preggy.core import Expect as expect
+    >>> 
+    >>> @preggy.assertion
+    ... def to_be_a_positive_integer(topic):
+    ...     if not topic > 0:
+    ...          raise AssertionError("Expected topic('{topic}') to be a positive integer".format(topic=topic))
+    ...
+    >>> @preggy.assertion
+    ... def not_to_be_a_positive_integer(topic):
+    ...     if not topic < 0:
+    ...          raise AssertionError("Expected topic('{topic}') not to be a positive integer".format(topic=topic))
+    ...
+    >>> expect(5).to_be_a_positive_integer()
+    >>> expect(-3).Not.to_be_a_positive_integer()
 
     '''
     if not hasattr(func, 'humanized'):
@@ -58,16 +73,22 @@ def create_assertions(func):
         def to_be_greater_than(topic, expected):
             return topic > expected
 
-    Now, the following expectation…
-
-        >>> expect(2).to_be_greater_than(3)
-        Expected topic(2) to equal 3
-
-    It will also create the corresponding `not_` assertion:
-
-        >>> expect(4).not_to_be_greater_than(3);
-        Expected topic(4) not to be greater than 3.
-
+    This creates both the assertion AND its `not_*` counterpart.  
+    
+    ... # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+    >>> from preggy.core import (assertion, create_assertions, Expect as expect)  
+    >>> from preggy.assertions import *
+    
+    >>> expect(2).to_be_greater_than(3)
+    Traceback (most recent call last):
+        ...
+    AssertionError: Expected topic(2) to be greater than 3
+    
+    >>> expect(4).not_to_be_greater_than(3)
+    Traceback (most recent call last):
+        ...
+    AssertionError: Expected topic(4) not to be greater than 3
+    
     '''
     # set custom func attribute "humanized"
     setattr(func, 'humanized', utils.humanized_name(func.__name__))
@@ -94,6 +115,8 @@ def create_assertions(func):
         # Return the wrapper so this can be used as a decorator via partial()
         return wrapper
     
+    
+    # First assertion
     @assertion
     @functools.wraps(func)
     def test_assertion(*args):
@@ -116,11 +139,15 @@ def create_assertions(func):
 
 class Expect(object):
     '''This atypical class provides a key part of the preggy testing syntax.
-
+    
     For example:
-        
+    
+        >>> from preggy.core import (assertion, create_assertions, Expect as expect)
+        >>> from preggy.assertions import *
+        >>>
         >>> expect(True).to_be_true()
-
+        >>> expect(False).to_be_false()
+        
     '''
 
     def __init__(self, topic):
