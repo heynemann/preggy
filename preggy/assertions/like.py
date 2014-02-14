@@ -204,7 +204,8 @@ def to_be_like(topic, expected, diff=True):
             is_str(topic) and
             is_str(expected)
         ):
-            matcher, first, second = compare(_strip_string(topic), _strip_string(expected))
+            first, second = _strip_string(topic), _strip_string(expected)
+            matcher, first, second = compare(first, second)
             print()
             print('Expected strings to be equal, but they were different:')
             print(first)
