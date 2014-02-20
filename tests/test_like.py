@@ -32,6 +32,19 @@ NOT_EXPECTED_STRING_TEST_DATA = [
     'Zasdqwe123',
 ]
 
+NUMBER_TEST_DATA = 10.2345
+EXPECTED_NUMBER_TEST_DATA = [
+    10.23,
+    10.23456,
+    10.23457,
+    10.23555
+]
+NOT_EXPECTED_NUMBER_TEST_DATA = [
+    0,
+    10.45,
+    20
+]
+
 DATETIME_TEST_DATA = datetime(2010, 11, 12, 13, 14, 15, 123456)
 EXPECTED_DATETIME_TEST_DATA = [
     datetime(2010, 11, 12, 13, 14, 15, 123456),
@@ -131,6 +144,9 @@ def test_likeness():
     for expected_item in EXPECTED_STRING_TEST_DATA:
         yield is_expected, STRING_TEST_DATA, expected_item
 
+    for expected_item in EXPECTED_NUMBER_TEST_DATA:
+        yield is_expected, NUMBER_TEST_DATA, expected_item
+ 
     for expected_item in EXPECTED_LIST_TEST_DATA:
         yield is_expected, LIST_TEST_DATA, expected_item
 
@@ -155,6 +171,9 @@ def test_likeness_fails():
 
     for expected_item in NOT_EXPECTED_STRING_TEST_DATA:
         yield is_expected_to_fail, STRING_TEST_DATA, expected_item
+
+    for expected_item in NOT_EXPECTED_NUMBER_TEST_DATA:
+        yield is_expected_to_fail, NUMBER_TEST_DATA, expected_item
 
     for expected_item in NOT_EXPECTED_LIST_TEST_DATA:
         yield is_expected_to_fail, LIST_TEST_DATA, expected_item

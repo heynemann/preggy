@@ -110,7 +110,6 @@ def _strip_string(text):
     text = REMOVE_COLORS_REGEX.sub('', text)
     text = _filter_str(text)
     text = utils.fix_string(text)
-
     return text
 
 
@@ -148,13 +147,20 @@ def _compare_datetime(expected, topic):
     return __timedelta_to_seconds(topic - expected) <= DATE_THRESHOLD
 
 
+def round_number(number, precision=2):
+    power = float(10 ^ precision)
+
+    return round(number * power, 0) / power
+
+
 def _compare_numbers(expected, topic):
     '''Asserts the "like"-ness of `topic` and `expected` as Numbers.'''
     FALSE_CONDITIONS = (not isinstance(topic, numbers.Number),
                         not isinstance(expected, numbers.Number), )
     if any(FALSE_CONDITIONS):
         return False
-    return float(expected) == float(topic)
+
+    return round_number(float(expected)) == round_number(float(topic))
 
 
 def _compare_dicts(expected, topic):
