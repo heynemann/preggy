@@ -106,11 +106,11 @@ def _match_alike(expected, topic, diff=False):
 def _strip_string(text):
     if not text:
         return text
-
+    
+    text = utils.fix_string(text)
     text = REMOVE_COLORS_REGEX.sub('', text)
     text = _filter_str(text)
-    text = utils.fix_string(text)
-
+    
     return text
 
 
