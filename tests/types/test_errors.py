@@ -7,6 +7,8 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
+import six
+
 from preggy import expect
 
 #-----------------------------------------------------------------------------
@@ -33,7 +35,7 @@ def test_not_to_be_an_error():
         object(),
         'b123a',
         r'b123a',
-        u'b123a',
+        six.u('b123a'),
         b'b123a'
     ])
     
