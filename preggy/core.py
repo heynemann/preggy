@@ -136,6 +136,36 @@ def create_assertions(func):
     test_not_assertion = _update_wrapper(test_not_assertion, func)
     test_not_assertion = assertion(test_not_assertion)
 
+class ErrorToHappenContext(object):
+    def __init__(self, error_class):
+        self.error_class = error_class
+        self._error = None
+
+    @property
+    def error(self):
+        return self._error
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        has_exception = exc_type is not None
+        is_subclass = has_exception and (exc_type is self.error_class or issubclass(exc_type, self.error_class)) or False
+        if has_exception and is_subclass:
+            self._error = exc_val
+            return True
+
+        if not has_exception:
+            raise AssertionError('Expected "RuntimeError" to happen but no errors happened during execution of with block.')
+
+        if has_exception and not is_subclass:
+            raise AssertionError('Expected "RuntimeError" to happen but "%s.%s" happened during execution of with block.' % (
+                exc_type.__module__,
+                exc_type.__name__
+            ))
+
+        return False
+
 
 class Expect(object):
     '''This atypical class provides a key part of the preggy testing syntax.
@@ -152,11 +182,18 @@ class Expect(object):
 
     def __init__(self, topic):
         self.topic = topic
+        if isinstance(self.topic, ErrorToHappenContext):
+            self.topic = self.topic.error
+
         self.not_assert = False
 
     @classmethod
     def not_to_be_here(self):
         raise AssertionError("Should not have gotten this far.")
+
+    @classmethod
+    def error_to_happen(self, error_class=Exception):
+        return ErrorToHappenContext(error_class)
 
     def __getattr__(self, name):
         # common cases

@@ -8,6 +8,7 @@
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
 import six
+import sys
 
 from preggy import expect
 
@@ -84,3 +85,35 @@ def test_not_to_have_error_message():
         return
 
     assert False, 'Should not have gotten this far'
+
+def test_can_trap_errors():
+    err = expect.error_to_happen(RuntimeError)
+
+    with err:
+        raise RuntimeError("something is wrong")
+
+    expect(err).to_have_an_error_message_of('something is wrong')
+
+def test_can_trap_errors_fails_if_error_does_not_happen():
+    err = expect.error_to_happen(RuntimeError)
+
+    try:
+        with err:
+            pass
+    except AssertionError:
+        error = sys.exc_info()[1]
+        expect(error).to_have_an_error_message_of('Expected "RuntimeError" to happen but no errors happened during execution of with block.')
+    else:
+        expect.not_to_be_here()
+
+def test_can_trap_errors_fails_if_wrong_error():
+    err = expect.error_to_happen(RuntimeError)
+
+    try:
+        with err:
+            raise ValueError("something else entirely")
+    except AssertionError:
+        error = sys.exc_info()[1]
+        expect(error).to_have_an_error_message_of('Expected "RuntimeError" to happen but "exceptions.ValueError" happened during execution of with block.')
+    else:
+        expect.not_to_be_here()

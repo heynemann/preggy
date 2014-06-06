@@ -208,6 +208,14 @@ expect(ValueError('error')).to_have_an_error_message_of('error')
 expect("I'm not an error").Not.to_be_an_error()
 expect(ValueError()).Not.to_be_an_error_like(RuntimeError)
 expect(ValueError('some')).Not.to_have_an_error_message_of('error')
+
+# when expecting a method to error
+err = expect.error_to_happen(RuntimeError)  # attribute to a variable so you can use the exception later
+
+with err:
+    raise RuntimeError("something is wrong")
+
+expect(err).to_have_an_error_message_of('something is wrong')
 ```
 
 Failure
