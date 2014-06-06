@@ -10,6 +10,7 @@
 
 from __future__ import absolute_import
 import functools
+from contextlib import contextmanager
 
 from preggy import utils
 
@@ -137,8 +138,9 @@ def create_assertions(func):
     test_not_assertion = assertion(test_not_assertion)
 
 class ErrorToHappenContext(object):
-    def __init__(self, error_class):
+    def __init__(self, error_class, message=None):
         self.error_class = error_class
+        self.message = message
         self._error = None
 
     @property
@@ -156,13 +158,28 @@ class ErrorToHappenContext(object):
             return True
 
         if not has_exception:
-            raise AssertionError('Expected "RuntimeError" to happen but no errors happened during execution of with block.')
+            raise AssertionError('Expected "%s.%s" to happen but no errors happened during execution of with block.' % (
+                self.error_class.__module__,
+                self.error_class.__name__,
+            ))
 
         if has_exception and not is_subclass:
-            raise AssertionError('Expected "RuntimeError" to happen but "%s.%s" happened during execution of with block.' % (
+            raise AssertionError('Expected "%s.%s" to happen but "%s.%s" happened during execution of with block.' % (
+                self.error_class.__module__,
+                self.error_class.__name__,
                 exc_type.__module__,
                 exc_type.__name__
             ))
+
+        if self.message is not None:
+            error_msg = getattr(exc_val, 'message', str(exc_val))
+            if error_msg != self.message:
+                raise AssertionError('Expected "%s.%s" to have a message of "%s", but the actual error was "%s".' % (
+                    self.error_class.__module__,
+                    self.error_class.__name__,
+                    self.message,
+                    error_msg
+                ))
 
         return False
 
@@ -192,8 +209,8 @@ class Expect(object):
         raise AssertionError("Should not have gotten this far.")
 
     @classmethod
-    def error_to_happen(self, error_class=Exception):
-        return ErrorToHappenContext(error_class)
+    def error_to_happen(self, error_class=Exception, message=None):
+        return ErrorToHappenContext(error_class, message=message)
 
     def __getattr__(self, name):
         # common cases

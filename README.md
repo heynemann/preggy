@@ -216,6 +216,14 @@ with err:
     raise RuntimeError("something is wrong")
 
 expect(err).to_have_an_error_message_of('something is wrong')
+
+# or the shorter version
+with expect.error_to_happen(RuntimeError, message="something is wrong"):
+    raise RuntimeError("something is wrong")
+
+# or if you don't care about the message:
+with expect.error_to_happen(RuntimeError):
+    raise RuntimeError("something is wrong")
 ```
 
 Failure

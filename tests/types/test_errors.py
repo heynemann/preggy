@@ -94,6 +94,9 @@ def test_can_trap_errors():
 
     expect(err).to_have_an_error_message_of('something is wrong')
 
+    with expect.error_to_happen(RuntimeError, message="something is wrong"):
+        raise RuntimeError("something is wrong")
+
 def test_can_trap_errors_fails_if_error_does_not_happen():
     err = expect.error_to_happen(RuntimeError)
 
@@ -102,9 +105,19 @@ def test_can_trap_errors_fails_if_error_does_not_happen():
             pass
     except AssertionError:
         error = sys.exc_info()[1]
-        expect(error).to_have_an_error_message_of('Expected "RuntimeError" to happen but no errors happened during execution of with block.')
+        expect(error).to_have_an_error_message_of('Expected "exceptions.RuntimeError" to happen but no errors happened during execution of with block.')
     else:
         expect.not_to_be_here()
+
+    try:
+        with expect.error_to_happen(RuntimeError):
+            pass
+    except AssertionError:
+        error = sys.exc_info()[1]
+        expect(error).to_have_an_error_message_of('Expected "exceptions.RuntimeError" to happen but no errors happened during execution of with block.')
+    else:
+        expect.not_to_be_here()
+
 
 def test_can_trap_errors_fails_if_wrong_error():
     err = expect.error_to_happen(RuntimeError)
@@ -114,6 +127,6 @@ def test_can_trap_errors_fails_if_wrong_error():
             raise ValueError("something else entirely")
     except AssertionError:
         error = sys.exc_info()[1]
-        expect(error).to_have_an_error_message_of('Expected "RuntimeError" to happen but "exceptions.ValueError" happened during execution of with block.')
+        expect(error).to_have_an_error_message_of('Expected "exceptions.RuntimeError" to happen but "exceptions.ValueError" happened during execution of with block.')
     else:
         expect.not_to_be_here()
