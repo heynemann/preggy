@@ -210,6 +210,13 @@ expect(ValueError()).Not.to_be_an_error_like(RuntimeError)
 expect(ValueError('some')).Not.to_have_an_error_message_of('error')
 ```
 
+Failure
+-------
+
+```python
+expect.not_to_be_here()  # raises AssertionError
+```
+
 
 Contributing
 ============

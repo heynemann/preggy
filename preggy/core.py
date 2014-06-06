@@ -154,7 +154,14 @@ class Expect(object):
         self.topic = topic
         self.not_assert = False
 
+    @classmethod
+    def not_to_be_here(self):
+        raise AssertionError("Should not have gotten this far.")
+
     def __getattr__(self, name):
+        # common cases
+        if name in ['topic', 'not_to_be_here']:
+            return super(Expect, self).__getattr__(name)
         if name == 'Not':
             self.not_assert = not self.not_assert
             return self

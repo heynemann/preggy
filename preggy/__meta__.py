@@ -18,8 +18,8 @@ from datetime import date
 #   GENERAL
 #--------------------------------------------------------------------------------
 __name__        = 'preggy'  # normally preggy.__meta__
-__version__     = '0.11.1'
-__date__        = date(2014, 1, 5)  # TODO: auto-populate each release using a git hook
+__version__     = '0.12.0'
+__date__        = date(2014, 6, 6)  # TODO: auto-populate each release using a git hook
 __keywords__    = 'test testing assert assertion library development'
 __status__      = 'Production'
 
