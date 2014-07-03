@@ -98,6 +98,7 @@ def test_can_trap_errors():
         raise RuntimeError("something is wrong")
 
 def test_can_trap_errors_fails_if_error_does_not_happen():
+    class_name = "%s.RuntimeError" % RuntimeError.__module__
     err = expect.error_to_happen(RuntimeError)
 
     try:
@@ -105,7 +106,7 @@ def test_can_trap_errors_fails_if_error_does_not_happen():
             pass
     except AssertionError:
         error = sys.exc_info()[1]
-        expect(error).to_have_an_error_message_of('Expected "exceptions.RuntimeError" to happen but no errors happened during execution of with block.')
+        expect(error).to_have_an_error_message_of('Expected "%s" to happen but no errors happened during execution of with block.' % class_name)
     else:
         expect.not_to_be_here()
 
@@ -114,12 +115,14 @@ def test_can_trap_errors_fails_if_error_does_not_happen():
             pass
     except AssertionError:
         error = sys.exc_info()[1]
-        expect(error).to_have_an_error_message_of('Expected "exceptions.RuntimeError" to happen but no errors happened during execution of with block.')
+        expect(error).to_have_an_error_message_of('Expected "%s" to happen but no errors happened during execution of with block.' % class_name)
     else:
         expect.not_to_be_here()
 
 
 def test_can_trap_errors_fails_if_wrong_error():
+    class_name = "%s.RuntimeError" % RuntimeError.__module__
+    value_class_name = "%s.ValueError" % ValueError.__module__
     err = expect.error_to_happen(RuntimeError)
 
     try:
@@ -127,11 +130,12 @@ def test_can_trap_errors_fails_if_wrong_error():
             raise ValueError("something else entirely")
     except AssertionError:
         error = sys.exc_info()[1]
-        expect(error).to_have_an_error_message_of('Expected "exceptions.RuntimeError" to happen but "exceptions.ValueError" happened during execution of with block.')
+        expect(error).to_have_an_error_message_of('Expected "%s" to happen but "%s" happened during execution of with block.' % (class_name, value_class_name))
     else:
         expect.not_to_be_here()
 
 def test_can_trap_errors_fails_if_wrong_error_message():
+    class_name = "%s.ValueError" % ValueError.__module__
     err = expect.error_to_happen(ValueError, message="Woot?")
 
     try:
@@ -140,7 +144,7 @@ def test_can_trap_errors_fails_if_wrong_error_message():
     except AssertionError:
         error = sys.exc_info()[1]
         expect(error).to_have_an_error_message_of(
-            'Expected "exceptions.ValueError" to have a message of "Woot?", but the actual error was "something else entirely".'
+            'Expected "%s" to have a message of "Woot?", but the actual error was "something else entirely".' % class_name
         )
     else:
         expect.not_to_be_here()
