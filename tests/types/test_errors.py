@@ -130,3 +130,17 @@ def test_can_trap_errors_fails_if_wrong_error():
         expect(error).to_have_an_error_message_of('Expected "exceptions.RuntimeError" to happen but "exceptions.ValueError" happened during execution of with block.')
     else:
         expect.not_to_be_here()
+
+def test_can_trap_errors_fails_if_wrong_error_message():
+    err = expect.error_to_happen(ValueError, message="Woot?")
+
+    try:
+        with err:
+            raise ValueError("something else entirely")
+    except AssertionError:
+        error = sys.exc_info()[1]
+        expect(error).to_have_an_error_message_of(
+            'Expected "exceptions.ValueError" to have a message of "Woot?", but the actual error was "something else entirely".'
+        )
+    else:
+        expect.not_to_be_here()

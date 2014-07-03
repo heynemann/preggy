@@ -153,10 +153,6 @@ class ErrorToHappenContext(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         has_exception = exc_type is not None
         is_subclass = has_exception and (exc_type is self.error_class or issubclass(exc_type, self.error_class)) or False
-        if has_exception and is_subclass:
-            self._error = exc_val
-            return True
-
         if not has_exception:
             raise AssertionError('Expected "%s.%s" to happen but no errors happened during execution of with block.' % (
                 self.error_class.__module__,
@@ -180,6 +176,10 @@ class ErrorToHappenContext(object):
                     self.message,
                     error_msg
                 ))
+
+        if has_exception and is_subclass:
+            self._error = exc_val
+            return True
 
         return False
 
