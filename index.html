@@ -30,49 +30,81 @@
 
       </header>
       <section>
-        <h1>preggy</h1>
+        <h1>
+<a name="preggy" class="anchor" href="#preggy"><span class="octicon octicon-link"></span></a>preggy</h1>
 
-<p><a href="https://travis-ci.org/heynemann/preggy"><img src="https://travis-ci.org/heynemann/preggy.png?branch=master" alt="Build Status"></a> <a href="https://codeq.io/github/heynemann/preggy/branches/master"><img src="https://codeq.io/github/heynemann/preggy/badges/master.png" alt="codeq"></a>
+<p><a href="https://travis-ci.org/heynemann/preggy"><img src="https://travis-ci.org/heynemann/preggy.png?branch=master" alt="Build Status"></a>
 <a href="https://crate.io/packages/preggy/"><img src="https://pypip.in/v/preggy/badge.png" alt="PyPi version"></a>
 <a href="https://crate.io/packages/preggy/"><img src="https://pypip.in/d/preggy/badge.png" alt="PyPi downloads"></a>
 <a href="https://coveralls.io/r/heynemann/preggy?branch=master"><img src="https://coveralls.io/repos/heynemann/preggy/badge.png?branch=master" alt="Coverage Status"></a></p>
 
-<p>preggy is a collection of expectations for Python testing, extracted from the <a href="http://pyvows.org">PyVows</a> project.</p>
+<p><strong>preggy is an assertion library for Python.</strong> What were you <code>expect</code>ing?</p>
 
-<h1>Installing</h1>
+<p>Extracted from the <a href="http://pyvows.org">PyVows</a> project.</p>
 
-<p>Just use <code>pip</code> to install preggy:</p>
+<h1>
+<a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h1>
+
+<p>We recommend using <code>pip</code>:</p>
 
 <pre><code>pip install preggy
 </code></pre>
 
-<h1>Usage</h1>
+<h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
 
-<p>Using preggy is very simple:</p>
+<p>Simply tell your test what to <code>expect()</code>:</p>
 
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">preggy</span> <span class="kn">import</span> <span class="n">expect</span>
+<div class="highlight highlight-python"><pre><span class="kn">from</span> <span class="nn">preggy</span> <span class="kn">import</span> <span class="n">expect</span>
 
 <span class="k">def</span> <span class="nf">test_roses_are_red</span><span class="p">():</span>
     <span class="n">rose</span> <span class="o">=</span> <span class="n">Rose</span><span class="p">()</span>
-    <span class="n">expect</span><span class="p">(</span><span class="n">rose</span><span class="o">.</span><span class="n">color</span><span class="p">)</span><span class="o">.</span><span class="n">to_equal</span><span class="p">(</span><span class="s">"red"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">rose</span><span class="o">.</span><span class="n">color</span><span class="p">)</span><span class="o">.</span><span class="n">to_equal</span><span class="p">(</span><span class="s">'red'</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">test_violets_are_not_red</span><span class="p">():</span>
     <span class="n">violet</span> <span class="o">=</span> <span class="n">Violet</span><span class="p">()</span>
-    <span class="n">expect</span><span class="p">(</span><span class="n">violet</span><span class="o">.</span><span class="n">color</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_equal</span><span class="p">(</span><span class="s">"red"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">violet</span><span class="o">.</span><span class="n">color</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_equal</span><span class="p">(</span><span class="s">'red'</span><span class="p">)</span>
 </pre></div>
 
-<h1>Built-in Expectations</h1>
+<h1>
+<a name="built-in-expectations" class="anchor" href="#built-in-expectations"><span class="octicon octicon-link"></span></a>Built-in Expectations</h1>
 
-<h2>Equality</h2>
+<h2>
+<a name="equality" class="anchor" href="#equality"><span class="octicon octicon-link"></span></a>Equality</h2>
 
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">to_equal</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">to_equal</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">expect</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_equal</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">expect</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_equal</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c"># same as previous</span>
 </pre></div>
 
-<h2>Similarity</h2>
+<h2>
+<a name="comparison" class="anchor" href="#comparison"><span class="octicon octicon-link"></span></a>Comparison</h2>
 
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">"sOmE RandOm     CAse StRiNG"</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_like</span><span class="p">(</span><span class="s">'some random case string'</span><span class="p">)</span>
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_lesser_than</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_greater_than</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_be_lesser_than</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_be_greater</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c"># same as previous</span>
+
+<span class="n">expect</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_lesser_or_equal_to</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_lesser_or_equal_to</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_be_lesser_or_equal_to</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">expect</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_greater_or_equal_to</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_greater_or_equal_to</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_be_greater_or_equal_to</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">expect</span><span class="p">(</span><span class="s">"b"</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_greater_than</span><span class="p">(</span><span class="s">"a"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">"a"</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_lesser_than</span><span class="p">(</span><span class="s">"b"</span><span class="p">)</span>
+
+<span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">to_be_greater_than</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c"># comparing using length</span>
+<span class="n">expect</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_greater_than</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c"># comparing using length</span>
+<span class="n">expect</span><span class="p">({</span> <span class="s">"a"</span><span class="p">:</span> <span class="s">"b"</span><span class="p">,</span> <span class="s">"c"</span><span class="p">:</span> <span class="s">"d"</span> <span class="p">})</span><span class="o">.</span><span class="n">to_be_greater_than</span><span class="p">({</span> <span class="s">"a"</span><span class="p">:</span> <span class="s">"b"</span> <span class="p">})</span>  <span class="c"># comparing using length of keys</span>
+</pre></div>
+
+<h2>
+<a name="similarity" class="anchor" href="#similarity"><span class="octicon octicon-link"></span></a>Similarity</h2>
+
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="p">(</span><span class="s">'sOmE RandOm     CAse StRiNG'</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_like</span><span class="p">(</span><span class="s">'some random case string'</span><span class="p">)</span>
 
 <span class="n">expect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_like</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">expect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_like</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
@@ -84,68 +116,74 @@
 
 <span class="n">expect</span><span class="p">({</span> <span class="s">'some'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'key'</span><span class="p">:</span> <span class="mi">2</span> <span class="p">})</span><span class="o">.</span><span class="n">to_be_like</span><span class="p">({</span> <span class="s">'key'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'some'</span><span class="p">:</span> <span class="mi">1</span> <span class="p">})</span>
 
-<span class="n">expect</span><span class="p">(</span><span class="s">"sOmE RandOm     CAse StRiNG"</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_be_like</span><span class="p">(</span><span class="s">'other string'</span><span class="p">)</span>
-<span class="n">expect</span><span class="p">(</span><span class="s">"sOmE RandOm     CAse StRiNG"</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_be_like</span><span class="p">(</span><span class="s">'other string'</span><span class="p">)</span>  <span class="c"># same as previous</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">'sOmE RandOm     CAse StRiNG'</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_be_like</span><span class="p">(</span><span class="s">'other string'</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">'sOmE RandOm     CAse StRiNG'</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_be_like</span><span class="p">(</span><span class="s">'other string'</span><span class="p">)</span>  <span class="c"># same as previous</span>
 
 <span class="n">expect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_be_like</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">expect</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span><span class="o">.</span><span class="n">not_to_be_like</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 <span class="n">expect</span><span class="p">({</span> <span class="s">'some'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'key'</span><span class="p">:</span> <span class="mi">2</span> <span class="p">})</span><span class="o">.</span><span class="n">not_to_be_like</span><span class="p">({</span> <span class="s">'key'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">'some'</span><span class="p">:</span> <span class="mi">4</span> <span class="p">})</span>
 </pre></div>
 
-<h2>Type</h2>
+<h2>
+<a name="type" class="anchor" href="#type"><span class="octicon octicon-link"></span></a>Type</h2>
 
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_a_function</span><span class="p">()</span>
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_a_function</span><span class="p">()</span>
 <span class="n">expect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_numeric</span><span class="p">()</span>
 
-<span class="n">expect</span><span class="p">(</span><span class="s">"some"</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_be_a_function</span><span class="p">()</span>
-<span class="n">expect</span><span class="p">(</span><span class="s">"some"</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_be_numeric</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">'some'</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_be_a_function</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">'some'</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_be_numeric</span><span class="p">()</span>
 </pre></div>
 
-<h2>True / False</h2>
+<h2>
+<a name="true--false" class="anchor" href="#true--false"><span class="octicon octicon-link"></span></a>True / False</h2>
 
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_true</span><span class="p">()</span>
-<span class="n">expect</span><span class="p">(</span><span class="s">"some"</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_true</span><span class="p">()</span>
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_true</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">'some'</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_true</span><span class="p">()</span>
 <span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">to_be_true</span><span class="p">()</span>
-<span class="n">expect</span><span class="p">({</span> <span class="s">"a"</span><span class="p">:</span> <span class="s">"b"</span> <span class="p">})</span><span class="o">.</span><span class="n">to_be_true</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">({</span> <span class="s">'a'</span><span class="p">:</span> <span class="s">'b'</span> <span class="p">})</span><span class="o">.</span><span class="n">to_be_true</span><span class="p">()</span>
 <span class="n">expect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_true</span><span class="p">()</span>
 
 <span class="n">expect</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_false</span><span class="p">()</span>  <span class="c"># not_to_be_true() would work, too. but, it's so...eww</span>
 <span class="n">expect</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_false</span><span class="p">()</span>
-<span class="n">expect</span><span class="p">(</span><span class="s">""</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_false</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">''</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_false</span><span class="p">()</span>
 <span class="n">expect</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_false</span><span class="p">()</span>
 <span class="n">expect</span><span class="p">([])</span><span class="o">.</span><span class="n">to_be_false</span><span class="p">()</span>
 <span class="n">expect</span><span class="p">({})</span><span class="o">.</span><span class="n">to_be_false</span><span class="p">()</span>
 </pre></div>
 
-<h2>None</h2>
+<h2>
+<a name="none" class="anchor" href="#none"><span class="octicon octicon-link"></span></a>None</h2>
 
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_null</span><span class="p">()</span>
-<span class="n">expect</span><span class="p">(</span><span class="s">"some"</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_be_null</span><span class="p">()</span>
-<span class="n">expect</span><span class="p">(</span><span class="s">"some"</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_be_null</span><span class="p">()</span>  <span class="c"># same as previous</span>
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_null</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">'some'</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_be_null</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">'some'</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_be_null</span><span class="p">()</span>  <span class="c"># same as previous</span>
 </pre></div>
 
-<h2>Inclusion</h2>
+<h2>
+<a name="inclusion" class="anchor" href="#inclusion"><span class="octicon octicon-link"></span></a>Inclusion</h2>
 
-<div class="highlight"><pre><span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">to_include</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">to_include</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">expect</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">to_include</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">expect</span><span class="p">(</span><span class="s">"123"</span><span class="p">)</span><span class="o">.</span><span class="n">to_include</span><span class="p">(</span><span class="s">"2"</span><span class="p">)</span>
-<span class="n">expect</span><span class="p">({</span> <span class="s">"a"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"b"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">"c"</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span><span class="o">.</span><span class="n">to_include</span><span class="p">(</span><span class="s">"b"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">'123'</span><span class="p">)</span><span class="o">.</span><span class="n">to_include</span><span class="p">(</span><span class="s">'2'</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">({</span> <span class="s">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'b'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'c'</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span><span class="o">.</span><span class="n">to_include</span><span class="p">(</span><span class="s">'b'</span><span class="p">)</span>
 
 <span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_include</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c"># or, exclusion...</span>
 </pre></div>
 
-<h2>Regular Expressions</h2>
+<h2>
+<a name="regular-expressions" class="anchor" href="#regular-expressions"><span class="octicon octicon-link"></span></a>Regular Expressions</h2>
 
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">'some'</span><span class="p">)</span><span class="o">.</span><span class="n">to_match</span><span class="p">(</span><span class="s">r'^[a-z]+'</span><span class="p">)</span>
-<span class="n">expect</span><span class="p">(</span><span class="s">"Some"</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_match</span><span class="p">(</span><span class="s">r'^[a-z]+'</span><span class="p">)</span>
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="p">(</span><span class="s">'some'</span><span class="p">)</span><span class="o">.</span><span class="n">to_match</span><span class="p">(</span><span class="s">r'^[a-z]+'</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">'Some'</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_match</span><span class="p">(</span><span class="s">r'^[a-z]+'</span><span class="p">)</span>
 </pre></div>
 
-<h2>Length</h2>
+<h2>
+<a name="length" class="anchor" href="#length"><span class="octicon octicon-link"></span></a>Length</h2>
 
-<div class="highlight"><pre><span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">to_length</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">to_length</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">expect</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">to_length</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">expect</span><span class="p">(</span><span class="s">"abc"</span><span class="p">)</span><span class="o">.</span><span class="n">to_length</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">expect</span><span class="p">({</span> <span class="s">"a"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"b"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">"c"</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span><span class="o">.</span><span class="n">to_length</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">'abc'</span><span class="p">)</span><span class="o">.</span><span class="n">to_length</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">({</span> <span class="s">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'b'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'c'</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span><span class="o">.</span><span class="n">to_length</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">expect</span><span class="p">(</span><span class="n">lifo_queue</span><span class="p">)</span><span class="o">.</span><span class="n">to_length</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">expect</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span><span class="o">.</span><span class="n">to_length</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 
@@ -153,76 +191,61 @@
 <span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">not_to_length</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c"># same as previous</span>
 </pre></div>
 
-<h2>Emptiness</h2>
+<h2>
+<a name="emptiness" class="anchor" href="#emptiness"><span class="octicon octicon-link"></span></a>Emptiness</h2>
 
-<div class="highlight"><pre><span class="n">expect</span><span class="p">([])</span><span class="o">.</span><span class="n">to_be_empty</span><span class="p">()</span>
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="p">([])</span><span class="o">.</span><span class="n">to_be_empty</span><span class="p">()</span>
 <span class="n">expect</span><span class="p">(</span><span class="nb">tuple</span><span class="p">())</span><span class="o">.</span><span class="n">to_be_empty</span><span class="p">()</span>
 <span class="n">expect</span><span class="p">({})</span><span class="o">.</span><span class="n">to_be_empty</span><span class="p">()</span>
-<span class="n">expect</span><span class="p">(</span><span class="s">""</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_empty</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">''</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_empty</span><span class="p">()</span>
 
 <span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">not_to_be_empty</span><span class="p">()</span>
 <span class="n">expect</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">not_to_be_empty</span><span class="p">()</span>
-<span class="n">expect</span><span class="p">({</span><span class="s">"a"</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">not_to_be_empty</span><span class="p">()</span>
-<span class="n">expect</span><span class="p">(</span><span class="s">"roses are red"</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_be_empty</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">({</span><span class="s">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">not_to_be_empty</span><span class="p">()</span>
+<span class="n">expect</span><span class="p">(</span><span class="s">'roses are red'</span><span class="p">)</span><span class="o">.</span><span class="n">not_to_be_empty</span><span class="p">()</span>
 </pre></div>
 
-<h2>Exceptions</h2>
+<h2>
+<a name="exceptions" class="anchor" href="#exceptions"><span class="octicon octicon-link"></span></a>Exceptions</h2>
 
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">())</span><span class="o">.</span><span class="n">to_be_an_error</span><span class="p">()</span><span class="err"> </span>
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">())</span><span class="o">.</span><span class="n">to_be_an_error</span><span class="p">()</span><span class="err"> </span>
 <span class="n">expect</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">())</span><span class="o">.</span><span class="n">to_be_an_error_like</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">)</span>
-<span class="n">expect</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s">"error"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_an_error_message_of</span><span class="p">(</span><span class="s">"error"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s">'error'</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_an_error_message_of</span><span class="p">(</span><span class="s">'error'</span><span class="p">)</span>
 
 <span class="n">expect</span><span class="p">(</span><span class="s">"I'm not an error"</span><span class="p">)</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_be_an_error</span><span class="p">()</span>
 <span class="n">expect</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">())</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_be_an_error_like</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">)</span>
-<span class="n">expect</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s">"some"</span><span class="p">))</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_have_an_error_message_of</span><span class="p">(</span><span class="s">"error"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s">'some'</span><span class="p">))</span><span class="o">.</span><span class="n">Not</span><span class="o">.</span><span class="n">to_have_an_error_message_of</span><span class="p">(</span><span class="s">'error'</span><span class="p">)</span>
+
+<span class="c"># when expecting a method to error</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">expect</span><span class="o">.</span><span class="n">error_to_happen</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">)</span>  <span class="c"># attribute to a variable so you can use the exception later</span>
+
+<span class="k">with</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s">"something is wrong"</span><span class="p">)</span>
+
+<span class="n">expect</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="o">.</span><span class="n">to_have_an_error_message_of</span><span class="p">(</span><span class="s">'something is wrong'</span><span class="p">)</span>
+
+<span class="c"># or the shorter version</span>
+<span class="k">with</span> <span class="n">expect</span><span class="o">.</span><span class="n">error_to_happen</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s">"something is wrong"</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s">"something is wrong"</span><span class="p">)</span>
+
+<span class="c"># or if you don't care about the message:</span>
+<span class="k">with</span> <span class="n">expect</span><span class="o">.</span><span class="n">error_to_happen</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s">"something is wrong"</span><span class="p">)</span>
 </pre></div>
 
-<h1>Development</h1>
+<h2>
+<a name="failure" class="anchor" href="#failure"><span class="octicon octicon-link"></span></a>Failure</h2>
 
-<p>Hacking preggy is very simple. Just code whatever you feel like and then make sure it has tests and it runs in all supported python versions: 2.6, 2.7, 3.2, 3.3 and pypy.</p>
+<div class="highlight highlight-python"><pre><span class="n">expect</span><span class="o">.</span><span class="n">not_to_be_here</span><span class="p">()</span>  <span class="c"># raises AssertionError</span>
+</pre></div>
 
-<p>We recommend using pythonbrew to install all those python versions to your home, like so:</p>
+<h1>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h1>
 
-<pre><code>$ curl -kL http://xrl.us/pythonbrewinstall | bash
-</code></pre>
+<p>See [DEVELOPING.md].</p>
 
-<p>Then add this line to your .bashrc (or .bash_profile):</p>
-
-<pre><code>[[ -s $HOME/.pythonbrew/etc/bashrc ]] &amp;&amp; source $HOME/.pythonbrew/etc/bashrc
-</code></pre>
-
-<p>After that all you have to do is install all the needed versions of python:</p>
-
-<pre><code>$ pythonbrew list -k
-Python-1.5.2
-Python-1.6.1
-Python-2.0.1
-Python-2.1.3
-Python-2.2.3
-Python-2.3.7
-Python-2.4.6
-Python-2.5.6
-Python-2.6.8
-Python-2.7.3
-Python-3.0.1
-Python-3.1.4
-Python-3.2.3
-Python-3.3.0
-
-$ pythonbrew install Python-2.6.8
-$ pythonbrew install Python-2.7.3
-$ pythonbrew install Python-3.2.3
-$ pythonbrew install Python-3.3.0
-</code></pre>
-
-<p>Pypy should be installed separately. You should check Pypy's own installation instructions.</p>
-
-<p>After having all the python versions in your home directory, running the build for all python version is as simple as:</p>
-
-<pre><code>make tox
-</code></pre>
-
-<h1>License</h1>
+<h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
 
 <p>The MIT License (MIT)</p>
 
@@ -247,7 +270,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.</p>
       </section>
       <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
