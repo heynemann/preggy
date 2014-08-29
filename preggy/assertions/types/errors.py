@@ -39,3 +39,13 @@ def to_have_an_error_message_of(topic, expected):
 def to_be_an_error(topic):
     '''Asserts that `topic` is an error.'''
     return isinstance(topic, BaseException)
+
+
+@assertion
+def not_to_be_an_error_like(topic, expected):
+    '''Asserts that `topic` not is an instance (or subclass) of type `expected`.'''
+    if isinstance(topic, expected):
+        msg = 'Expected topic({0}) not to be an error of type {1}, but it was a {2}'
+        values = topic, expected, topic.__class__
+        err = AssertionError(msg.format(*values), *values)
+        raise err
