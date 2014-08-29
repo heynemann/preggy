@@ -17,7 +17,7 @@ from preggy import expect
 
 
 def test_is_error():
-    topic = RuntimeError('Something Wrong') 
+    topic = RuntimeError('Something Wrong')
     expect(topic).to_be_an_error()
     expect(topic).to_be_an_error_like(RuntimeError)
     expect(topic).to_have_an_error_message_of('Something Wrong')
@@ -69,13 +69,18 @@ def test_error_messages():
         expect(err).to_have_an_error_message_of('Expected topic(2) to be an error')
     
 
-def test_not_to_be_an_error_like():
+
+def test_to_be_an_error_like():
     try:
         expect(RuntimeError('Something Wrong')).to_be_an_error_like(ValueError)
     except AssertionError:
         return
 
     assert False, 'Should not have gotten this far'
+
+
+def test_not_to_be_an_error_like():
+    expect('Something Wrong').Not.to_be_an_error_like(ValueError)
 
 
 def test_not_to_have_error_message():
