@@ -1,4 +1,4 @@
 prune dist
 prune build
-prune tests
 recursive-include preggy *.py
+recursive-include tests *.py
