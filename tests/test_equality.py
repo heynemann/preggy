@@ -13,6 +13,8 @@ from preggy import expect
 
 TEST_DATA = (
     'qwe',
+    b'qwe',
+    b'\xff\xd8\xff\xe0\x00\x10JFIF',
     [1],
     {'a': 'b'},
     tuple([2])

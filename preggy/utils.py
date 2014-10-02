@@ -48,7 +48,7 @@ def fix_string(obj):
         try:
             return obj.decode('utf-8')
         except Exception:
-            return unidecode(obj)
+            return obj
     return obj
 
 
