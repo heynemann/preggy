@@ -233,6 +233,17 @@ Failure
 expect.not_to_be_here()  # raises AssertionError
 ```
 
+Chained Assertions
+------------------
+
+```python
+# assertions may be chained, for brevity:
+expect(6).not_to_be_null().to_equal(6)
+
+# a more *sensible* example:
+expect(foo).not_to_be_null().to_equal(expected.get('foo'))
+```
+
 
 Contributing
 ============
