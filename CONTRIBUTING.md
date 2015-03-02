@@ -1,5 +1,5 @@
-Developing
-==========
+CONTRIBUTING
+============
 
 So, you want to contribute?  Awesome!  Hacking `preggy` is simple:
 
