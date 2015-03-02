@@ -108,9 +108,13 @@ Type
 ```python
 expect(os.path).to_be_a_function()
 expect(1).to_be_numeric()
+expect({ 'some': 1, 'key': 2 }).to_be_instance_of(dict)
+expect(open(__file__)).to_be_a_file()
 
 expect('some').Not.to_be_a_function()
 expect('some').Not.to_be_numeric()
+expect('some').Not.to_be_instance_of(dict)
+expect('some').Not.to_be_a_file()
 ```
 
 
