@@ -13,13 +13,19 @@ from preggy import expect
 
 class FakeClass(object): pass
 class Other(FakeClass):  pass
+class Another(FakeClass):
+    foo = 'bar'
+    def __cmp__(self, other):
+        return cmp(self.foo, other.foo)
 
 
 TEST_DATA = frozenset([
     FakeClass,
     FakeClass(),
     Other,
-    Other()
+    Other(),
+    Another,
+    Another(),
 ])
 
 #-----------------------------------------------------------------------------

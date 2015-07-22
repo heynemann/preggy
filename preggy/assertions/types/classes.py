@@ -18,11 +18,14 @@ from preggy import assertion
 @assertion
 def to_be_instance_of(topic, expected):
     '''Asserts that `topic` is an instance of `expected`.'''
-    TRUE_CONDITIONS = (
-        topic == expected,
+    TRUE_CONDITIONS = [
         isinstance(topic, expected),
         (inspect.isclass(topic) and inspect.isclass(expected)) and issubclass(topic, expected),
-    )
+    ]
+    try:
+        TRUE_CONDITIONS.append(topic == expected)
+    except:
+        pass
     if any(TRUE_CONDITIONS):
         return True
     msg = 'Expected topic({0}) to be an instance of {1}, but it was a {2}'.format(
