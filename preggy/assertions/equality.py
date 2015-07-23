@@ -22,4 +22,7 @@ def to_equal(topic, expected):
     topic = utils.fix_string(topic)
     expected = utils.fix_string(expected)
 
-    return expected == topic
+    try:
+        return expected == topic
+    except:
+        return False

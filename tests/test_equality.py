@@ -9,6 +9,8 @@
 
 from preggy import expect
 
+from tests import Comparable, AnotherComparable
+
 #-----------------------------------------------------------------------------
 
 TEST_DATA = (
@@ -17,7 +19,8 @@ TEST_DATA = (
     b'\xff\xd8\xff\xe0\x00\x10JFIF',
     [1],
     {'a': 'b'},
-    tuple([2])
+    tuple([2]),
+    Comparable()
 )
 
 UNICODE_TEST_DATA = (
@@ -29,7 +32,9 @@ UNEQUAL_DATA = (
     'asd',
     [2],
     {'c': 'd'},
-    tuple([3])
+    tuple([3]),
+    Comparable('baz'),
+    AnotherComparable()
 )
 
 #-----------------------------------------------------------------------------
