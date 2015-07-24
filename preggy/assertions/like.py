@@ -16,7 +16,7 @@ import difflib
 from uuid import UUID
 
 try:
-    from six import string_types, binary_type
+    from six import string_types, binary_type, PY2, PY3
 except ImportError:  # pragma: no cover
     import warnings
     warnings.warn('Ignoring six. Probably setup.py installing package.')
@@ -99,6 +99,8 @@ def _match_alike(expected, topic, diff=False):
         return _compare_dicts(expected, topic)
     if isinstance(topic, datetime):
         return _compare_datetime(expected, topic)
+    if _is_comparable(topic) and _is_comparable(expected):
+        return _compare_comparables(expected, topic)
 
     raise RuntimeError('Could not compare {expected} and {topic}'.format(expected=expected, topic=topic))
 
@@ -112,6 +114,13 @@ def _strip_string(text):
     text = _filter_str(text)
     
     return text
+
+
+def _is_comparable(obj):
+    if PY2:
+        return hasattr(obj, '__eq__') or hasattr(obj, '__cmp__')
+    if PY3:
+        return obj.__class__.__eq__ != object.__eq__
 
 
 def _compare_strings(expected, topic):
@@ -175,6 +184,14 @@ def _compare_lists(expected, topic):
     return _match_lists(expected, topic) and _match_lists(topic, expected)
 
 
+def _compare_comparables(expected, topic):
+    '''Asserts the "like"-ness of `topic` and `expected` as comparable objects.'''
+    try:
+        return expected == topic
+    except:
+        return False
+
+
 def _match_lists(expected, topic):
     '''Asserts the "like"-ness each item in of `topic` and `expected` (as lists or tuples).'''
     # TODO: Rewrite this using itertools
@@ -188,8 +205,17 @@ def _match_lists(expected, topic):
                     break
             if not found:
                 return False
-        elif not item in topic:
-            return False
+        else:
+            found = False
+            for t in topic:
+                try:
+                    if item == t:
+                        found = True
+                        break
+                except:
+                    continue
+            if not found:
+                return False
     return True
 
 

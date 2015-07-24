@@ -13,6 +13,8 @@ from uuid import uuid4
 
 from preggy import expect
 
+from tests import Comparable, AnotherComparable
+
 #-----------------------------------------------------------------------------
 
 STRING_TEST_DATA = b'asdqwe123'
@@ -59,6 +61,19 @@ NOT_EXPECTED_LIST_TEST_DATA = [
     [9, 'b', [3, 1, 2], 2, 1, {'a': 1, 'b': 2}, 4, 'a']
 ]
 
+CMP_LIST_TEST_DATA = [AnotherComparable('X'), Comparable('Y'), Comparable('Z')]
+EXPECTED_CMP_LIST_TEST_DATA = [
+    [Comparable('Z'), Comparable('Y'), AnotherComparable('X')],
+    [Comparable('Y'), Comparable('Z'), AnotherComparable('X')],
+    [Comparable('Z'), AnotherComparable('X'), Comparable('Y')]
+]
+NOT_EXPECTED_CMP_LIST_TEST_DATA = [
+    [Comparable('A'), Comparable('B'), Comparable('C')],
+    [AnotherComparable('Z'), Comparable('Y'), AnotherComparable('X')],
+    [Comparable('Y'), AnotherComparable('Z'), AnotherComparable('X')],
+    [AnotherComparable('Z'), AnotherComparable('X'), Comparable('Y')]
+]
+
 TUPLE_TEST_DATA = (1, 2, 3, 4, 'a', 'b', (1, 2, 3), {'a': 1, 'b': 2})
 EXPECTED_TUPLE_TEST_DATA = [
     (1, 2, 3, 4, 'a', {'a': 1, 'b': 2}, 'b', (1, 2, 3)),
@@ -93,6 +108,30 @@ NOT_EXPECTED_DICT_TEST_DATA = [
     {'Z': 'W', 'B': {'X': 10, 'Y': 20}, 'A': [2, 1, 3]}
 ]
 
+CMP_DICT_TEST_DATA = {
+    'a': Comparable('X'),
+    'b': {'J': AnotherComparable('J'), 'K': 'K', 'L': Comparable('L')},
+    'c': [1, 2, 3, Comparable('4')]
+}
+EXPECTED_CMP_DICT_TEST_DATA = [{
+    'b': {'K': 'K', 'L': Comparable('L'), 'J': AnotherComparable('J'), },
+    'c': [3, Comparable('4'), 1, 2],
+    'a': Comparable('X')
+}, {
+    'c': [Comparable('4'), 3, 2, 1],
+    'a': Comparable('X'),
+    'b': {'L': Comparable('L'), 'J': AnotherComparable('J'), 'K': 'K'}
+}]
+NOT_EXPECTED_CMP_DICT_TEST_DATA = [{
+    'a': Comparable('x'),
+    'b': {'J': AnotherComparable('j'), 'K': 'k', 'L': Comparable('l')},
+    'c': [5, 6, 7, Comparable('8')]
+}, {
+    'a': AnotherComparable('X'),
+    'b': {'K': AnotherComparable('K'), 'L': 'L', 'J': Comparable('J')},
+    'c': [Comparable('1'), Comparable('2'), Comparable('3'), 4]
+}]
+
 UUID_TEST_DATA = uuid4()
 EXPECTED_UUID_TEST_DATA = [
     UUID_TEST_DATA
@@ -100,6 +139,15 @@ EXPECTED_UUID_TEST_DATA = [
 NOT_EXPECTED_UUID_TEST_DATA = [
     uuid4(),
     uuid4()
+]
+
+CMPCLASS_TEST_DATA = Comparable('preggy')
+EXPECTED_CMPCLASS_TEST_DATA = [
+    Comparable('preggy')
+]
+NOT_EXPECTED_CMPCLASS_TEST_DATA = [
+    Comparable('PREGGY'),
+    AnotherComparable('preggy')
 ]
 
 #-----------------------------------------------------------------------------
@@ -134,6 +182,9 @@ def test_likeness():
     for expected_item in EXPECTED_LIST_TEST_DATA:
         yield is_expected, LIST_TEST_DATA, expected_item
 
+    for expected_item in EXPECTED_CMP_LIST_TEST_DATA:
+        yield is_expected, CMP_LIST_TEST_DATA, expected_item
+
     for expected_item in EXPECTED_TUPLE_TEST_DATA:
         yield is_expected, TUPLE_TEST_DATA, expected_item
 
@@ -143,11 +194,17 @@ def test_likeness():
     for expected_item in EXPECTED_DICT_TEST_DATA:
         yield is_expected, DICT_TEST_DATA, expected_item
 
+    for expected_item in EXPECTED_CMP_DICT_TEST_DATA:
+        yield is_expected, CMP_DICT_TEST_DATA, expected_item
+
     for expected_item in EXPECTED_DATETIME_TEST_DATA:
         yield is_expected, DATETIME_TEST_DATA, expected_item
 
     for expected_item in EXPECTED_UUID_TEST_DATA:
         yield is_expected, UUID_TEST_DATA, expected_item
+
+    for expected_item in EXPECTED_CMPCLASS_TEST_DATA:
+        yield is_expected, CMPCLASS_TEST_DATA, expected_item
 
 
 def test_likeness_fails():
@@ -159,6 +216,9 @@ def test_likeness_fails():
     for expected_item in NOT_EXPECTED_LIST_TEST_DATA:
         yield is_expected_to_fail, LIST_TEST_DATA, expected_item
 
+    for expected_item in NOT_EXPECTED_CMP_LIST_TEST_DATA:
+        yield is_expected_to_fail, CMP_LIST_TEST_DATA, expected_item
+
     for expected_item in NOT_EXPECTED_TUPLE_TEST_DATA:
         yield is_expected_to_fail, TUPLE_TEST_DATA, expected_item
 
@@ -168,11 +228,17 @@ def test_likeness_fails():
     for expected_item in NOT_EXPECTED_DICT_TEST_DATA:
         yield is_expected_to_fail, DICT_TEST_DATA, expected_item
 
+    for expected_item in NOT_EXPECTED_CMP_DICT_TEST_DATA:
+        yield is_expected_to_fail, CMP_DICT_TEST_DATA, expected_item
+
     for expected_item in NOT_EXPECTED_DATETIME_TEST_DATA:
         yield is_expected_to_fail, DATETIME_TEST_DATA, expected_item
 
     for expected_item in NOT_EXPECTED_UUID_TEST_DATA:
         yield is_expected_to_fail, UUID_TEST_DATA, expected_item
+
+    for expected_item in NOT_EXPECTED_CMPCLASS_TEST_DATA:
+        yield is_expected_to_fail, CMPCLASS_TEST_DATA, expected_item
 
 
 def test_not_likeness():
@@ -184,6 +250,9 @@ def test_not_likeness():
     for not_expected_item in NOT_EXPECTED_LIST_TEST_DATA:
         yield is_not_expected, LIST_TEST_DATA, not_expected_item
 
+    for not_expected_item in NOT_EXPECTED_CMP_LIST_TEST_DATA:
+        yield is_not_expected, CMP_LIST_TEST_DATA, not_expected_item
+
     for not_expected_item in NOT_EXPECTED_TUPLE_TEST_DATA:
         yield is_not_expected, TUPLE_TEST_DATA, not_expected_item
 
@@ -193,11 +262,17 @@ def test_not_likeness():
     for not_expected_item in NOT_EXPECTED_DICT_TEST_DATA:
         yield is_not_expected, DICT_TEST_DATA, not_expected_item
 
+    for not_expected_item in NOT_EXPECTED_CMP_DICT_TEST_DATA:
+        yield is_not_expected, CMP_DICT_TEST_DATA, not_expected_item
+
     for expected_item in NOT_EXPECTED_DATETIME_TEST_DATA:
         yield is_not_expected, DATETIME_TEST_DATA, expected_item
 
     for expected_item in NOT_EXPECTED_UUID_TEST_DATA:
         yield is_not_expected, UUID_TEST_DATA, expected_item
+
+    for expected_item in NOT_EXPECTED_CMPCLASS_TEST_DATA:
+        yield is_not_expected, CMPCLASS_TEST_DATA, expected_item
 
 
 def test_likeness_of_objects():
