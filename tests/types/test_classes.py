@@ -9,15 +9,13 @@
 
 from preggy import expect
 
+from tests import Comparable
+
 #-----------------------------------------------------------------------------
 
 class FakeClass(object): pass
 class Other(FakeClass):  pass
-class Another(FakeClass):
-    foo = 'bar'
-    def __cmp__(self, other):
-        return cmp(self.foo, other.foo)
-
+class Another(FakeClass, Comparable): pass
 
 TEST_DATA = frozenset([
     FakeClass,
@@ -25,7 +23,7 @@ TEST_DATA = frozenset([
     Other,
     Other(),
     Another,
-    Another(),
+    Another()
 ])
 
 #-----------------------------------------------------------------------------
