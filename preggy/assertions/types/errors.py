@@ -12,7 +12,7 @@
 from __future__ import absolute_import
 import inspect
 
-from preggy import assertion, create_assertions
+from preggy import assertion, create_assertions, utils
 
 
 @assertion
@@ -28,9 +28,9 @@ def to_be_an_error_like(topic, expected):
 @assertion
 def to_have_an_error_message_of(topic, expected):
     '''Asserts that `topic` has an error message of `expected`.'''
-    if str(topic) != expected:
+    if utils.text_type(topic) != expected:
         msg = 'Expected topic({0!r}) to be an error with message {1!r}'
-        values = str(topic), expected
+        values = utils.text_type(topic), expected
         err = AssertionError(msg.format(*values))
         raise err
 

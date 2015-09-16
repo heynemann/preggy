@@ -16,6 +16,7 @@ import re
 
 try:
     import six
+    text_type = six.text_type
 except ImportError:  # pragma: no cover
     import warnings
     warnings.warn('Ignoring six. Probably setup.py installing package.')

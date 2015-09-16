@@ -171,7 +171,7 @@ class ErrorToHappenContext(object):
             ))
 
         if self.message is not None:
-            error_msg = getattr(exc_val, 'message', str(exc_val))
+            error_msg = getattr(exc_val, 'message', utils.text_type(exc_val))
             if error_msg != self.message:
                 raise AssertionError('Expected "%s.%s" to have a message of "%s", but the actual error was "%s".' % (
                     self.error_class.__module__,
