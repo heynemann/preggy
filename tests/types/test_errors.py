@@ -59,7 +59,7 @@ def test_error_messages():
         expect(topic).to_have_an_error_message_of('some bogus')
     except AssertionError as err:
         e_format = "Expected topic({0!r}) to be an error with message {1!r}"
-        e_values = str(topic), 'some bogus'
+        e_values = six.text_type(topic), 'some bogus'
         e_message = e_format.format(*e_values)
         expect(err).to_have_an_error_message_of(e_message)
     
@@ -101,6 +101,17 @@ def test_can_trap_errors():
 
     with expect.error_to_happen(RuntimeError, message="something is wrong"):
         raise RuntimeError("something is wrong")
+
+def test_can_trap_errors_unicode():
+    err = expect.error_to_happen(RuntimeError)
+
+    with err:
+        raise RuntimeError(six.u("algo está errado"))
+
+    expect(err).to_have_an_error_message_of(six.u("algo está errado"))
+
+    with expect.error_to_happen(RuntimeError, message=six.u("algo está errado")):
+        raise RuntimeError(six.u("algo está errado"))
 
 def test_can_trap_errors_fails_if_error_does_not_happen():
     class_name = "%s.RuntimeError" % RuntimeError.__module__
