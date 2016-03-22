@@ -10,7 +10,6 @@
 import sys
 from preggy import expect
 
-#-----------------------------------------------------------------------------
 
 def test_expect_not_to_be_here():
     try:
@@ -20,5 +19,17 @@ def test_expect_not_to_be_here():
         expect(err).to_be_an_error()
         expect(err).to_be_an_error_like(AssertionError)
         expect(err).to_have_an_error_message_of("Should not have gotten this far.")
+    else:
+        assert False, "Should not have gotten this far."
+
+
+def test_expect_not_to_be_here_with_message():
+    try:
+        expect.not_to_be_here("qweqwe")
+    except AssertionError:
+        err = sys.exc_info()[1]
+        expect(err).to_be_an_error()
+        expect(err).to_be_an_error_like(AssertionError)
+        expect(err).to_have_an_error_message_of("Should not have gotten this far (qweqwe).")
     else:
         assert False, "Should not have gotten this far."

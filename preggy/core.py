@@ -249,8 +249,12 @@ class Expect(object):
         self.not_assert = False
 
     @classmethod
-    def not_to_be_here(cls):
-        raise AssertionError("Should not have gotten this far.")
+    def not_to_be_here(cls, message=None):
+        error = ''
+        if message is not None:
+            error = ' (%s)' % message
+
+        raise AssertionError("Should not have gotten this far%s." % error)
 
     @classmethod
     def error_to_happen(cls, error_class=Exception, message=None):

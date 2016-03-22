@@ -175,7 +175,8 @@ def test_can_NOT_trap_errors():
     try:
         with expect.not_error_to_happen(RuntimeError):
             raise RuntimeError("something is wrong")
-    except AssertionError, err:
+    except AssertionError:
+        err = sys.exc_info()[1]
         expect(str(err)).to_equal(
             'Expected "exceptions.RuntimeError" not to happen but it happened during execution of with block.'
         )
@@ -188,7 +189,8 @@ def test_can_trap_errors_but_fail_due_to_type():
     try:
         with expect.not_error_to_happen(RuntimeError):
             raise ValueError("something is wrong")
-    except AssertionError, err:
+    except AssertionError:
+        err = sys.exc_info()[1]
         expect(str(err)).to_equal(
             'Expected "exceptions.RuntimeError" not to happen but '
             '"exceptions.ValueError" happened during execution of with block.'
@@ -202,7 +204,8 @@ def test_can_trap_errors_but_fail_due_to_message():
     try:
         with expect.not_error_to_happen(RuntimeError, message="qweqwe"):
             raise RuntimeError("something is wrong")
-    except AssertionError, err:
+    except AssertionError:
+        err = sys.exc_info()[1]
         expect(str(err)).to_equal(
             'Expected "exceptions.RuntimeError" to have a message of "qweqwe", but the actual error was "something is wrong".'
         )
