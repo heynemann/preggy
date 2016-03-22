@@ -10,7 +10,6 @@
 
 from __future__ import absolute_import
 import functools
-from contextlib import contextmanager
 
 from preggy import utils
 
@@ -31,12 +30,12 @@ def assertion(func):
 
     Whenever possible, you should declare both the normal assertion as well
     as a `not_` counterpart, so they can be used like this:
-    
+
     ... # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
     >>>
     >>> import preggy
     >>> from preggy.core import Expect as expect
-    >>> 
+    >>>
     >>> @preggy.assertion
     ... def to_be_a_positive_integer(topic):
     ...     if not topic > 0:
@@ -53,7 +52,7 @@ def assertion(func):
     '''
     if not hasattr(func, 'humanized'):
         setattr(func, 'humanized', utils.humanized_name(func.__name__))
-        
+
     @functools.wraps(func)
     def wrapper(*args, **kw):
         func(*args, **kw)
@@ -75,22 +74,22 @@ def create_assertions(func):
         def to_be_greater_than(topic, expected):
             return topic > expected
 
-    This creates both the assertion AND its `not_*` counterpart.  
-    
+    This creates both the assertion AND its `not_*` counterpart.
+
     ... # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    >>> from preggy.core import (assertion, create_assertions, Expect as expect)  
+    >>> from preggy.core import (assertion, create_assertions, Expect as expect)
     >>> from preggy.assertions import *
-    
+
     >>> expect(2).to_be_greater_than(3)
     Traceback (most recent call last):
         ...
     AssertionError: Expected topic(2) to be greater than 3
-    
+
     >>> expect(4).not_to_be_greater_than(3)
     Traceback (most recent call last):
         ...
     AssertionError: Expected topic(4) not to be greater than 3
-    
+
     '''
     # set custom func attribute "humanized"
     setattr(func, 'humanized', utils.humanized_name(func.__name__))
@@ -102,11 +101,11 @@ def create_assertions(func):
         '''
         # begin as usual
         wrapper = functools.update_wrapper(wrapper, wrapped)
-        
+
         # compute overrides for not_* assertions values
         if not_assertion:
             new_name = 'not_{0.__name__}'.format(wrapped)
-            new_doc = ''#.format(wrapped)
+            new_doc = ''  # .format(wrapped)
 
             # set our overrides
             setattr(wrapper, '__name__', new_name)
@@ -116,8 +115,7 @@ def create_assertions(func):
 
         # Return the wrapper so this can be used as a decorator via partial()
         return wrapper
-    
-    
+
     # First assertion
     @assertion
     @functools.wraps(func)
@@ -139,6 +137,7 @@ def create_assertions(func):
     # Second assertion: update and register
     test_not_assertion = _update_wrapper(test_not_assertion, func)
     test_not_assertion = assertion(test_not_assertion)
+
 
 class ErrorToHappenContext(object):
     def __init__(self, error_class, message=None):
@@ -187,17 +186,59 @@ class ErrorToHappenContext(object):
         return False
 
 
+class NotErrorToHappenContext(object):
+    def __init__(self, error_class, message=None):
+        self.error_class = error_class
+        self.message = message
+        self._error = None
+
+    @property
+    def error(self):
+        return self._error
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        has_exception = exc_type is not None
+        is_subclass = has_exception and (exc_type is self.error_class or issubclass(exc_type, self.error_class)) or False
+
+        if has_exception and self.message is not None:
+            error_msg = getattr(exc_val, 'message', utils.text_type(exc_val))
+            if error_msg != self.message:
+                raise AssertionError('Expected "%s.%s" to have a message of "%s", but the actual error was "%s".' % (
+                    self.error_class.__module__,
+                    self.error_class.__name__,
+                    self.message,
+                    error_msg
+                ))
+
+        if has_exception and not is_subclass:
+            raise AssertionError('Expected "%s.%s" not to happen but "%s.%s" happened during execution of with block.' % (
+                self.error_class.__module__,
+                self.error_class.__name__,
+                exc_type.__module__,
+                exc_type.__name__
+            ))
+
+        if has_exception:
+            raise AssertionError('Expected "%s.%s" not to happen but it happened during execution of with block.' % (
+                self.error_class.__module__,
+                self.error_class.__name__,
+            ))
+
+
 class Expect(object):
     '''This atypical class provides a key part of the preggy testing syntax.
-    
+
     For example:
-    
+
         >>> from preggy.core import (assertion, create_assertions, Expect as expect)
         >>> from preggy.assertions import *
         >>>
         >>> expect(True).to_be_true()
         >>> expect(False).to_be_false()
-        
+
     '''
 
     def __init__(self, topic):
@@ -208,12 +249,20 @@ class Expect(object):
         self.not_assert = False
 
     @classmethod
-    def not_to_be_here(self):
+    def not_to_be_here(cls):
         raise AssertionError("Should not have gotten this far.")
 
     @classmethod
-    def error_to_happen(self, error_class=Exception, message=None):
+    def error_to_happen(cls, error_class=Exception, message=None):
         return ErrorToHappenContext(error_class, message=message)
+
+    @classmethod
+    def not_error_to_happen(cls, error_class=Exception, message=None):
+        return NotErrorToHappenContext(error_class, message=message)
+
+    @classmethod
+    def error_not_to_happen(cls, error_class=Exception, message=None):
+        return cls.not_error_to_happen(error_class, message)
 
     def __getattr__(self, name):
         # common cases
@@ -225,10 +274,10 @@ class Expect(object):
 
         # determine whether assertion is of "not" form
         method_name = 'not_{name}'.format(name=name) if self.not_assert else name
-        
+
         # if program gets this far, then it’s time to perform the assertion. (...FINALLY! ;D)
         def _assert_topic(*args, **kw):
             # Allows chained calls to assertions, such as `expect(topic).to_be_true()`.
             return _registered_assertions[method_name](self.topic, *args, **kw)
-        
+
         return _assert_topic
