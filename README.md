@@ -30,7 +30,7 @@ from preggy import expect
 def test_roses_are_red():
     rose = Rose()
     expect(rose.color).to_equal('red')
-    
+
 def test_violets_are_not_red():
     violet = Violet()
     expect(violet.color).not_to_equal('red')
@@ -228,6 +228,14 @@ with expect.error_to_happen(RuntimeError, message="something is wrong"):
 # or if you don't care about the message:
 with expect.error_to_happen(RuntimeError):
     raise RuntimeError("something is wrong")
+
+# or if you need to make sure error does not happen
+with expect.error_not_to_happen(RuntimeError, message="something is wrong"):
+    raise RuntimeError("something is wrong")  # Fails with AssertionError
+
+# or if you don't care about the message, only that the error does not happen:
+with expect.error_not_to_happen(RuntimeError):
+    raise RuntimeError("something is wrong")  # Fails with AssertionError
 ```
 
 Failure
@@ -235,6 +243,9 @@ Failure
 
 ```python
 expect.not_to_be_here()  # raises AssertionError
+
+# raises AssertionError with error message
+expect.not_to_be_here("some error message")
 ```
 
 Chained Assertions
