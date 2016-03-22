@@ -1,13 +1,13 @@
 CONTRIBUTING
 ============
 
-So, you want to contribute?  Awesome!  Hacking `preggy` is simple:
+So, you want to contribute? Awesome! Hacking `preggy` is simple:
 
 - Code whatever you feel like
 - Test your changes
 - Check the tests on preggy’s supported version of Python: 2.6, 2.7, 3.2, 3.3, and pypy.
 
-For that last item, we recommend `pythonbrew` to install all those Python versions. 
+For that last item, we recommend `pythonbrew` to install all those Python versions.
 
 
 Installing `pythonbrew`
@@ -29,7 +29,7 @@ Installing `pythonbrew`
 
 ```bash
 # find out the available versions
-$ pythonbrew list -k  
+$ pythonbrew list -k
 Python-1.5.2
 Python-1.6.1
 Python-2.0.1
@@ -65,4 +65,3 @@ Now you're ready to build.
 To build preggy for all supported Python versions:
 
     make tox
-
