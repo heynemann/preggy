@@ -59,3 +59,17 @@ class AnotherComparable(object):
 
     def __cmp__(self, other):
         return cmp(self.baz, other.baz)
+
+
+class DictLike(object):
+
+    def __init__(self, data=None):
+        if data is None:
+            data = {}
+        self.data = data
+
+    def __contains__(self, key):
+        return key in self.data
+
+    def __getitem__(self, key):
+        return self.data[key]

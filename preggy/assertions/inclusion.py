@@ -26,10 +26,13 @@ def to_include(topic, expected):
     '''Asserts that `expected` is in `topic`.'''
     if isinstance(topic, six.string_types + tuple([six.binary_type, six.text_type])):
         return str(expected) in topic
-    for t in topic:
-        try:
-            if expected == t:
-                return True
-        except:
-            pass
-    return False
+    try:
+        return expected in topic
+    except:
+        for t in topic:
+            try:
+                if expected == t:
+                    return True
+            except:
+                pass
+        return False
