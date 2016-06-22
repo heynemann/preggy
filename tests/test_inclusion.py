@@ -9,7 +9,7 @@
 
 from preggy import expect
 
-from tests import Comparable
+from tests import Comparable, Containable
 
 #-----------------------------------------------------------------------------
 
@@ -20,7 +20,8 @@ TEST_DATA = (
     tuple([1, 2, 3]),
     '123',
     '3.14',
-    (None, Comparable(), 'deliberately the last one')
+    (None, Comparable(), 'deliberately the last one'),
+    Containable('x')
 )
 
 INCLUDED_DATA = (
@@ -30,7 +31,8 @@ INCLUDED_DATA = (
     2,
     1,
     3.1,
-    'deliberately the last one'
+    'deliberately the last one',
+    'x'
 )
 
 NOT_INCLUDED_DATA = (
@@ -40,7 +42,8 @@ NOT_INCLUDED_DATA = (
     5,
     4,
     4.2,
-    2.718281828
+    2.718281828,
+    'y'
 )
 
 #-----------------------------------------------------------------------------
