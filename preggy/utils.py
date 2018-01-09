@@ -69,7 +69,7 @@ class AssertionsMap(dict):
             # log.debug('re-registering assertion: {name!r}, with new function: {func!r}'.format(name=k, func=v))
         # elif self[k] is v:  # same key, same function
             # return
-        if self[k] is v:  # same key, same function
+        if k in _keys and self[k] is v:  # same key, same function
             return
         return super(AssertionsMap, self).__setitem__(k, v)
 

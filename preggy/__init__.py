@@ -35,12 +35,6 @@ from __future__ import absolute_import
 
 from preggy.core import (assertion, create_assertions, Expect as expect)
 from preggy.__meta__ import __version__
-try:
-    from preggy.assertions import *
-except (ImportError, KeyError):
-    print('''
-        Failed to import preggy's modules. If not in setup.py this is an error.
-        Please report an issue in our Github Issues Page.
-    ''')
+from preggy.assertions import *
 
 __version__ = __version__
