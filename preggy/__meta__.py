@@ -18,8 +18,8 @@ from datetime import date
 #   GENERAL
 #--------------------------------------------------------------------------------
 __name__        = 'preggy'  # normally preggy.__meta__
-__version__     = '1.3.0'
-__date__        = date(2016, 3, 22)  # TODO: auto-populate each release using a git hook
+__version__     = '1.4.0'
+__date__        = date(2018, 1, 9)  # TODO: auto-populate each release using a git hook
 __keywords__    = 'test testing assert assertion library development'
 __status__      = 'Production'
 
@@ -56,4 +56,3 @@ __license_full__= '''
 Licensed under the MIT license:
 http://www.opensource.org/licenses/mit-license
 '''.strip()
-
