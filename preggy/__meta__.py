@@ -18,7 +18,7 @@ from datetime import date
 #   GENERAL
 #--------------------------------------------------------------------------------
 __name__        = 'preggy'  # normally preggy.__meta__
-__version__     = '1.4.0'
+__version__     = '1.4.1'
 __date__        = date(2018, 1, 9)  # TODO: auto-populate each release using a git hook
 __keywords__    = 'test testing assert assertion library development'
 __status__      = 'Production'
