@@ -262,7 +262,7 @@ expect(foo).not_to_be_null().to_equal(expected.get('foo'))
 
 Contributing
 ============
-See [CONTRIBUTING.md].
+See [CONTRIBUTING](CONTRIBUTING.md).
 
 
 License
