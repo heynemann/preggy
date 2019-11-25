@@ -40,7 +40,7 @@ def humanized_name(thing):
 def format_assertion_msg(assertion_clause, *args):
     raw_msg = 'Expected topic({{0!r}}) {assertion_clause}'
     raw_msg = raw_msg.format(assertion_clause=assertion_clause)
-    if len(args) is 2:
+    if len(args) == 2:
         raw_msg += ' {1!r}'
     return raw_msg
 
