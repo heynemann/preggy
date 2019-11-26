@@ -10,7 +10,7 @@
 
 from setuptools import setup, find_packages
 
-from preggy import __doc__, __meta__, __version__
+from preggy import __meta__, __version__
 
 REQUIREMENTS = {
     'install': ['six', 'unidecode'],
@@ -19,12 +19,18 @@ REQUIREMENTS = {
     }
 }
 
+# read the contents of your README file
+from os import path
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
     name        ='preggy',
     version     =__version__,
-    description =__doc__.splitlines()[0],
-    long_description=__doc__,
+    description ='preggy is an assertion library for Python.** What were you `expect`ing?',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     keywords    =__meta__.__keywords__,
 
     author      =__meta__.__author__,
