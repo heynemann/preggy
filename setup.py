@@ -26,13 +26,13 @@ setup(
     description =__doc__.splitlines()[0],
     long_description=__doc__,
     keywords    =__meta__.__keywords__,
-    
+
     author      =__meta__.__author__,
     author_email=__meta__.__author_email__,
-    
+
     maintainer  =__meta__.__maintainer__,
     maintainer_email=__meta__.__maintainer_email__,
-    
+
     url         =__meta__.__url__,
     download_url=__meta__.__download_url__,
 
@@ -41,7 +41,7 @@ setup(
     #bugtrack_url='http://github.com/heynemann/preggy/issues',
 
     license     =__meta__.__license__,
-    
+
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -63,7 +63,7 @@ setup(
     ],
 
     packages=find_packages(exclude=['tests', 'tests.*']),
-    
+
     install_requires= REQUIREMENTS['install'],
     extras_require  = REQUIREMENTS['extras'],
 
