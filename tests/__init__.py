@@ -59,3 +59,12 @@ class AnotherComparable(object):
 
     def __cmp__(self, other):
         return cmp(self.baz, other.baz)
+
+
+class Containable(object):
+
+    def __init__(self, foo='bar'):
+        self.foo = foo
+
+    def __contains__(self, other):
+        return self.foo == other
