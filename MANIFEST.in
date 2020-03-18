@@ -1,3 +1,4 @@
+include LICENSE README.md
 prune dist
 prune build
 recursive-include preggy *.py
