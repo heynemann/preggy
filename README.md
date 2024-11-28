@@ -2,8 +2,8 @@ preggy
 ======
 
 [![Build Status](https://travis-ci.org/heynemann/preggy.png?branch=master)](https://travis-ci.org/heynemann/preggy)
-[![PyPi version](https://pypip.in/v/preggy/badge.png)](https://crate.io/packages/preggy/)
-[![PyPi downloads](https://pypip.in/d/preggy/badge.png)](https://crate.io/packages/preggy/)
+[![PyPi version](https://img.shields.io/pypi/v/preggy.svg)](https://crate.io/packages/preggy/)
+[![PyPi downloads](https://img.shields.io/pypi/dm/preggy.svg)](https://crate.io/packages/preggy/)
 [![Coverage Status](https://coveralls.io/repos/heynemann/preggy/badge.png?branch=master)](https://coveralls.io/r/heynemann/preggy?branch=master)
 
 **preggy is an assertion library for Python.** What were you `expect`ing?
