@@ -33,7 +33,7 @@ def test_not_to_be_an_error():
         object(),
         'b123a',
         r'b123a',
-        six.u('b123a'),
+        u'b123a',
         b'b123a'
     ])
 
@@ -103,12 +103,12 @@ def test_can_trap_errors_unicode():
     err = expect.error_to_happen(RuntimeError)
 
     with err:
-        raise RuntimeError(six.u("algo está errado"))
+        raise RuntimeError(u"algo está errado")
 
-    expect(err).to_have_an_error_message_of(six.u("algo está errado"))
+    expect(err).to_have_an_error_message_of(u"algo está errado")
 
-    with expect.error_to_happen(RuntimeError, message=six.u("algo está errado")):
-        raise RuntimeError(six.u("algo está errado"))
+    with expect.error_to_happen(RuntimeError, message=u"algo está errado"):
+        raise RuntimeError(u"algo está errado")
 
 
 def test_can_trap_errors_fails_if_error_does_not_happen():

@@ -5,7 +5,7 @@ So, you want to contribute?  Awesome!  Hacking `preggy` is simple:
 
 - Code whatever you feel like
 - Test your changes
-- Check the tests on preggy’s supported version of Python: 2.6, 2.7, 3.2, 3.3, and pypy.
+- Check the tests on preggy’s supported version of Python: 2.7, 3.2, 3.3, and pypy.
 
 For that last item, we recommend `pythonbrew` to install all those Python versions. 
 
@@ -38,7 +38,6 @@ Python-2.2.3
 Python-2.3.7
 Python-2.4.6
 Python-2.5.6
-Python-2.6.8
 Python-2.7.3
 Python-3.0.1
 Python-3.1.4
@@ -46,7 +45,6 @@ Python-3.2.3
 Python-3.3.0
 
 # install the supported versions of Python
-$ pythonbrew install Python-2.6.8
 $ pythonbrew install Python-2.7.3
 $ pythonbrew install Python-3.2.3
 $ pythonbrew install Python-3.3.0
