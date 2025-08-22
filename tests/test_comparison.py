@@ -9,6 +9,8 @@
 
 from preggy import expect
 
+import pytest
+
 #-----------------------------------------------------------------------------
 
 TEST_DATA = (
@@ -152,65 +154,53 @@ def is_not_lesser_or_equal_to(topic):
 #-----------------------------------------------------------------------------
 
 
-def test_greater_than():
-    for index, item in enumerate(TEST_DATA):
-        expected = GREATER_THAN_DATA[index]
-        yield is_greater_than, (item, expected)
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_greater_than(index, item):
+    is_greater_than((item, GREATER_THAN_DATA[index]))
 
 
-def test_not_greater_than():
-    for index, item in enumerate(TEST_DATA):
-        expected = GREATER_THAN_DATA[index]
-        yield is_not_greater_than, (expected, item)
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_not_greater_than(index, item):
+    is_not_greater_than((GREATER_THAN_DATA[index], item))
 
 
-def test_lesser_than():
-    for index, item in enumerate(TEST_DATA):
-        expected = LESSER_THAN_DATA[index]
-        yield is_lesser_than, (item, expected)
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_lesser_than(index, item):
+    is_lesser_than((item, LESSER_THAN_DATA[index]))
 
 
-def test_not_lesser_than():
-    for index, item in enumerate(TEST_DATA):
-        expected = LESSER_THAN_DATA[index]
-        yield is_not_lesser_than, (expected, item)
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_not_lesser_than(index, item):
+    is_not_lesser_than((LESSER_THAN_DATA[index], item))
 
 
-def test_greater_or_equal_to():
-    for index, item in enumerate(TEST_DATA):
-        expected = GREATER_OR_EQUAL_TO_DATA[index]
-        yield is_greater_or_equal_to, (item, expected)
-
-    for index, item in enumerate(TEST_DATA):
-        expected = GREATER_OR_EQUAL_TO_DATA_2[index]
-        yield is_greater_or_equal_to, (item, expected)
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_greater_or_equal_to(index, item):
+    expected = GREATER_OR_EQUAL_TO_DATA[index]
+    is_greater_or_equal_to((item, expected))
+    expected = GREATER_OR_EQUAL_TO_DATA_2[index]
+    is_greater_or_equal_to((item, expected))
 
 
-def test_not_greater_or_equal_to():
-    for index, item in enumerate(TEST_DATA):
-        expected = NOT_GREATER_OR_EQUAL_TO_DATA[index]
-        yield is_not_greater_or_equal_to, (expected, item)
-
-    for index, item in enumerate(TEST_DATA):
-        expected = GREATER_OR_EQUAL_TO_DATA_2[index]
-        yield is_not_greater_or_equal_to, (expected, item)
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_not_greater_or_equal_to(index, item):
+    expected = NOT_GREATER_OR_EQUAL_TO_DATA[index]
+    is_not_greater_or_equal_to((expected, item))
+    expected = GREATER_OR_EQUAL_TO_DATA_2[index]
+    is_not_greater_or_equal_to((expected, item))
 
 
-def test_lesser_or_equal_to():
-    for index, item in enumerate(TEST_DATA):
-        expected = LESSER_OR_EQUAL_TO_DATA[index]
-        yield is_lesser_or_equal_to, (item, expected)
-
-    for index, item in enumerate(TEST_DATA):
-        expected = LESSER_OR_EQUAL_TO_DATA_2[index]
-        yield is_lesser_or_equal_to, (item, expected)
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_lesser_or_equal_to(index, item):
+    expected = LESSER_OR_EQUAL_TO_DATA[index]
+    is_lesser_or_equal_to((item, expected))
+    expected = LESSER_OR_EQUAL_TO_DATA_2[index]
+    is_lesser_or_equal_to((item, expected))
 
 
-def test_not_lesser_or_equal_to():
-    for index, item in enumerate(TEST_DATA):
-        expected = NOT_LESSER_OR_EQUAL_TO_DATA[index]
-        yield is_not_lesser_or_equal_to, (expected, item)
-
-    for index, item in enumerate(TEST_DATA):
-        expected = LESSER_OR_EQUAL_TO_DATA_2[index]
-        yield is_not_lesser_or_equal_to, (expected, item)
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_not_lesser_or_equal_to(index, item):
+    expected = NOT_LESSER_OR_EQUAL_TO_DATA[index]
+    is_not_lesser_or_equal_to((expected, item))
+    expected = LESSER_OR_EQUAL_TO_DATA_2[index]
+    is_not_lesser_or_equal_to((expected, item))

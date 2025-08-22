@@ -7,6 +7,8 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
+import pytest
+
 from preggy import expect
 
 from tests import Comparable
@@ -49,11 +51,11 @@ def is_not_expected(item):
 
 #-----------------------------------------------------------------------------
 
-def test_to_be_instance_of():
-    for item in TEST_DATA:
-        yield is_expected, item
+@pytest.mark.parametrize("item", TEST_DATA)
+def test_to_be_instance_of(item):
+    is_expected(item)
 
 
-def test_not_to_be_instance_of():
-    for item in TEST_DATA:
-        yield is_not_expected, item
+@pytest.mark.parametrize("item", TEST_DATA)
+def test_not_to_be_instance_of(item):
+    is_not_expected(item)

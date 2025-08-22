@@ -9,6 +9,8 @@
 
 from preggy import expect
 
+import pytest
+
 #-----------------------------------------------------------------------------
 
 EMPTY_DATA = (
@@ -37,11 +39,11 @@ def is_not_empty(item):
 
 #-----------------------------------------------------------------------------
 
-def test_emptiness_assertion_works():
-    for empty_item in EMPTY_DATA:
-        yield is_empty, empty_item
+@pytest.mark.parametrize("item", EMPTY_DATA)
+def test_emptiness_assertion_works(item):
+    is_empty(item)
 
 
-def test_not_emptiness_assertion_works():
-    for not_empty_item in NOT_EMPTY_DATA:
-        yield is_not_empty, not_empty_item
+@pytest.mark.parametrize("item", NOT_EMPTY_DATA)
+def test_not_emptiness_assertion_works(item):
+    is_not_empty(item)

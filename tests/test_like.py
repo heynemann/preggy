@@ -11,6 +11,8 @@ import sys
 from datetime import datetime
 from uuid import uuid4
 
+import pytest
+
 from preggy import expect
 
 from tests import Comparable, AnotherComparable
@@ -173,106 +175,63 @@ def is_not_expected(item, expected):
 #-----------------------------------------------------------------------------
 
 
+def pytest_generate_tests(metafunc):
+    if 'expected' in metafunc.fixturenames:
+        if 'item' in metafunc.fixturenames:
+            parameter = "item, expected"
+            data_list = (
+                (STRING_TEST_DATA, EXPECTED_STRING_TEST_DATA),
+                (LIST_TEST_DATA, EXPECTED_LIST_TEST_DATA),
+                (CMP_LIST_TEST_DATA, EXPECTED_CMP_LIST_TEST_DATA),
+                (TUPLE_TEST_DATA, EXPECTED_TUPLE_TEST_DATA),
+                (SET_TEST_DATA, EXPECTED_SET_TEST_DATA),
+                (DICT_TEST_DATA, EXPECTED_DICT_TEST_DATA),
+                (CMP_DICT_TEST_DATA, EXPECTED_CMP_DICT_TEST_DATA),
+                (DATETIME_TEST_DATA, EXPECTED_DATETIME_TEST_DATA),
+                (UUID_TEST_DATA, EXPECTED_UUID_TEST_DATA),
+                (CMPCLASS_TEST_DATA, EXPECTED_CMPCLASS_TEST_DATA))
+        elif 'not_item' in metafunc.fixturenames:
+            parameter = "not_item, expected"
+            data_list = (
+                (STRING_TEST_DATA, NOT_EXPECTED_STRING_TEST_DATA),
+                (LIST_TEST_DATA, NOT_EXPECTED_LIST_TEST_DATA),
+                (CMP_LIST_TEST_DATA, NOT_EXPECTED_CMP_LIST_TEST_DATA),
+                (TUPLE_TEST_DATA, NOT_EXPECTED_TUPLE_TEST_DATA),
+                (SET_TEST_DATA, NOT_EXPECTED_SET_TEST_DATA),
+                (DICT_TEST_DATA, NOT_EXPECTED_DICT_TEST_DATA),
+                (CMP_DICT_TEST_DATA, NOT_EXPECTED_CMP_DICT_TEST_DATA),
+                (DATETIME_TEST_DATA, NOT_EXPECTED_DATETIME_TEST_DATA),
+                (UUID_TEST_DATA, NOT_EXPECTED_UUID_TEST_DATA),
+                (CMPCLASS_TEST_DATA, NOT_EXPECTED_CMPCLASS_TEST_DATA))
+        data = []
+        for expected, items in data_list:
+            for item in items:
+                data.append((item, expected))
+        metafunc.parametrize(parameter, data)
+
+
 def test_likeness():
-    yield is_expected, None, None
+    is_expected(None, None)
 
-    for expected_item in EXPECTED_STRING_TEST_DATA:
-        yield is_expected, STRING_TEST_DATA, expected_item
 
-    for expected_item in EXPECTED_LIST_TEST_DATA:
-        yield is_expected, LIST_TEST_DATA, expected_item
-
-    for expected_item in EXPECTED_CMP_LIST_TEST_DATA:
-        yield is_expected, CMP_LIST_TEST_DATA, expected_item
-
-    for expected_item in EXPECTED_TUPLE_TEST_DATA:
-        yield is_expected, TUPLE_TEST_DATA, expected_item
-
-    for expected_item in EXPECTED_SET_TEST_DATA:
-        yield is_expected, SET_TEST_DATA, expected_item
-
-    for expected_item in EXPECTED_DICT_TEST_DATA:
-        yield is_expected, DICT_TEST_DATA, expected_item
-
-    for expected_item in EXPECTED_CMP_DICT_TEST_DATA:
-        yield is_expected, CMP_DICT_TEST_DATA, expected_item
-
-    for expected_item in EXPECTED_DATETIME_TEST_DATA:
-        yield is_expected, DATETIME_TEST_DATA, expected_item
-
-    for expected_item in EXPECTED_UUID_TEST_DATA:
-        yield is_expected, UUID_TEST_DATA, expected_item
-
-    for expected_item in EXPECTED_CMPCLASS_TEST_DATA:
-        yield is_expected, CMPCLASS_TEST_DATA, expected_item
+def test_likeness_data(item, expected):
+    is_expected(item, expected)
 
 
 def test_likeness_fails():
-    yield is_expected, None, None
+    is_expected_to_fail(None, 1)
 
-    for expected_item in NOT_EXPECTED_STRING_TEST_DATA:
-        yield is_expected_to_fail, STRING_TEST_DATA, expected_item
 
-    for expected_item in NOT_EXPECTED_LIST_TEST_DATA:
-        yield is_expected_to_fail, LIST_TEST_DATA, expected_item
-
-    for expected_item in NOT_EXPECTED_CMP_LIST_TEST_DATA:
-        yield is_expected_to_fail, CMP_LIST_TEST_DATA, expected_item
-
-    for expected_item in NOT_EXPECTED_TUPLE_TEST_DATA:
-        yield is_expected_to_fail, TUPLE_TEST_DATA, expected_item
-
-    for expected_item in NOT_EXPECTED_SET_TEST_DATA:
-        yield is_expected_to_fail, SET_TEST_DATA, expected_item
-
-    for expected_item in NOT_EXPECTED_DICT_TEST_DATA:
-        yield is_expected_to_fail, DICT_TEST_DATA, expected_item
-
-    for expected_item in NOT_EXPECTED_CMP_DICT_TEST_DATA:
-        yield is_expected_to_fail, CMP_DICT_TEST_DATA, expected_item
-
-    for expected_item in NOT_EXPECTED_DATETIME_TEST_DATA:
-        yield is_expected_to_fail, DATETIME_TEST_DATA, expected_item
-
-    for expected_item in NOT_EXPECTED_UUID_TEST_DATA:
-        yield is_expected_to_fail, UUID_TEST_DATA, expected_item
-
-    for expected_item in NOT_EXPECTED_CMPCLASS_TEST_DATA:
-        yield is_expected_to_fail, CMPCLASS_TEST_DATA, expected_item
+def test_likeness_fails_data(not_item, expected):
+    is_expected_to_fail(not_item, expected)
 
 
 def test_not_likeness():
-    yield is_not_expected, None, 1
+    is_not_expected(None, 1)
 
-    for not_expected_item in NOT_EXPECTED_STRING_TEST_DATA:
-        yield is_not_expected, STRING_TEST_DATA, not_expected_item
 
-    for not_expected_item in NOT_EXPECTED_LIST_TEST_DATA:
-        yield is_not_expected, LIST_TEST_DATA, not_expected_item
-
-    for not_expected_item in NOT_EXPECTED_CMP_LIST_TEST_DATA:
-        yield is_not_expected, CMP_LIST_TEST_DATA, not_expected_item
-
-    for not_expected_item in NOT_EXPECTED_TUPLE_TEST_DATA:
-        yield is_not_expected, TUPLE_TEST_DATA, not_expected_item
-
-    for not_expected_item in NOT_EXPECTED_SET_TEST_DATA:
-        yield is_not_expected, SET_TEST_DATA, not_expected_item
-
-    for not_expected_item in NOT_EXPECTED_DICT_TEST_DATA:
-        yield is_not_expected, DICT_TEST_DATA, not_expected_item
-
-    for not_expected_item in NOT_EXPECTED_CMP_DICT_TEST_DATA:
-        yield is_not_expected, CMP_DICT_TEST_DATA, not_expected_item
-
-    for expected_item in NOT_EXPECTED_DATETIME_TEST_DATA:
-        yield is_not_expected, DATETIME_TEST_DATA, expected_item
-
-    for expected_item in NOT_EXPECTED_UUID_TEST_DATA:
-        yield is_not_expected, UUID_TEST_DATA, expected_item
-
-    for expected_item in NOT_EXPECTED_CMPCLASS_TEST_DATA:
-        yield is_not_expected, CMPCLASS_TEST_DATA, expected_item
+def test_not_likeness_test_data(not_item, expected):
+    is_not_expected(not_item, expected)
 
 
 def test_likeness_of_objects():

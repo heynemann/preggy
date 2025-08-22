@@ -13,6 +13,8 @@ try:
 except ImportError:
     from queue import LifoQueue
 
+import pytest
+
 from preggy import expect
 
 #-----------------------------------------------------------------------------
@@ -69,14 +71,14 @@ def is_not_expected(item, expected):
 
 #-----------------------------------------------------------------------------
 
-def test_length():
-    for index, item in enumerate(TEST_DATA):
-        yield is_expected, item, EXPECTED_DATA[index]
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_length(index, item):
+    is_expected(item, EXPECTED_DATA[index])
 
 
-def test_not_includes():
-    for index, item in enumerate(TEST_DATA):
-        yield is_not_expected, item, NOT_EXPECTED_DATA[index]
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_not_includes(index, item):
+    is_not_expected(item, NOT_EXPECTED_DATA[index])
 
 
 def test_unable_to_identify_length():

@@ -9,6 +9,8 @@
 
 from preggy import expect
 
+import pytest
+
 from tests import Comparable
 
 #-----------------------------------------------------------------------------
@@ -57,11 +59,11 @@ def is_not_included(item, expected):
 #-----------------------------------------------------------------------------
 
 
-def test_includes():
-    for index, item in enumerate(TEST_DATA):
-        yield is_included, item, INCLUDED_DATA[index]
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_includes(index, item):
+    is_included(item, INCLUDED_DATA[index])
 
 
-def test_not_includes():
-    for index, item in enumerate(TEST_DATA):
-        yield is_not_included, item, NOT_INCLUDED_DATA[index]
+@pytest.mark.parametrize("index,item", enumerate(TEST_DATA))
+def test_not_includes(index, item):
+    is_not_included(item, NOT_INCLUDED_DATA[index])
