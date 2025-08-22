@@ -17,7 +17,7 @@ from preggy import __meta__, __version__
 REQUIREMENTS = {
     'install': ['six', 'unidecode'],
     'extras': {
-        'tests':['nose', 'yanc', 'coverage', 'tox',]
+        'tests':['pytest', 'pytest-cov', 'tox',]
     }
 }
 

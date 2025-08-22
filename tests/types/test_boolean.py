@@ -7,6 +7,8 @@
 # http://www.opensource.org/licenses/mit-license
 # Copyright (c) 2013 Bernardo Heynemann heynemann@gmail.com
 
+import pytest
+
 from preggy import expect
 
 #-----------------------------------------------------------------------------
@@ -72,21 +74,21 @@ def is_not_false(item):
 
 #-----------------------------------------------------------------------------
 
-def test_to_be_true():
-    for item in EXPECTED_TEST_DATA:
-        yield is_true, item
+@pytest.mark.parametrize("item", EXPECTED_TEST_DATA)
+def test_to_be_true(item):
+    is_true(item)
 
 
-def test_not_to_be_true():
-    for item in NOT_EXPECTED_TEST_DATA:
-        yield is_not_true, item
+@pytest.mark.parametrize("item", NOT_EXPECTED_TEST_DATA)
+def test_not_to_be_true(item):
+    is_not_true(item)
 
 
-def test_to_be_false():
-    for item in NOT_EXPECTED_TEST_DATA:
-        yield is_false, item
+@pytest.mark.parametrize("item", NOT_EXPECTED_TEST_DATA)
+def test_to_be_false(item):
+    is_false(item)
 
 
-def test_not_to_be_false():
-    for item in EXPECTED_TEST_DATA:
-        yield is_not_false, item
+@pytest.mark.parametrize("item", EXPECTED_TEST_DATA)
+def test_not_to_be_false(item):
+    is_not_false(item)

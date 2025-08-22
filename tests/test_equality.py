@@ -9,6 +9,8 @@
 
 from preggy import expect
 
+import pytest
+
 from tests import Comparable, AnotherComparable
 
 #-----------------------------------------------------------------------------
@@ -58,12 +60,12 @@ def test_unicode_equal():
     is_equal((UNICODE_TEST_DATA[0], UNICODE_TEST_DATA[1]))
 
 
-def test_equal():
-    for item in TEST_DATA:
-        yield is_equal, (item, item)
+@pytest.mark.parametrize("item", TEST_DATA)
+def test_equal(item):
+    is_equal((item, item))
 
 
 def test_not_equal():
     for item in TEST_DATA:
         for unequal in UNEQUAL_DATA:
-            yield is_not_equal, (item, unequal)
+            is_not_equal((item, unequal))
